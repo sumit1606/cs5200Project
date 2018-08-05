@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
+@Table(name="`Person`")
 public class Person {
 	@Id
 	@GeneratedValue
