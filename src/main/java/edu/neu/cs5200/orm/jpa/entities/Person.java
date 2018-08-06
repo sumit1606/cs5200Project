@@ -2,6 +2,7 @@ package edu.neu.cs5200.orm.jpa.entities;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,13 +13,15 @@ import javax.persistence.Table;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-@Table(name="`Person`")
 public class Person {
 	@Id
 	@GeneratedValue
 	(strategy=GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(nullable=false)
 	private String dtype;
+	
 	private String fName;
 	private String lName;
 	private Date dob;
