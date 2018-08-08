@@ -23,6 +23,20 @@ public class Plan {
 	private HealthProvider hp;
 	
 	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
 	 * @return the patients
 	 */
 	public List<Patient> getPatients() {
@@ -66,6 +80,22 @@ public class Plan {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Plan [id=" + id + ", name=" + name + ", patients=" + patients + "]";
+	}
+
+	public void set(Plan p) {
+		this.name = p.getName() != null ? p.getName() : this.name;
+		this.hp = p.getHp() != null ? p.getHp() : this.hp;
+		
+	}
+	
+	
 	
 	
 }

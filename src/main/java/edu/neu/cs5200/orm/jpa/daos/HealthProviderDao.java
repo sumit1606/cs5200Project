@@ -35,6 +35,20 @@ public class HealthProviderDao {
 		return null;
 	}
 	
+	public HealthProvider findHealthProviderById(int hpId) {
+		 Optional<HealthProvider> hpRes = healthProviderRepo.findById(hpId);
+		 if (hpRes.isPresent())
+			 return hpRes.get();
+		 return null;
+	}
+	
+	public List<HealthProvider> findAllHealthProvider() {
+
+		return (List<HealthProvider>)healthProviderRepo.findAll();
+		 
+	
+	}
+	
 	public HealthProvider createHealthProvider(HealthProvider hp) {
 		HealthProvider hpRes = findProviderByName(hp.getName());
 		if(hpRes != null)
@@ -51,25 +65,7 @@ public class HealthProviderDao {
 		return healthProviderRepo.save(hpRes);
 	}
 	
-	public void deleteHealthProviderByName(String hpName) {
-		HealthProvider hpRes = this.findProviderByName(hpName);
-		if (hpRes != null)
-			healthProviderRepo.deleteById(hpRes.getId());
-	}
-	
-	public HealthProvider findHealthProviderById(int hpId) {
-		 Optional<HealthProvider> hpRes = healthProviderRepo.findById(hpId);
-		 if (hpRes.isPresent())
-			 return hpRes.get();
-		 return null;
-	}
-	
-	public List<HealthProvider> findAllHealthProvider() {
 
-		 List<HealthProvider> hpRes = (List<HealthProvider>)healthProviderRepo.findAll();
-		 return hpRes;
-	
-	}
 	
 	public HealthProvider updateHealthProvider(int hpId, HealthProvider hp) {
 		HealthProvider hpRes = this.findHealthProviderById(hpId);
@@ -91,87 +87,13 @@ public class HealthProviderDao {
 
 	}
 	
+	public void deleteHealthProviderByName(String hpName) {
+		HealthProvider hpRes = this.findProviderByName(hpName);
+		if (hpRes != null)
+			healthProviderRepo.deleteById(hpRes.getId());
+	}
+	
 
-	
-	
-	public void test() {
-
-		testCreateHp();
-		testUpadateHealthProviderWithSamePlans();
-		testUpadateHealthProviderWithDiffAndSamePlansAndDiffName();
-		testUpadateHealthProviderWithDiffPlans();
-		testUpadateHealthProviderWithNoPlans();
-		testCreateHp();
-		testCreateHp();
-		
-	}
-	
-	public void testCreateHp() {
-		HealthProvider hp = new HealthProvider();
-		
-		hp.setName("healthP");
-		Set<Plan> planSet = new HashSet<>();
-		Plan p1 = new Plan();
-		p1.setName("p1");
-		Plan p2 = new Plan();
-		p2.setName("p2");
-		planSet.addAll(Arrays.asList(p1, p2));
-		hp.setPlans(planSet);
-		this.createHealthProvider(hp);
-	}
-	
-	public void testUpadateHealthProviderWithSamePlans() {
-		HealthProvider hp = new HealthProvider();
-		hp.setId(1);
-		hp.setName("healthP");
-		Set<Plan> planSet = new HashSet<>();
-		Plan p1 = new Plan();
-		p1.setName("p1");
-		Plan p2 = new Plan();
-		p2.setName("p2");
-		planSet.addAll(Arrays.asList(p1, p2));
-		hp.setPlans(planSet);
-		this.updateHealthProvider(hp.getId(), hp);
-		addPlanToHealthProvider(hp, p1);
-	}
-	
-	public void testUpadateHealthProviderWithDiffAndSamePlansAndDiffName() {
-		HealthProvider hp = new HealthProvider();
-		hp.setId(1);
-		hp.setName("healthP1");
-		Set<Plan> planSet = new HashSet<>();
-		Plan p3 = new Plan();
-		p3.setName("p3");
-		Plan p2 = new Plan();
-		p2.setName("p2");
-		planSet.addAll(Arrays.asList(p3, p2));
-		hp.setPlans(planSet);
-		this.updateHealthProvider(hp.getId(), hp);
-	}
-	
-	public void testUpadateHealthProviderWithDiffPlans() {
-		HealthProvider hp = new HealthProvider();
-		hp.setId(1);
-		hp.setName("healthP1");
-		Set<Plan> planSet = new HashSet<>();
-		Plan p4 = new Plan();
-		p4.setName("p4");
-		Plan p5 = new Plan();
-		p5.setName("p5");
-		planSet.addAll(Arrays.asList(p4, p5));
-		hp.setPlans(planSet);
-		this.updateHealthProvider(hp.getId(), hp);
-		
-	}
-	
-	public void testUpadateHealthProviderWithNoPlans() {
-		HealthProvider hp = new HealthProvider();
-		hp.setId(1);
-		hp.setName("healthP2");
-
-		this.updateHealthProvider(hp.getId(), hp);
-	}
-		
 		
 
 }

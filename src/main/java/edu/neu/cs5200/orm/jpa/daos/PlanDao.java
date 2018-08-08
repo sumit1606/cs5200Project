@@ -27,29 +27,56 @@ public class PlanDao {
 		@Autowired 
 		PlanRepository planRepo;
 		
-		public Plan createPlan(Plan p) {
+		public Plan findPlanById(int id) {
+			Optional<Plan> planRes = planRepo.findById(id);
+			if(planRes.isPresent())
+				return planRes.get();
+			
+			return null;
+		}
+		
+		public Plan findPlanByName(String name) {
+			List<Plan> planRes = (List<Plan>)planRepo.findPlanByName(name);
+			if(planRes != null && planRes.size() > 0)
+				return planRes.get(0);
+			
+			return null;
+		}
+		
+		public List<Plan> findAllPlan() {
+			 return (List<Plan>)planRepo.findAll();
+			
+		}
+		
+		
+		public Plan createPlan(HealthProvider hp, Plan p) {
 			List<Plan> plans = (List<Plan>)planRepo.findPlanByName(p.getName());
-			Optional<HealthProvider> healthProvider = healthProviderRepository.findById(4);
-			
-			
-			if (plans != null && plans.size() == 0 && healthProvider.isPresent()) {
-					planRepo.save(p);
+			if (plans != null && plans.size() > 0)
+				return null;
+			Optional<HealthProvider> healthProvider = healthProviderRepository.findById(hp.getId());
+			if (healthProvider.isPresent()) {
+					p.setHp(hp);
+					return planRepo.save(p);
 			}
 			
 			return null;
 		}
 		
-		public void test() {
-			Plan p = new Plan();
-			HealthProvider hp = healthProviderDao.findProviderByName("healthP");
-			if (hp != null) {
-				p.setName("plan1");
-				p.setHp(hp);
-				this.createPlan(p);
+		public Plan updatePlan(int id, Plan p) {
+			Plan planRes = findPlanById(id);
+			if (planRes != null) {
+				planRes.set(p);
+				planRepo.save(planRes);
 			}
-			
+			return planRes;
 		}
-	
+		
+		public void deletePlanByName(String name) {
+			Plan p = findPlanByName(name);
+			if (p != null) {
+				planRepo.deleteById(p.getId());
+			}
+		}
 
 		
 }

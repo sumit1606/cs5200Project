@@ -107,6 +107,13 @@ public class HealthProvider {
 		return new ArrayList<>(hp.getPlans().stream().map((p) -> p.getName()).collect(Collectors.toList()));
 		
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "HealthProvider [id=" + id + ", name=" + name + ", plans=" + plans + "]";
+	}
 	
 	
 }

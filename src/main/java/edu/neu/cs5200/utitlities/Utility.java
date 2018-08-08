@@ -3,6 +3,7 @@ package edu.neu.cs5200.utitlities;
 import java.sql.Date;
 import java.util.Calendar;
 
+
 public class Utility {
 	/**
 	 * Method: modifySQLDate
@@ -22,4 +23,6 @@ public class Utility {
 		java.sql.Date sqlDate = new java.sql.Date(cal.getTime().getTime()); // sql date
 		return sqlDate;
 	}
+	
+
 }
