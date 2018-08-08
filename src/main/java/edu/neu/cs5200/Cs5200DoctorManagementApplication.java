@@ -31,9 +31,9 @@ public class Cs5200DoctorManagementApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		hpd.test();
-		pld.test();
-		pd.test();
-		hpd.deletePlan();
+//		pld.test();
+//		pd.test();
+//		hpd.deletePlan();
 	
 		
 	}
