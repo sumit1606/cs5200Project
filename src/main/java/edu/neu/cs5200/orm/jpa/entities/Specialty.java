@@ -25,7 +25,7 @@ public class Specialty {
 	@Column(name = "specialtyname")
 	private String specialtyName;
 	
-	@ManyToMany(mappedBy = "docspecialties")
+	@ManyToMany(mappedBy = "docSpecialties")
 	private List<Doctor> doctors;
 	
 	/**
