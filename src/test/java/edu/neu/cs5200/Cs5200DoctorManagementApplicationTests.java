@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import edu.neu.cs5200.orm.jpa.daos.HealthProviderDao;
+import edu.neu.cs5200.orm.jpa.daos.PatientDao;
 import edu.neu.cs5200.orm.jpa.daos.PlanDao;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
@@ -24,6 +25,9 @@ public class Cs5200DoctorManagementApplicationTests {
 	
 	@Autowired
 	PlanDao pld;
+	
+	@Autowired 
+	PatientDao patd;
 	
 	@Test
 	public void contextLoads() {
@@ -127,5 +131,7 @@ public class Cs5200DoctorManagementApplicationTests {
 	public void testDelete() {
 		pld.deletePlanByName("p1");
 	}
+	
+	
 
 }

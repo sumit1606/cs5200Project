@@ -14,7 +14,7 @@ public class PatientDao {
 	@Autowired
 	PatientRepository patientRepository;
 	
-
+	
 	
 	public void test() {
 		Patient p = new Patient();
