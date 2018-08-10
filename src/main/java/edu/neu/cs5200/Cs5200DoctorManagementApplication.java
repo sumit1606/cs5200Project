@@ -11,8 +11,7 @@ import edu.neu.cs5200.orm.jpa.daos.PersonDao;
 public class Cs5200DoctorManagementApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Cs5200DoctorManagementApplication.class, args);
-			
+		SpringApplication.run(Cs5200DoctorManagementApplication.class, args);			
 	}
 	
 	@Autowired
@@ -20,6 +19,6 @@ public class Cs5200DoctorManagementApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		pd.test();
+//		pd.test();
 	}
 }
