@@ -25,6 +25,17 @@ public class Person {
 	private String email;
 	
 	
+	/**
+	 * @param dtype
+	 * @param fName
+	 * @param lName
+	 * @param dob
+	 * @param address
+	 * @param email
+	 */
+	public Person() {
+
+	}
 	
 	/**
 	 * @param dtype
