@@ -29,8 +29,19 @@ public abstract class Person {
 	private String email;
 	
 	
-	public Person() {}
-	
+
+	/**
+	 * @param dtype
+	 * @param fName
+	 * @param lName
+	 * @param dob
+	 * @param address
+	 * @param email
+	 */
+	public Person() {
+
+	}
+
 	
 	/**
 	 * @param dtype
