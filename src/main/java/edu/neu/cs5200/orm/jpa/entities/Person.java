@@ -27,6 +27,26 @@ public class Person {
 	private Date dob;
 	private String address;
 	private String email;
+	
+	
+	
+	/**
+	 * @param dtype
+	 * @param fName
+	 * @param lName
+	 * @param dob
+	 * @param address
+	 * @param email
+	 */
+	public Person(String dtype, String fName, String lName, Date dob, String address, String email) {
+		this.dtype = dtype;
+		this.fName = fName;
+		this.lName = lName;
+		this.dob = dob;
+		this.address = address;
+		this.email = email;
+	}
+	
 	/**
 	 * @return the id
 	 */
