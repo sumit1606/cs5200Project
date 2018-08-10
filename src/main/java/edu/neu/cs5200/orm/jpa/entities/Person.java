@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Person {
+public abstract class Person {
 	@Id
 	@GeneratedValue
 	(strategy=GenerationType.IDENTITY)
@@ -28,6 +28,8 @@ public class Person {
 	private String address;
 	private String email;
 	
+	
+	public Person() {}
 	
 	
 	/**

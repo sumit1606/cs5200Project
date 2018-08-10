@@ -14,7 +14,9 @@ import edu.neu.cs5200.orm.jpa.daos.HealthProviderDao;
 import edu.neu.cs5200.orm.jpa.daos.PatientDao;
 import edu.neu.cs5200.orm.jpa.daos.PlanDao;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
+import edu.neu.cs5200.orm.jpa.entities.Patient;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
+import edu.neu.cs5200.utitlities.Utility;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,6 +30,9 @@ public class Cs5200DoctorManagementApplicationTests {
 	
 	@Autowired 
 	PatientDao patd;
+	
+	@Autowired
+	PatientDao patientDao;
 	
 	@Test
 	public void contextLoads() {
@@ -127,9 +132,24 @@ public class Cs5200DoctorManagementApplicationTests {
 		pld.updatePlan(p.getId(), p);
 	}
 
+//	@Test
+//	public void testDelete() {
+//		pld.deletePlanByName("p1");
+//	}
 	@Test
-	public void testDelete() {
-		pld.deletePlanByName("p1");
+	public void testCreatePatientWithPlan() {
+		Patient p = new Patient();
+		p.setAddress("address");
+		p.setDob(new Utility().modifySQLDate(31,2,1991));
+		p.setDtype("Patient");
+		p.setEmail("a@a.com");
+		p.setfName("aashish");
+		p.setlName("singh");
+		p.setDtype("patient");
+		Plan pl = pld.findPlanById(8);
+		p.setHealthInsurancePlan(pl);
+		patientDao.createPatient(p);
+
 	}
 	
 	

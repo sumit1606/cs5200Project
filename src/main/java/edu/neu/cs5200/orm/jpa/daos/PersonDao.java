@@ -19,27 +19,6 @@ public class PersonDao {
 
 	
 	
-	public void test() {
-		Person p = new Person();
-		p.setAddress("address");
-		p.setDob(new Utility().modifySQLDate(31,2,1991));
-		p.setDtype("Person- test");
-		p.setEmail("a@a.com");
-		p.setfName("aashish");
-		p.setlName("singh");
-		System.out.println(p);
-		personRepository.save(p);
-		
-		List<Person> pList = (List<Person>) personRepository.findPersonByFullName(p.getfName(), p.getlName());
-		if (pList!=null && pList.size()>0) {
-			for(Person thisP : pList) {
-				System.out.println("Fectched: ");
-				System.out.println(thisP);
-		
-			}
-		}
-		
-		
-	}
+
 	
 }
