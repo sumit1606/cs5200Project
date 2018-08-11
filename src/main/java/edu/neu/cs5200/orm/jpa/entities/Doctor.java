@@ -16,13 +16,6 @@ import javax.persistence.*;
 @Table(name = "Doctor")
 public class Doctor extends Person {
 	
-	
-
-
-
-	/**
-	 * 
-	 */
 	@Column(name = "title")
 	private String title;
 	
