@@ -23,6 +23,21 @@
                             ng-click="model.searchDoctor()">
                         Search By Doctor Name</button>
             
+            
+        <div ng-show="model.searchedDoctors.length > 0">
+            <ul class="list-group" style="overflow-y: auto;height: 250px">
+                <li ng-repeat="doc in model.searchedDoctors" class="list-group-item">
+                    <div class="row">
+                       <a >
+                                {{doc.fName + ' ' + doc.lName}}
+                            </a>
+                    </div>                   
+                </li>
+            </ul>
+        </div>
+        
+        
+            
             <div style="margin-top: 2em;">   
             <input type="text" class="form-control" placeholder="FirstName" ng-model="model.Symptom.symptoms">
             </div>

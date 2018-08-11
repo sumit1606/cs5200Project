@@ -9,7 +9,7 @@
         var vm = this;
         vm.Doctor = {};
         vm.Symptom = {};
-  
+        vm.searchedDoctors = {};
         function init() {
         	UserService
             .test()
@@ -23,7 +23,7 @@
         vm.searchDoctor = function() {
         	var promise = UserService.findDoctorByName(vm.Doctor.firstName, vm.Doctor.lastName);
             promise.then(function (response) {
-             console.log("A success call started from here");
+            	vm.searchedDoctors = response.data;
             },function (error) {
                 console.log(error);
             })
@@ -50,19 +50,6 @@
 //                console.log(error);
 //            })
          };
-
-//        function createUser () {
-//            var promise = UserService.createUser(vm.user);
-//            promise.then(function (response) {
-//                closeModal();
-//                // TODO getting the UserId from the response
-//                $timeout(function () {
-//                        $location.url("/user/profilePage/"+ response.data.email);
-//                }, 350);
-//            },function (error) {
-//                console.log(error);
-//            })
-//        };
 
         // Function for closing the modal
         function closeModal() {
