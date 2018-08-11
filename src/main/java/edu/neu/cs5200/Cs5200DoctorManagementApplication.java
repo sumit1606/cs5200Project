@@ -9,9 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Cs5200DoctorManagementApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(Cs5200DoctorManagementApplication.class, args);			
-
 	}
 	
 
