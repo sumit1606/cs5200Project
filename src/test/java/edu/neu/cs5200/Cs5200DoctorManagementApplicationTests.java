@@ -225,6 +225,23 @@ public class Cs5200DoctorManagementApplicationTests {
 //			hpd.deleteHealthProviderByName("healthP");
 			hperd.deleteHealthPersonnel(1);
 			
+			
+			
+			Patient pat = new Patient();
+			pat.setAddress("address");
+			pat.setDob(new Utility().modifySQLDate(31,2,1991));
+			pat.setEmail("a@a.com");
+			pat.setfName("asd");
+			pat.setlName("singh");
+			pat.setDtype("patient");
+			pat.setHealthInsurancePlan(p1);
+			patientDao.createPatient(pat);
+//			pld.deletePlanByName(p1.getName());
+			pat.setHealthInsurancePlan(p2);
+			patientDao.updatePatient(pat);
+			patientDao.deletePatientById(patientDao.findPatientByName(pat).getId());
+			
+			
 	}
 	
 
