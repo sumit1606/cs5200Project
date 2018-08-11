@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import edu.neu.cs5200.orm.jpa.entities.HealthPersonnel;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
-import edu.neu.cs5200.orm.jpa.entities.Patient;
 import edu.neu.cs5200.orm.jpa.repositories.HealthPersonnelRepository;
 import edu.neu.cs5200.orm.jpa.repositories.HealthProviderRepository;
 
@@ -141,13 +140,11 @@ public class HealthPersonnelDao {
 		hp.setHprovider(null);
 		hpRepo.save(hp);
 	}
-	
+
 	
 	public void deleteAll() {
 		List<HealthPersonnel> pts = this.findAllHealthPersonnel();
-		Iterator<HealthPersonnel> pti = pts.iterator();
-		while(pti.hasNext()) {
-			HealthPersonnel pt  = pti.next();
+		for(HealthPersonnel pt: pts) {
 			personDao.removeFollowingMappingIfPersonDeleted(pt.getId());
 			
 		}

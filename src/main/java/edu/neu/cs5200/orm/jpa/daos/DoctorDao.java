@@ -2,7 +2,6 @@
 package edu.neu.cs5200.orm.jpa.daos;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,11 +53,11 @@ public class DoctorDao {
 		
 	}
 	
+
+	
 	public void deleteAll() {
-		List<Doctor> pts = (List<Doctor>)doctorRepository.findAll();
-		Iterator<Doctor> pti = pts.iterator();
-		while(pti.hasNext()) {
-			Doctor pt  = pti.next();
+		List<Doctor> pts = (List<Doctor>) doctorRepository.findAll();
+		for(Doctor pt: pts) {
 			personDao.removeFollowingMappingIfPersonDeleted(pt.getId());
 			
 		}

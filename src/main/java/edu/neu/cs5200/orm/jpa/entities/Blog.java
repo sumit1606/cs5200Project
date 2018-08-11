@@ -1,9 +1,12 @@
 package edu.neu.cs5200.orm.jpa.entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -13,8 +16,11 @@ public class Blog {
 	(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-
+	private String title;
 	private String content;
+	
+	@ManyToMany(mappedBy="blogpostsLiked")
+	private List<Person> peopleLiked;
 	
 	@ManyToOne
 	private Doctor doctor;
@@ -31,6 +37,20 @@ public class Blog {
 	 */
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	/**
@@ -61,6 +81,20 @@ public class Blog {
 	 */
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
+	}
+
+	/**
+	 * @return the peopleLiked
+	 */
+	public List<Person> getPeopleLiked() {
+		return peopleLiked;
+	}
+
+	/**
+	 * @param peopleLiked the peopleLiked to set
+	 */
+	public void setPeopleLiked(List<Person> peopleLiked) {
+		this.peopleLiked = peopleLiked;
 	}
 
 	/* (non-Javadoc)
