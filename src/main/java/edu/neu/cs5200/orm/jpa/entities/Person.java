@@ -1,6 +1,6 @@
 package edu.neu.cs5200.orm.jpa.entities;
 
-import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
+
 
 import java.sql.Date;
 
@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Table;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)

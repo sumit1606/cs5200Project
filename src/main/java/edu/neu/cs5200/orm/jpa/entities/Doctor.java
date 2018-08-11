@@ -5,17 +5,8 @@ package edu.neu.cs5200.orm.jpa.entities;
 
 import java.util.List;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author sumitbhanwala
@@ -31,6 +22,12 @@ public class Doctor extends Person {
 		super(dtype, fName, lName, dob, address, email);
 		this.bio = bio;
 		this.title = title;
+		
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Doctor() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -44,6 +41,26 @@ public class Doctor extends Person {
 	@Column(name = "bio")
 	private String bio;
 	
+	
+	@OneToMany(mappedBy="doctor", cascade=CascadeType.ALL)
+	private List<Blog> blogs;
+	
+
+	/**
+	 * @return the blogs
+	 */
+	public List<Blog> getBlogs() {
+		return blogs;
+	}
+
+
+	/**
+	 * @param blogs the blogs to set
+	 */
+	public void setBlogs(List<Blog> blogs) {
+		this.blogs = blogs;
+	}
+
 
 	@ManyToMany
 	@JoinTable(name = "doctor_specialty",joinColumns = @JoinColumn(name = "doc_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "specialty_id", referencedColumnName = "id"))

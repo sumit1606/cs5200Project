@@ -10,10 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import edu.neu.cs5200.orm.jpa.daos.BlogDao;
+import edu.neu.cs5200.orm.jpa.daos.DoctorDao;
 import edu.neu.cs5200.orm.jpa.daos.HealthPersonnelDao;
 import edu.neu.cs5200.orm.jpa.daos.HealthProviderDao;
 import edu.neu.cs5200.orm.jpa.daos.PatientDao;
 import edu.neu.cs5200.orm.jpa.daos.PlanDao;
+import edu.neu.cs5200.orm.jpa.entities.Blog;
+import edu.neu.cs5200.orm.jpa.entities.Doctor;
 import edu.neu.cs5200.orm.jpa.entities.HealthPersonnel;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
 import edu.neu.cs5200.orm.jpa.entities.Patient;
@@ -38,6 +42,12 @@ public class Cs5200DoctorManagementApplicationTests {
 	
 	@Autowired
 	HealthPersonnelDao hperd;
+	
+	@Autowired
+	BlogDao bdao;
+	
+	@Autowired
+	DoctorDao ddao;
 	
 	@Test
 	public void contextLoads() {
@@ -242,6 +252,55 @@ public class Cs5200DoctorManagementApplicationTests {
 			patientDao.deletePatientById(patientDao.findPatientByName(pat).getId());
 			
 			
+	}
+	
+	@Test
+	public void testBlog() {
+		Doctor d = new Doctor();
+		d.setfName("avs");
+		d.setlName("sb");
+		d.setDob(new Utility().modifySQLDate(31,2,1991));
+		d.setAddress("gsdhvbsv");
+		d.setDtype("doctor");
+		d.setEmail("a@abc.com");
+		d.setTitle("bye");
+		d.setBio("hello");
+		d = ddao.createDoctor(d);
+		
+		Blog b = new Blog();
+		b.setContent("hgsvhsdvcbdvcbfdjvcfjvbjfbv");
+		b = bdao.createBlog(d.getId(), b);
+//		docDao.deleteDoctorById(d.getId());
+//		bdao.deleteBlog(b.getId());
+		b.setContent("This content is changed");
+		bdao.updateBlog(b.getId(), b);
+		System.out.println(bdao.findAllBlogs());
+		
+		
+		
+	}
+	
+	@Test
+	public void testDoctor() {
+		Doctor d = new Doctor();
+		d.setfName("avs");
+		d.setlName("sb");
+		d.setDob(new Utility().modifySQLDate(31,2,1991));
+		d.setAddress("gsdhvbsv");
+		d.setDtype("doctor");
+		d.setEmail("a@abc.com");
+		d.setTitle("bye");
+		d.setBio("hello");
+		d = ddao.createDoctor(d);
+		
+		Blog b = new Blog();
+		b.setContent("hgsvhsdvcbdvcbfdjvcfjvbjfbv");
+		ddao.addBlogToDoctor(d.getId(), b);
+		System.out.println(ddao.findAllBlogsForThisDoctor(d.getId()));
+		b.setContent("zibberish");
+		ddao.addBlogToDoctor(d.getId(), b);
+		System.out.println(ddao.findAllBlogsForThisDoctor(d.getId()));
+	
 	}
 	
 

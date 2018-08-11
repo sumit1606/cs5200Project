@@ -7,18 +7,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import edu.neu.cs5200.orm.jpa.entities.HealthPersonnel;
 import edu.neu.cs5200.orm.jpa.entities.Patient;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
 import edu.neu.cs5200.orm.jpa.repositories.PatientRepository;
 import edu.neu.cs5200.orm.jpa.repositories.PlanRepository;
-import edu.neu.cs5200.utitlities.Utility;
 
 @Component
 public class PatientDao {
 	
-	private Utility utility = new Utility();
 	@Autowired
 	PatientRepository patientRepository;
 	

@@ -1,25 +1,17 @@
 package edu.neu.cs5200.orm.jpa.daos;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import edu.neu.cs5200.orm.jpa.entities.HealthPersonnel;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
-import edu.neu.cs5200.orm.jpa.entities.Patient;
-import edu.neu.cs5200.orm.jpa.entities.Plan;
 import edu.neu.cs5200.orm.jpa.repositories.HealthPersonnelRepository;
 import edu.neu.cs5200.orm.jpa.repositories.HealthProviderRepository;
-import edu.neu.cs5200.utitlities.Utility;
-
 
 @Component
 public class HealthPersonnelDao {
