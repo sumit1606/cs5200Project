@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -17,6 +18,9 @@ public class Plan {
 	private String name;
 	@OneToMany(mappedBy="healthInsurancePlan")
 	List<Patient> patients;
+	
+	@ManyToMany(mappedBy="plansSupported")
+	private List<Doctor> doctorsEnrolled;
 	
 	@ManyToOne
 	private HealthProvider hp;
@@ -92,6 +96,20 @@ public class Plan {
 		this.name = p.getName() != null ? p.getName() : this.name;
 		this.hp = p.getHp() != null ? p.getHp() : this.hp;
 		
+	}
+
+	/**
+	 * @return the doctorsEnrolled
+	 */
+	public List<Doctor> getDoctorsEnrolled() {
+		return doctorsEnrolled;
+	}
+
+	/**
+	 * @param doctorsEnrolled the doctorsEnrolled to set
+	 */
+	public void setDoctorsEnrolled(List<Doctor> doctorsEnrolled) {
+		this.doctorsEnrolled = doctorsEnrolled;
 	}
 	
 	

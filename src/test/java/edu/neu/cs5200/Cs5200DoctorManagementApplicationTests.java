@@ -23,6 +23,7 @@ import edu.neu.cs5200.orm.jpa.entities.HealthPersonnel;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
 import edu.neu.cs5200.orm.jpa.entities.Patient;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
+import edu.neu.cs5200.orm.jpa.repositories.DoctorRepository;
 import edu.neu.cs5200.utitlities.Utility;
 
 @RunWith(SpringRunner.class)
@@ -439,5 +440,46 @@ public class Cs5200DoctorManagementApplicationTests {
 //		bdao.deleteAll();
 		patientDao.deleteAll();
 		ddao.deleteAll(); 
+	}
+	
+	@Test
+	public void testAddDoctorToPlanAndViceVersa() {
+		Doctor p = new Doctor();
+		p.setAddress("address");
+		p.setDob(new Utility().modifySQLDate(31,2,1991));
+		p.setEmail("a@a.com");
+		p.setfName("aashish");
+		p.setlName("singh");
+		p.setDtype("doctor");
+		p = ddao.createDoctor(p);
+		
+		
+		HealthProvider hp = new HealthProvider();
+		
+		hp.setName("healthP");
+		Set<Plan> planSet = new HashSet<>();
+		Plan p1 = new Plan();
+		p1.setName("p1");
+		Plan p2 = new Plan();
+		p2.setName("p2");
+		planSet.addAll(Arrays.asList(p1, p2));
+		hp.setPlans(planSet);
+		hpd.createHealthProvider(hp);
+		
+		p1 = pld.findPlanById(1);
+		p2 = pld.findPlanById(2);
+		ddao.AddPlan(p.getId(), p1);
+		ddao.AddPlan(p.getId(), p2);
+		
+		ddao.removePlan(p.getId(), p1);
+		pld.addDoctorToThePlan(p1.getId(), p);
+		pld.removeDoctorFromPlan(p1.getId(), p);
+		ddao.AddPlan(p.getId(), p2);
+		ddao.AddPlan(p.getId(), p2);
+		
+		
+		
+		
+
 	}
 }

@@ -34,6 +34,9 @@ public class Doctor extends Person {
 	private List<Blog> blogs;
 	
 
+		@ManyToMany
+		@JoinTable(name="doctor_plan", joinColumns = @JoinColumn(name="doc_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name="plan_id", referencedColumnName="id"))
+		private List<Plan> plansSupported;
 	/**
 	 * @return the blogs
 	 */
@@ -92,6 +95,38 @@ public class Doctor extends Person {
 
 	public void setBio(String bio) {
 		this.bio = bio;
+	}
+
+
+	/**
+	 * @return the plansSupported
+	 */
+	public List<Plan> getPlansSupported() {
+		return plansSupported;
+	}
+
+
+	/**
+	 * @param plansSupported the plansSupported to set
+	 */
+	public void setPlansSupported(List<Plan> plansSupported) {
+		this.plansSupported = plansSupported;
+	}
+
+
+	/**
+	 * @return the docSpecialties
+	 */
+	public List<Specialty> getDocSpecialties() {
+		return docSpecialties;
+	}
+
+
+	/**
+	 * @param docSpecialties the docSpecialties to set
+	 */
+	public void setDocSpecialties(List<Specialty> docSpecialties) {
+		this.docSpecialties = docSpecialties;
 	}
 	
 	
