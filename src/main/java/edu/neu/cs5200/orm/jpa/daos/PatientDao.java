@@ -2,6 +2,7 @@ package edu.neu.cs5200.orm.jpa.daos;
 
 
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,10 @@ public class PatientDao {
 	@Autowired
 	PlanRepository planRepo;
 	
+	@Autowired
+	PersonDao personDao;
+	
+	
 	public Patient findPatientByName(Patient p) {
 		return patientRepository.findPatientByName(p.getfName(), p.getlName());
 	
@@ -33,7 +38,7 @@ public class PatientDao {
 		 return null;
 	}
 	
-	public List<Patient> findAllHealthProvider() {
+	public List<Patient> findAllPatients() {
 
 		return (List<Patient>)patientRepository.findAll();
 	}
@@ -83,8 +88,22 @@ public class PatientDao {
 	
 	public void deletePatientById(int id) {
 		 Optional<Patient> p = patientRepository.findById(id);
-		 if (p.isPresent())
-			 patientRepository.deleteById(p.get().getId());;
+		 if (p.isPresent()) {
+			personDao.removeFollowingMappingIfPersonDeleted(p.get().getId());
+			patientRepository.deleteById(p.get().getId());
+		 }
+			 
+	}
+	
+	public void deleteAll() {
+		List<Patient> pts = this.findAllPatients();
+		Iterator<Patient> pti = pts.iterator();
+		while(pti.hasNext()) {
+			Patient pt  = pti.next();
+			personDao.removeFollowingMappingIfPersonDeleted(pt.getId());
+			
+		}
+		patientRepository.deleteAll();
 	}
 	
 }

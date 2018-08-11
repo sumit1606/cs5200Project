@@ -18,18 +18,6 @@ public class Doctor extends Person {
 	
 	
 
-	public Doctor(String dtype, String fName, String lName, Date dob, String address, String email, String title, String bio) {
-		super(dtype, fName, lName, dob, address, email);
-		this.bio = bio;
-		this.title = title;
-		
-		// TODO Auto-generated constructor stub
-	}
-
-
-	public Doctor() {
-		// TODO Auto-generated constructor stub
-	}
 
 
 	/**
@@ -65,6 +53,21 @@ public class Doctor extends Person {
 	@ManyToMany
 	@JoinTable(name = "doctor_specialty",joinColumns = @JoinColumn(name = "doc_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "specialty_id", referencedColumnName = "id"))
 	private List<Specialty> docSpecialties;
+	
+
+
+	public Doctor(String dtype, String fName, String lName, Date dob, String address, String email, String title, String bio) {
+		super(dtype, fName, lName, dob, address, email);
+		this.bio = bio;
+		this.title = title;
+		
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Doctor() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public List<Specialty> getSpecialties() {
 		return docSpecialties;

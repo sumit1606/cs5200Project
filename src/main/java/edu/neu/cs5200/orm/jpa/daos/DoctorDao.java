@@ -2,6 +2,7 @@
 package edu.neu.cs5200.orm.jpa.daos;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ import edu.neu.cs5200.orm.jpa.repositories.DoctorRepository;
 public class DoctorDao {
 	@Autowired
 	DoctorRepository doctorRepository;
+	
+	@Autowired
+	PersonDao personDao;
 	
 	@Autowired
 	BlogDao bdao;
@@ -38,8 +42,27 @@ public class DoctorDao {
 	}
 	
 	
+	
+	
 	public void deleteDoctorById(int id) {
-		doctorRepository.deleteById(id);
+		Doctor d = this.findDoctorbyId(id);
+		if (d != null)
+		{
+			personDao.removeFollowingMappingIfPersonDeleted(d.getId());
+			doctorRepository.deleteById(id);
+		}
+		
+	}
+	
+	public void deleteAll() {
+		List<Doctor> pts = (List<Doctor>)doctorRepository.findAll();
+		Iterator<Doctor> pti = pts.iterator();
+		while(pti.hasNext()) {
+			Doctor pt  = pti.next();
+			personDao.removeFollowingMappingIfPersonDeleted(pt.getId());
+			
+		}
+		doctorRepository.deleteAll();
 	}
 	
 	
@@ -87,6 +110,8 @@ public class DoctorDao {
 		}
 		return null;
 	}
+	
+
 	
 
 	

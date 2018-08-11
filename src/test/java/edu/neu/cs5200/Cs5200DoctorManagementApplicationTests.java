@@ -15,6 +15,7 @@ import edu.neu.cs5200.orm.jpa.daos.DoctorDao;
 import edu.neu.cs5200.orm.jpa.daos.HealthPersonnelDao;
 import edu.neu.cs5200.orm.jpa.daos.HealthProviderDao;
 import edu.neu.cs5200.orm.jpa.daos.PatientDao;
+import edu.neu.cs5200.orm.jpa.daos.PersonDao;
 import edu.neu.cs5200.orm.jpa.daos.PlanDao;
 import edu.neu.cs5200.orm.jpa.entities.Blog;
 import edu.neu.cs5200.orm.jpa.entities.Doctor;
@@ -48,6 +49,9 @@ public class Cs5200DoctorManagementApplicationTests {
 	
 	@Autowired
 	DoctorDao ddao;
+	
+	@Autowired
+	PersonDao pdao;
 	
 	@Test
 	public void contextLoads() {
@@ -301,6 +305,78 @@ public class Cs5200DoctorManagementApplicationTests {
 		ddao.addBlogToDoctor(d.getId(), b);
 		System.out.println(ddao.findAllBlogsForThisDoctor(d.getId()));
 	
+	}
+	
+	@Test
+	public void testDoctorIsFollowedbyperson() {
+		Doctor d = new Doctor();
+		d.setfName("avs");
+		d.setlName("sb");
+		d.setDob(new Utility().modifySQLDate(31,2,1991));
+		d.setAddress("gsdhvbsv");
+		d.setDtype("doctor");
+		d.setEmail("a@abc.com");
+		d.setTitle("bye");
+		d.setBio("hello");
+		d = ddao.createDoctor(d);
+		int this_doc = d.getId();
+		
+		
+		
+		Patient pat = new Patient();
+		pat.setAddress("address");
+		pat.setDob(new Utility().modifySQLDate(31,2,1991));
+		pat.setEmail("a@a.com");
+		pat.setfName("asd");
+		pat.setlName("singh");
+		pat.setDtype("patient");
+		pat = patientDao.createPatient(pat);
+		pdao.followDoctor(d.getId(), pat.getId());
+		pdao.followDoctor(d.getId(), pat.getId());
+		
+		pat = new Patient();
+		pat.setAddress("address");
+		pat.setDob(new Utility().modifySQLDate(31,2,1991));
+		pat.setEmail("a@a.com");
+		pat.setfName("ddd");
+		pat.setlName("sindddgh");
+		pat.setDtype("patient");
+		pat = patientDao.createPatient(pat);
+		pdao.followDoctor(d.getId(), pat.getId());
+		pdao.followDoctor(d.getId(), d.getId());
+		int this_pat = pat.getId();
+		
+		
+		d = new Doctor();
+		d.setfName("doc");
+		d.setlName("sb");
+		d.setDob(new Utility().modifySQLDate(31,2,1991));
+		d.setAddress("gsdhvbsv");
+		d.setDtype("doctor");
+		d.setEmail("a@abc.com");
+		d.setTitle("bye");
+		d.setBio("hello");
+		d = ddao.createDoctor(d);
+		
+		pat = new Patient();
+		pat.setAddress("address");
+		pat.setDob(new Utility().modifySQLDate(31,2,1991));
+		pat.setEmail("a@a.com");
+		pat.setfName("pat");
+		pat.setlName("sindddgh");
+		pat.setDtype("patient");
+		pat = patientDao.createPatient(pat);
+		pdao.followDoctor(d.getId(), pat.getId());
+		
+		pdao.unfollowDoctor(this_doc, this_pat);
+		
+		ddao.deleteDoctorById(this_doc);
+		
+		patientDao.deletePatientById(pat.getId());
+		
+		
+		
+		
 	}
 	
 

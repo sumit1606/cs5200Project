@@ -7,9 +7,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import edu.neu.cs5200.orm.jpa.entities.HealthPersonnel;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
+import edu.neu.cs5200.orm.jpa.entities.Patient;
 import edu.neu.cs5200.orm.jpa.repositories.HealthPersonnelRepository;
 import edu.neu.cs5200.orm.jpa.repositories.HealthProviderRepository;
 
@@ -24,6 +24,9 @@ public class HealthPersonnelDao {
 	@Autowired
 	HealthProviderRepository healthProviderRepo;
 	
+	@Autowired
+	PersonDao personDao;
+	
 	public HealthPersonnel findPersonnelByName(HealthPersonnel hp) {
 		return hpRepo.findHealthPersonnelByName(hp.getfName(), hp.getlName());
 	
@@ -36,7 +39,7 @@ public class HealthPersonnelDao {
 		 return null;
 	}
 	
-	public List<HealthPersonnel> findAllHealthProvider() {
+	public List<HealthPersonnel> findAllHealthPersonnel() {
 
 		return (List<HealthPersonnel>)hpRepo.findAll();
 	}
@@ -110,8 +113,15 @@ public class HealthPersonnelDao {
 	}
 	
 	public void deleteHealthPersonnel(int id) {
-		deleteHealthPersonnelFromProvider(this.findHealthPersonnelById(id));
-		hpRepo.deleteById(id);
+		
+		HealthPersonnel d = this.findHealthPersonnelById(id);
+		if (d != null)
+		{
+			personDao.removeFollowingMappingIfPersonDeleted(d.getId());
+			deleteHealthPersonnelFromProvider(d);
+			hpRepo.deleteById(id);
+		}
+
 	}
 	
 	
@@ -132,6 +142,17 @@ public class HealthPersonnelDao {
 		hpRepo.save(hp);
 	}
 	
+	
+	public void deleteAll() {
+		List<HealthPersonnel> pts = this.findAllHealthPersonnel();
+		Iterator<HealthPersonnel> pti = pts.iterator();
+		while(pti.hasNext()) {
+			HealthPersonnel pt  = pti.next();
+			personDao.removeFollowingMappingIfPersonDeleted(pt.getId());
+			
+		}
+		hpRepo.deleteAll();
+	}
 
 
 
