@@ -11,7 +11,8 @@
         	"test": test,
             "getUserByEmail": getUserByEmail,
             "findUserByCredentials": findUserByCredentials,
-            "findDoctorByName": findDoctorByName
+            "findDoctorByName": findDoctorByName,
+            "findDoctorBySpecialty":findDoctorBySpecialty
         };
         return api;
 
@@ -30,9 +31,18 @@
         
         function findDoctorByName(firstName , lastName) {
         	return $http({
-        	    url: "api/doctor", 
+        	    url: "api/doctor/name", 
         	    method: "GET",
         	    params: {fName: firstName , lName: lastName}
+        	 });
+        }
+        
+        
+        function findDoctorBySpecialty(name){
+        	return $http({
+        	    url: "api/doctor/specialty", 
+        	    method: "GET",
+        	    params: {name: name }
         	 });
         }
         

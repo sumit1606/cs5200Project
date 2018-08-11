@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,41 @@ public class UserService {
 	}
 	
 	
-	@GetMapping("/api/doctor")
+	
+	// getting the doctor from the specialty	
+		@GetMapping("/api/doctor/specialty")
+		public  List<Doctor> getDoctorBySpecialty(HttpServletRequest request) throws IOException {
+			Map<String, String[]> parameters = request.getParameterMap();
+			StringBuilder sb = new StringBuilder();
+			sb.append("https://api.betterdoctor.com/2016-03-01/practices?");
+			sb.append("name=");
+			String [] strArr= parameters.get("name")[0].split("\\s+");
+			sb.append(String.join("%20", strArr));
+			sb.append("&limit=100");
+			sb.append("&user_key=");
+			sb.append(user_key);
+			System.out.println(sb.toString());
+			try {
+				URL url = new URL(sb.toString());
+				HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		        con.setRequestMethod("GET");
+		        con.connect();
+		        JsonParser jp = new JsonParser(); //from gson
+		        JsonElement root = jp.parse(new InputStreamReader((InputStream) con.getContent())); //Convert the input stream to a json element
+		        JsonObject rootobj = root.getAsJsonObject();
+		        return this.processDoctorBySpecialty(rootobj);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;	
+		}
+	
+	
+	// getting the doctor from the first name and the last name
+	// first name and the last name are required
+	
+	@GetMapping("/api/doctor/name")
 	public  List<Doctor> getDoctorByName(HttpServletRequest request) throws IOException {
 		Map<String, String[]> parameters = request.getParameterMap();
 		StringBuilder sb = new StringBuilder();
@@ -50,6 +85,7 @@ public class UserService {
 		sb.append(parameters.get("fName")[0]);
 		sb.append("&last_name=");
 		sb.append(parameters.get("lName")[0]);
+		sb.append("&limit=100");
 		sb.append("&user_key=");
 		sb.append(user_key);
 		try {
@@ -60,12 +96,59 @@ public class UserService {
 	        JsonParser jp = new JsonParser(); //from gson
 	        JsonElement root = jp.parse(new InputStreamReader((InputStream) con.getContent())); //Convert the input stream to a json element
 	        JsonObject rootobj = root.getAsJsonObject();
-	        return this.processDoctor(rootobj);
+	        return this.processDoctorBySpecialty(rootobj);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;	
+	}
+	
+	
+	private List<Doctor> processDoctorBySpecialty(JsonObject rootobj){
+		List<Doctor> allDoctors = new ArrayList<>();
+		JsonArray userMap = (JsonArray) rootobj.get("data");
+		// Iterate over each object where each object is a nested json object in itself
+		for (Object o :userMap) {
+			// o is an doctor object
+			// get the profile json inside it
+			JsonObject address = (JsonObject) ((JsonObject) o).get("visit_address");
+			String city = address.get("city").getAsString();
+			String state = address.get("state").getAsString();
+			String street = address.get("street").getAsString();
+			String zip = address.get("zip").getAsString();
+			//practice , specialities, insurance are the Json array so we have to iterate over them
+			// to get all the data
+			JsonArray doctors = (JsonArray) ((JsonObject) o).get("doctors");
+			
+			for(Object d1: doctors) {
+				JsonObject doctor = (JsonObject) ((JsonObject) d1).get("profile");
+				String fName= null;
+				String lName = null;
+				String title = null;
+				String bio = null;
+
+				fName = doctor.get("first_name").getAsString();
+				lName = doctor.get("last_name").getAsString();
+				if(doctor.get("title") != null) {
+					title = doctor.get("title").getAsString();
+				}
+	
+				 bio = doctor.get("bio").getAsString();
+				
+				
+				JsonArray specialties = (JsonArray) ((JsonObject) d1).get("specialties");
+				JsonArray insurances = (JsonArray) ((JsonObject) d1).get("insurances");
+				List<Plan> tempPlan = this.getPlans(insurances);
+				List<Specialty> tempSpecialty = this.getSpecialities(specialties);
+				
+				Doctor temp = new Doctor("d",fName, lName,null,street,null,title,bio);
+				temp.setSpecialties(tempSpecialty);
+				temp.setDocPlans(tempPlan);
+				allDoctors.add(temp);
+			}		
+		}
+		return allDoctors;
 	}
 	
 	private List<Doctor> processDoctor(JsonObject rootobj){

@@ -8,7 +8,7 @@
         // By default we will be handling all the promise using than
         var vm = this;
         vm.Doctor = {};
-        vm.Symptom = {};
+        vm.Specialty = {};
         vm.searchedDoctors = {};
         function init() {
         	UserService
@@ -30,8 +30,14 @@
         }
         
         
-        vm.searchBySymptoms = function() {
-        	
+        vm.searchBySpecialty = function() {
+        	console.log(vm.Specialty.name);
+        	var promise = UserService.findDoctorBySpecialty(vm.Specialty.name);
+            promise.then(function (response) {
+            	vm.searchedDoctors = response.data;
+            },function (error) {
+                console.log(error);
+            })
         }
         
         
