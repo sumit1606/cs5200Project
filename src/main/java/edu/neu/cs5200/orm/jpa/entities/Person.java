@@ -1,5 +1,7 @@
 package edu.neu.cs5200.orm.jpa.entities;
 
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
+
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -147,6 +149,14 @@ public abstract class Person {
 	 */
 	public void setDtype(String dtype) {
 		this.dtype = dtype;
+	}
+	
+	public void set (Person obj) {
+		this.fName = obj.getfName() != null ? obj.getfName() : this.getfName();
+		this.lName = obj.getlName() != null ? obj.getlName() : this.getlName();
+		this.address = obj.getAddress() != null ? obj.getAddress() : this.getAddress();
+		this.dob = obj.getDob() != null ? obj.getDob() : this.getDob();
+		this.email = obj.getEmail() != null ? obj.getEmail() : this.getEmail();
 	}
 	
 }

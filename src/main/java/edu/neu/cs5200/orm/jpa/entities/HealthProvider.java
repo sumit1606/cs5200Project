@@ -19,9 +19,15 @@ public class HealthProvider {
 	@GeneratedValue
 	(strategy=GenerationType.IDENTITY)
 	private int id;
+	
 	private String name;
+	
 	@OneToMany(mappedBy="hp", orphanRemoval=true, cascade=CascadeType.ALL)
-	Set<Plan> plans;
+	private Set<Plan> plans;
+	
+	@OneToMany (mappedBy="hprovider")
+	private Set<HealthPersonnel> hpUsers;
+	
 	/**
 	 * @return the id
 	 */
@@ -59,6 +65,18 @@ public class HealthProvider {
 		this.name = name;
 	}
 	
+	/**
+	 * @return the hpUsers
+	 */
+	public Set<HealthPersonnel> getHpUsers() {
+		return hpUsers;
+	}
+	/**
+	 * @param hpUsers the hpUsers to set
+	 */
+	public void setHpUsers(Set<HealthPersonnel> hpUsers) {
+		this.hpUsers = hpUsers;
+	}
 	public void addPlan(Plan p) {
 		if (this.plans == null) {
 			this.plans = new HashSet<Plan>();
@@ -72,7 +90,7 @@ public class HealthProvider {
 
 	}
 	
-	public void set(HealthProvider hp) {
+	public void setPlan(HealthProvider hp) {
 		this.name = hp.getName() != null? hp.getName() : this.name;
 		if (hp.getPlans() != null && hp.getPlans().size() > 0) {
 			List<String>planNamesInNewObject = createListOfPlanNames(hp);
@@ -98,8 +116,57 @@ public class HealthProvider {
 		
 		}
 		
+	
 	}
 	
+//	public void setHealthPersonnel(HealthProvider hp) {
+//		this.name = hp.getName() != null? hp.getName() : this.name;
+//		if (hp.getHpUsers() != null && hp.getHpUsers().size() > 0) {
+//			List<String>hpUsersInNewObject = createListOfhpUsersNames(hp);
+//			Set <HealthPersonnel> hpUsersToBeRemoved = new HashSet<>();
+//			
+//			for(HealthPersonnel p : this.getHpUsers()) {
+//				if (!hpUsersInNewObject.contains(p.getfName()+p.getlName())) {
+//					hpUsersToBeRemoved.add(p);
+//				}
+//			}
+//			
+//			for (HealthPersonnel p: hpUsersToBeRemoved) {
+//				this.getHpUsers().remove(p);
+//			}
+//			
+//		
+//			for(HealthPersonnel p : hp.getHpUsers()) {
+//				
+//				this.addHpUsers(p);
+//			}
+//		}else {
+//			if (this.getHpUsers() != null)
+//				this.getHpUsers().removeAll(this.getHpUsers());
+//		
+//		}
+//	}
+//	
+	public void addHpUsers(HealthPersonnel p) {
+		if (this.hpUsers == null) {
+			this.hpUsers = new HashSet<HealthPersonnel>();
+		}
+		
+		List<String> hpUsersNamesExisting = createListOfhpUsersNames(this);
+		if (hpUsersNamesExisting == null || !hpUsersNamesExisting.contains(p.getfName()+p.getlName())) {
+		
+			this.hpUsers.add(p);
+			p.setHprovider(this);
+		}
+		
+	}
+	
+	public List<String> createListOfhpUsersNames(HealthProvider hp) {
+		if (hp.getHpUsers() == null || hp.getHpUsers().size() == 0) {
+			return null;
+		}
+		return new ArrayList<>(hp.getHpUsers().stream().map((p) -> p.getfName()+p.getlName()).collect(Collectors.toList()));
+	}
 	public List<String> createListOfPlanNames(HealthProvider hp) {
 		if (hp.getPlans() == null || hp.getPlans().size() == 0) {
 			return null;
