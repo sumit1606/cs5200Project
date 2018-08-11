@@ -12,12 +12,26 @@
                     <span style="color: red;font-family:Helvetica;">My</span>Music
                 </a>
             </div>
-            <div id="navbar" class="navbar-collapse collapse ">
-                <ul class="nav navbar-nav pull-right">
-                    <!-- <li class="nav-item glorify"><a data-toggle="modal" data-target="#myModal">Login</a></li>
-                    <li class="nav-item glorify"><a data-toggle="modal" data-target="#myModalSignup" target="_self">Sign Up</a></li> -->
-                </ul>
+           
+         
+        	<div style="margin-top: 2em;">   
+            <input type="text" class="form-control" placeholder="FirstName" ng-model="model.Doctor.firstName" >
+            <input type="text" class="form-control" placeholder="LastName" ng-model="model.Doctor.lastName" >
             </div>
+             <button class="btn btn-lg btn-danger btn-block"
+                            type="submit"
+                            ng-click="model.searchDoctor()">
+                        Search By Doctor Name</button>
+            
+            <div style="margin-top: 2em;">   
+            <input type="text" class="form-control" placeholder="FirstName" ng-model="model.Symptom.symptoms">
+            </div>
+            
+             <button class="btn btn-lg btn-danger btn-block"
+                            type="submit"
+                            ng-click="model.searchBySymptoms()">
+                        Search By symptoms</button>
+            
         </div>
     </nav>
     <nav class="navbar navbar-default navbar-fixed-bottom">

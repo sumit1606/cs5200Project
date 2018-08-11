@@ -10,7 +10,8 @@
         var api = {
         	"test": test,
             "getUserByEmail": getUserByEmail,
-            "findUserByCredentials": findUserByCredentials
+            "findUserByCredentials": findUserByCredentials,
+            "findDoctorByName": findDoctorByName
         };
         return api;
 
@@ -26,5 +27,16 @@
         function findUserByCredentials(emailAddress , password) {
  
         }
-    }
+        
+        function findDoctorByName(firstName , lastName) {
+        	return $http({
+        	    url: "api/doctor", 
+        	    method: "GET",
+        	    params: {fName: firstName , lName: lastName}
+        	 });
+        }
+        
+    };
+    
+    
 })();

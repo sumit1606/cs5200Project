@@ -7,7 +7,8 @@
     function LandingPageController ($http,$location, $routeParams, $timeout, UserService, $window) {
         // By default we will be handling all the promise using than
         var vm = this;
-        vm.user = {};
+        vm.Doctor = {};
+        vm.Symptom = {};
   
         function init() {
         	UserService
@@ -17,6 +18,21 @@
             });
         }
         init();
+        
+        
+        vm.searchDoctor = function() {
+        	var promise = UserService.findDoctorByName(vm.Doctor.firstName, vm.Doctor.lastName);
+            promise.then(function (response) {
+             console.log("A success call started from here");
+            },function (error) {
+                console.log(error);
+            })
+        }
+        
+        
+        vm.searchBySymptoms = function() {
+        	
+        }
         
         
         vm.login = function() {
