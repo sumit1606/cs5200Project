@@ -1,8 +1,6 @@
 package edu.neu.cs5200.orm.jpa.daos;
 
 
-
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,12 +92,11 @@ public class PatientDao {
 		 }
 			 
 	}
+
 	
 	public void deleteAll() {
 		List<Patient> pts = this.findAllPatients();
-		Iterator<Patient> pti = pts.iterator();
-		while(pti.hasNext()) {
-			Patient pt  = pti.next();
+		for(Patient pt: pts) {
 			personDao.removeFollowingMappingIfPersonDeleted(pt.getId());
 			
 		}

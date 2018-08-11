@@ -23,6 +23,7 @@ import edu.neu.cs5200.orm.jpa.entities.HealthPersonnel;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
 import edu.neu.cs5200.orm.jpa.entities.Patient;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
+import edu.neu.cs5200.orm.jpa.repositories.DoctorRepository;
 import edu.neu.cs5200.utitlities.Utility;
 
 @RunWith(SpringRunner.class)
@@ -368,16 +369,117 @@ public class Cs5200DoctorManagementApplicationTests {
 		pat = patientDao.createPatient(pat);
 		pdao.followDoctor(d.getId(), pat.getId());
 		
-		pdao.unfollowDoctor(this_doc, this_pat);
+//		pdao.unfollowDoctor(this_doc, this_pat);
+//		
+//		ddao.deleteDoctorById(this_doc);
+//		
+//		patientDao.deletePatientById(pat.getId());
 		
-		ddao.deleteDoctorById(this_doc);
-		
-		patientDao.deletePatientById(pat.getId());
-		
+		patientDao.deleteAll();
 		
 		
 		
 	}
 	
 
+	
+	@Test
+	public void testBlogLiked() {
+		Doctor d = new Doctor();
+		d.setfName("avs");
+		d.setlName("sb");
+		d.setDob(new Utility().modifySQLDate(31,2,1991));
+		d.setAddress("gsdhvbsv");
+		d.setDtype("doctor");
+		d.setEmail("a@abc.com");
+		d.setTitle("bye");
+		d.setBio("hello");
+		d = ddao.createDoctor(d);
+		
+		Blog b = new Blog();
+		b.setTitle("blog");
+		b.setContent("hgsvhsdvcbdvcbfdjvcfjvbjfbv");
+		b = bdao.createBlog(d.getId(), b);
+		
+		
+		
+		
+		
+		Patient pat = new Patient();
+		pat.setAddress("address");
+		pat.setDob(new Utility().modifySQLDate(31,2,1991));
+		pat.setEmail("a@a.com");
+		pat.setfName("asd");
+		pat.setlName("singh");
+		pat.setDtype("patient");
+		pat = patientDao.createPatient(pat);
+		pdao.followDoctor(d.getId(), pat.getId());
+		pdao.followDoctor(d.getId(), pat.getId());
+		pdao.likeBlog(pat.getId(), b.getId());
+		
+//		pdao.unLikeBlog(pat.getId(), b.getId());
+//		bdao.deleteBlog(b.getId());
+		
+		d = new Doctor();
+		d.setfName("doc");
+		d.setlName("sb");
+		d.setDob(new Utility().modifySQLDate(31,2,1991));
+		d.setAddress("gsdhvbsv");
+		d.setDtype("doctor");
+		d.setEmail("a@abc.com");
+		d.setTitle("bye");
+		d.setBio("hello");
+		d = ddao.createDoctor(d);
+		
+		b = new Blog();
+		b.setTitle("blog1");
+		b.setContent("hgsvhsdvcbdvcbfdjvcfjvbjfbv");
+		b = bdao.createBlog(d.getId(), b);
+		pdao.likeBlog(d.getId(), b.getId());
+		pdao.likeBlog(pat.getId(), b.getId());
+//		bdao.deleteAll();
+		patientDao.deleteAll();
+		ddao.deleteAll(); 
+	}
+	
+	@Test
+	public void testAddDoctorToPlanAndViceVersa() {
+		Doctor p = new Doctor();
+		p.setAddress("address");
+		p.setDob(new Utility().modifySQLDate(31,2,1991));
+		p.setEmail("a@a.com");
+		p.setfName("aashish");
+		p.setlName("singh");
+		p.setDtype("doctor");
+		p = ddao.createDoctor(p);
+		
+		
+		HealthProvider hp = new HealthProvider();
+		
+		hp.setName("healthP");
+		Set<Plan> planSet = new HashSet<>();
+		Plan p1 = new Plan();
+		p1.setName("p1");
+		Plan p2 = new Plan();
+		p2.setName("p2");
+		planSet.addAll(Arrays.asList(p1, p2));
+		hp.setPlans(planSet);
+		hpd.createHealthProvider(hp);
+		
+		p1 = pld.findPlanById(1);
+		p2 = pld.findPlanById(2);
+		ddao.AddPlan(p.getId(), p1);
+		ddao.AddPlan(p.getId(), p2);
+		
+		ddao.removePlan(p.getId(), p1);
+		pld.addDoctorToThePlan(p1.getId(), p);
+		pld.removeDoctorFromPlan(p1.getId(), p);
+		ddao.AddPlan(p.getId(), p2);
+		ddao.AddPlan(p.getId(), p2);
+		
+		
+		
+		
+
+	}
 }

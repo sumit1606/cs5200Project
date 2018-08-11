@@ -34,12 +34,16 @@ public abstract class Person {
 	private String email;
 	
 	@ManyToMany
-	@JoinTable(name="doctor_followedby", joinColumns = @JoinColumn(name="doc_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name="person_id", referencedColumnName="id"))
+	@JoinTable(name="person_follow_doctor", joinColumns = @JoinColumn(name="doc_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name="person_id", referencedColumnName="id"))
 	private List<Person> followedBy;
 	
 	@ManyToMany(mappedBy="followedBy")
 	private List<Person> follows;
 	
+	
+	@ManyToMany
+	@JoinTable(name="person_liked_blog", joinColumns = @JoinColumn(name="person_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name="blog_id", referencedColumnName="id"))
+	private List<Blog> blogpostsLiked;
 
 
 	/**
@@ -71,6 +75,22 @@ public abstract class Person {
 	 */
 	public void setFollows(List<Person> follows) {
 		this.follows = follows;
+	}
+
+
+	/**
+	 * @return the blogpostsLiked
+	 */
+	public List<Blog> getBlogpostsLiked() {
+		return blogpostsLiked;
+	}
+
+
+	/**
+	 * @param blogpostsLiked the blogpostsLiked to set
+	 */
+	public void setBlogpostsLiked(List<Blog> blogpostsLiked) {
+		this.blogpostsLiked = blogpostsLiked;
 	}
 
 

@@ -1,6 +1,5 @@
 package edu.neu.cs5200.orm.jpa.daos;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import edu.neu.cs5200.orm.jpa.entities.Doctor;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
 import edu.neu.cs5200.orm.jpa.repositories.HealthProviderRepository;
@@ -26,6 +26,9 @@ public class PlanDao {
 	
 		@Autowired 
 		PlanRepository planRepo;
+		
+		@Autowired
+		DoctorDao doctorDao;
 		
 		public Plan findPlanById(int id) {
 			Optional<Plan> planRes = planRepo.findById(id);
@@ -73,11 +76,48 @@ public class PlanDao {
 		
 		public void deletePlanByName(String name) {
 			Plan p = findPlanByName(name);
+			this.deletePlanById(p.getId());
+		}
+		
+		public Plan addDoctorToThePlan(int id, Doctor d) {
+			Plan plan = this.findPlanById(id);
+			Doctor doc = doctorDao.findDoctorbyId(d.getId());
+			if (plan != null && doc != null) {
+					doctorDao.AddPlan(doc.getId(), plan);
+					return this.findPlanById(id);
+			}
+			
+			return null;
+
+		}
+		
+		public Plan removeDoctorFromPlan(int id, Doctor d) {
+			Plan plan = this.findPlanById(id);
+			Doctor doc = doctorDao.findDoctorbyId(d.getId());
+			if (plan != null && doc != null) {
+				doctorDao.removePlan(doc.getId(), plan);
+				return this.findPlanById(id);
+			}
+			return null; 
+		}
+
+		public void deletePlanById(int id) {
+			Plan p = this.findPlanById(id);
 			if (p != null) {
+				for (Doctor d: p.getDoctorsEnrolled()) {
+					this.removeDoctorFromPlan(p.getId(), d);
+				}
 				planRepo.deleteById(p.getId());
 			}
 		}
-
+		
+		public void deleteAll() {
+			List<Plan> plans = (List<Plan>) planRepo.findAll();
+			for(Plan p : plans) {
+				deletePlanById(p.getId());
+			}
+			planRepo.deleteAll();
+		}
 		
 }
 	
