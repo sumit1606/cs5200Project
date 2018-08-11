@@ -1,8 +1,6 @@
 package edu.neu.cs5200.orm.jpa.entities;
 
 import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +15,7 @@ public class Plan {
 	(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	@OneToMany(mappedBy="healthInsurancePlan", orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="healthInsurancePlan")
 	List<Patient> patients;
 	
 	@ManyToOne

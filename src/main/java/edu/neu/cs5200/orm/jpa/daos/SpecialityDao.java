@@ -4,10 +4,7 @@
 package edu.neu.cs5200.orm.jpa.daos;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import edu.neu.cs5200.orm.jpa.entities.Doctor;
 import edu.neu.cs5200.orm.jpa.entities.Specialty;
-import edu.neu.cs5200.orm.jpa.repositories.DoctorRepository;
 import edu.neu.cs5200.orm.jpa.repositories.SpecialtyRepository;
 
 /**

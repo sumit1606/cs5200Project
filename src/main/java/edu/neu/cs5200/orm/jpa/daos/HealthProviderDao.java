@@ -2,19 +2,17 @@
 
 package edu.neu.cs5200.orm.jpa.daos;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import edu.neu.cs5200.orm.jpa.entities.HealthPersonnel;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
+import edu.neu.cs5200.orm.jpa.repositories.HealthPersonnelRepository;
 import edu.neu.cs5200.orm.jpa.repositories.HealthProviderRepository;
 import edu.neu.cs5200.orm.jpa.repositories.PlanRepository;
 
@@ -25,6 +23,9 @@ public class HealthProviderDao {
 	
 	@Autowired 
 	PlanRepository planRepo;
+	
+	@Autowired
+	HealthPersonnelRepository hpRepo;
 	
 	public HealthProvider findProviderByName(String name) {
 		Optional<HealthProvider> hp = healthProviderRepo.findHealthProviderByName(name);
@@ -62,6 +63,13 @@ public class HealthProviderDao {
 			}
 		}
 		
+		if(hp.getHpUsers() != null && hp.getHpUsers().size() > 0) {
+			for(HealthPersonnel h: hp.getHpUsers()) {
+				if (hpRepo.findHealthPersonnelByName(h.getfName(), h.getlName()) != null)
+					hpRes.addHpUsers(h);
+			}
+		}
+		
 		return healthProviderRepo.save(hpRes);
 	}
 	
@@ -70,8 +78,25 @@ public class HealthProviderDao {
 	public HealthProvider updateHealthProvider(int hpId, HealthProvider hp) {
 		HealthProvider hpRes = this.findHealthProviderById(hpId);
 		if (hpRes != null ) {
-			hpRes.set(hp);
-			return healthProviderRepo.save(hpRes);
+			hpRes.setPlan(hp);
+			healthProviderRepo.save(hpRes);
+			
+//			Discuss if this should be provided or not. 
+			
+//			if(hp.getHpUsers() != null && hp.getHpUsers().size() > 0) {
+//				Set<HealthPersonnel> hpUsersValid = new HashSet<>();
+//				for (HealthPersonnel p : hp.getHpUsers()) {
+//					if (hpRepo.findHealthPersonnelByName(p.getfName(), p.getlName()) != null) {
+//						hpUsersValid.add(p);
+//					}
+//				}
+//				
+//				if (hpUsersValid.size() > 0) {
+//					hp.setHpUsers(hpUsersValid);
+//					hpRes.setHealthPersonnel(hp);
+//					healthProviderRepo.save(hpRes);
+//				}
+//			}
 		}
 		return null;
 	}
@@ -87,11 +112,35 @@ public class HealthProviderDao {
 
 	}
 	
+	
+//	public HealthProvider addHealthPersonnelToHealthProvider(HealthProvider hp, HealthPersonnel p) {
+//		HealthProvider hpRes = this.findHealthProviderById(hp.getId());
+//		if (hpRes != null) {
+//			if (hpRepo.findHealthPersonnelByName(p.getfName(), p.getlName()) != null) {
+//				hpRes.addHpUsers(p);
+//				return healthProviderRepo.save(hpRes);
+//			}
+//		
+//		}
+//		
+//		return null;
+//
+//	}
+	
 	public void deleteHealthProviderByName(String hpName) {
 		HealthProvider hpRes = this.findProviderByName(hpName);
-		if (hpRes != null)
+		if (hpRes != null) {
+			for (HealthPersonnel h: hpRes.getHpUsers()) {
+				h.setHprovider(null);
+				hpRepo.save(h);
+			}
+			
 			healthProviderRepo.deleteById(hpRes.getId());
+		}
+			
 	}
+	
+
 	
 
 		

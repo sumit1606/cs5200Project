@@ -1,6 +1,9 @@
 package edu.neu.cs5200.orm.jpa.entities;
 
+
+
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -28,7 +33,46 @@ public abstract class Person {
 	private String address;
 	private String email;
 	
+	@ManyToMany
+	@JoinTable(name="doctor_followedby", joinColumns = @JoinColumn(name="doc_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name="person_id", referencedColumnName="id"))
+	private List<Person> followedBy;
 	
+	@ManyToMany(mappedBy="followedBy")
+	private List<Person> follows;
+	
+
+
+	/**
+	 * @return the followedBy
+	 */
+	public List<Person> getFollowedBy() {
+		return followedBy;
+	}
+
+
+	/**
+	 * @param followedBy the followedBy to set
+	 */
+	public void setFollowedBy(List<Person> followedBy) {
+		this.followedBy = followedBy;
+	}
+
+
+	/**
+	 * @return the follows
+	 */
+	public List<Person> getFollows() {
+		return follows;
+	}
+
+
+	/**
+	 * @param follows the follows to set
+	 */
+	public void setFollows(List<Person> follows) {
+		this.follows = follows;
+	}
+
 
 	/**
 	 * @param dtype
@@ -148,5 +192,15 @@ public abstract class Person {
 	public void setDtype(String dtype) {
 		this.dtype = dtype;
 	}
+	
+	public void set (Person obj) {
+		this.fName = obj.getfName() != null ? obj.getfName() : this.getfName();
+		this.lName = obj.getlName() != null ? obj.getlName() : this.getlName();
+		this.address = obj.getAddress() != null ? obj.getAddress() : this.getAddress();
+		this.dob = obj.getDob() != null ? obj.getDob() : this.getDob();
+		this.email = obj.getEmail() != null ? obj.getEmail() : this.getEmail();
+	}
+	
+
 	
 }
