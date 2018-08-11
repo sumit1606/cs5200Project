@@ -28,6 +28,9 @@ public class Specialty {
 	@ManyToMany(mappedBy = "docSpecialties")
 	private List<Doctor> doctors;
 	
+	public Specialty(String name) {
+		this.specialtyName = name;
+	}
 	/**
 	 * @return the id
 	 */

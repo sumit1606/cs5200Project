@@ -28,6 +28,14 @@ public class HealthProvider {
 	@OneToMany (mappedBy="hprovider")
 	private Set<HealthPersonnel> hpUsers;
 	
+	public HealthProvider() {
+		
+	}
+	
+	public HealthProvider(String providerName) {
+		// TODO Auto-generated constructor stub
+		this.name = providerName;
+	}
 	/**
 	 * @return the id
 	 */
