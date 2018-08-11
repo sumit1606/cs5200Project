@@ -8,8 +8,8 @@
         // By default we will be handling all the promise using than
         var vm = this;
         vm.Doctor = {};
-        vm.Symptom = {};
-  
+        vm.Specialty = {};
+        vm.searchedDoctors = {};
         function init() {
         	UserService
             .test()
@@ -23,15 +23,21 @@
         vm.searchDoctor = function() {
         	var promise = UserService.findDoctorByName(vm.Doctor.firstName, vm.Doctor.lastName);
             promise.then(function (response) {
-             console.log("A success call started from here");
+            	vm.searchedDoctors = response.data;
             },function (error) {
                 console.log(error);
             })
         }
         
         
-        vm.searchBySymptoms = function() {
-        	
+        vm.searchBySpecialty = function() {
+        	console.log(vm.Specialty.name);
+        	var promise = UserService.findDoctorBySpecialty(vm.Specialty.name);
+            promise.then(function (response) {
+            	vm.searchedDoctors = response.data;
+            },function (error) {
+                console.log(error);
+            })
         }
         
         
@@ -50,19 +56,6 @@
 //                console.log(error);
 //            })
          };
-
-//        function createUser () {
-//            var promise = UserService.createUser(vm.user);
-//            promise.then(function (response) {
-//                closeModal();
-//                // TODO getting the UserId from the response
-//                $timeout(function () {
-//                        $location.url("/user/profilePage/"+ response.data.email);
-//                }, 350);
-//            },function (error) {
-//                console.log(error);
-//            })
-//        };
 
         // Function for closing the modal
         function closeModal() {

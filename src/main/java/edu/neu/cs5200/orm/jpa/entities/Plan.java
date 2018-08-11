@@ -25,6 +25,17 @@ public class Plan {
 	@ManyToOne
 	private HealthProvider hp;
 	
+	
+	public Plan() {
+		
+	}
+	
+	public Plan(String planName, HealthProvider healthProvider) {
+		// TODO Auto-generated constructor stub
+		this.name=planName;
+		this.hp = healthProvider;
+	}
+
 	/**
 	 * @return the id
 	 */

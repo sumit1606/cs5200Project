@@ -50,6 +50,11 @@ public class Doctor extends Person {
 	@JoinTable(name = "doctor_specialty",joinColumns = @JoinColumn(name = "doc_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "specialty_id", referencedColumnName = "id"))
 	private List<Specialty> docSpecialties;
 	
+	
+	@ManyToMany
+	@JoinTable(name = "doctor_plan",joinColumns = @JoinColumn(name = "doc_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "plan_id", referencedColumnName = "id"))
+	private List<Plan> docPlans;
+	
 
 
 	public Doctor(String dtype, String fName, String lName, Date dob, String address, String email, String title, String bio) {
@@ -91,6 +96,15 @@ public class Doctor extends Person {
 	}
 
 
+	public List<Plan> getDocPlans() {
+		return docPlans;
+	}
+
+
+	public void setDocPlans(List<Plan> docPlans) {
+		this.docPlans = docPlans;
+	}
+	
 	/**
 	 * @return the plansSupported
 	 */
@@ -121,7 +135,6 @@ public class Doctor extends Person {
 	public void setDocSpecialties(List<Specialty> docSpecialties) {
 		this.docSpecialties = docSpecialties;
 	}
-	
 	
 
 }
