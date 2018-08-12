@@ -2,6 +2,7 @@ package edu.neu.cs5200.orm.jpa.entities;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,8 @@ public class Blog {
 	private int id;
 	
 	private String title;
+	
+	@Column(name="content", columnDefinition = "TEXT")
 	private String content;
 	
 	@ManyToMany(mappedBy="blogpostsLiked")

@@ -19,7 +19,7 @@ public class Doctor extends Person {
 	@Column(name = "title")
 	private String title;
 	
-	@Column(name = "bio")
+	@Column(name = "bio", columnDefinition = "TEXT")
 	private String bio;
 	
 	

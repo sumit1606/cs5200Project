@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.internal.LinkedTreeMap;
 
+import edu.neu.cs5200.orm.jpa.daos.DoctorDao;
+import edu.neu.cs5200.orm.jpa.daos.HealthProviderDao;
+import edu.neu.cs5200.orm.jpa.daos.PlanDao;
 import edu.neu.cs5200.orm.jpa.entities.Doctor;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
@@ -38,6 +42,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserService {
 
+	@Autowired
+	DoctorDao doctorDao;
+	
+	@Autowired
+	HealthProviderDao hpDao;
+	
+	@Autowired
+	PlanDao planDao;
+	
 	private String user_key = "8959e0a6be0bece2f59e51c7d159ce53";
 	@GetMapping("/api/user/test")
 	public  void testUser() {
@@ -47,7 +60,22 @@ public class UserService {
 	
 	@PostMapping("/api/user/appointment")
 	public void bookAppointment(@RequestBody Doctor d) {
+//		String dtype, String fName, String lName, Date dob, String address, String email, String title, String bio
+		
+		Doctor temp = new Doctor(d.getDtype(), d.getfName(), d.getlName(), d.getDob(), d.getAddress(),d.getEmail(),d.getTitle(),d.getBio());
+		Doctor doc = doctorDao.createDoctor(temp);
+		
+		
+		for(Plan p: d.getPlansSupported()) {
+			HealthProvider hp = hpDao.createHealthProvider(p.getHp());
+			Plan pres = planDao.createPlan(hp, p);
+			planDao.addDoctorToThePlan(pres.getId(), doc);
+		}
+		
 		System.out.println(d.getfName() +"  " + d.getlName());
+		
+		
+		
 	}
 	
 	
