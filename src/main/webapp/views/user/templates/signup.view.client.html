@@ -7,18 +7,15 @@
             <form class="form-group" autocomplete="off" role="form" name="signUpForm">
                 <div class="row">
                     <div class="col-xs-6 col-md-6">
-                        <input ng-change="model.error=null" type="text" name="firstname" required class="form-control input-lg" ng-model="model.user.firstName"  placeholder="First Name"/> </div>
+                        <input ng-change="model.error=null" type="text" name="firstname" required class="form-control input-lg" ng-model="model.user.fName"  placeholder="First Name"/> </div>
                     <div class="col-xs-6 col-md-6">
-                        <input ng-change="model.error=null" type="text" name="lastname" required class="form-control input-lg"  ng-model="model.user.lastName" placeholder="Last Name"/> </div>
+                        <input ng-change="model.error=null" type="text" name="lastname" required class="form-control input-lg"  ng-model="model.user.lName" placeholder="Last Name"/> </div>
                 </div>
-                <input ng-change="model.error=null" type="text" name="email"  required class="form-control input-lg" ng-model="model.user.emailAddress" placeholder="Your Email"/>
+                <input ng-change="model.error=null" type="text" name="email"  required class="form-control input-lg" ng-model="model.user.email" placeholder="Your Email"/>
                 <input ng-change="model.error=null" type="password" required name="password" class="form-control input-lg" ng-model="model.user.password" placeholder="Password"/>
-                <input ng-change="model.error=null" type="password" required name="confirm_password" ng-model="model.user.cnfPassword" class="form-control input-lg" placeholder="Confirm Password"  />
                 <br/>
 
                 <div class="col-xs-6 col-md-6">
-                    <select ng-change="model.error=null" required class = "form-control" style="height: 46px;"  name="singleSelect" ng-model="model.userType" ng-options="x.label for x in model.userOptions">
-                    </select>
                     <br>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block signup-btn" ng-click="signUpForm.$valid && model.createUser()" type="submit">Create my account</button>

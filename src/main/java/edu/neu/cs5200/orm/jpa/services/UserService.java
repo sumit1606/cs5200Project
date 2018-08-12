@@ -25,10 +25,13 @@ import com.google.gson.JsonParser;
 
 import edu.neu.cs5200.orm.jpa.daos.DoctorDao;
 import edu.neu.cs5200.orm.jpa.daos.HealthProviderDao;
+import edu.neu.cs5200.orm.jpa.daos.PatientDao;
 import edu.neu.cs5200.orm.jpa.daos.PlanDao;
 import edu.neu.cs5200.orm.jpa.daos.SpecialtyDao;
 import edu.neu.cs5200.orm.jpa.entities.Doctor;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
+import edu.neu.cs5200.orm.jpa.entities.Patient;
+import edu.neu.cs5200.orm.jpa.entities.Person;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
 import edu.neu.cs5200.orm.jpa.entities.Specialty;
 
@@ -48,11 +51,17 @@ public class UserService {
 	@Autowired
 	SpecialtyDao specialtyDao;
 	
+	@Autowired
+	PatientDao patientDao;
+	
 	private String user_key = "8959e0a6be0bece2f59e51c7d159ce53";
-	@GetMapping("/api/user/test")
-	public  void testUser() {
-		System.out.println("Got here");
+
+	
+	@PostMapping("/api/user")
+	public Patient createUser(@RequestBody Patient p) {
+		return patientDao.createPatient(p);
 	}
+	
 	
 	
 	@PostMapping("/api/user/appointment")

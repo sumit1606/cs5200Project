@@ -12,11 +12,6 @@
         vm.searchedDoctors = {};
         appointmentDoc = {}
         function init() {
-        	UserService
-            .test()
-            .then(function () {
-            	console.log("Call successfull")
-            });
         }
         init();
         
@@ -49,9 +44,29 @@
             },function (error) {
                 console.log(error);
             })
+        };
+
+        vm.createUser =  function () {
+                var promise = UserService.createUser(vm.user);
+                promise.then(function(response) {
+                    console.log(response);
+                    var id = response.data.id;
+                    $location.url("/user/patientHomePage/"+id);
+                    closeModal();
+
+                },function (err) {
+                    console.log(err);
+                    if (err && err==='"Unauthorized"') {
+                        vm.error = "Cannot login! Please Check Username and password";
+                    }else {
+                        vm.error = "Some Error occurred! Please try again.";
+                    }
+                });
+
         }
-        
-        
+
+
+
         vm.login = function() {
 //            var promise = UserService.findUserByCredentials(vm.user.emailAddress, vm.user.password);
 //            promise.then(function (response) {
