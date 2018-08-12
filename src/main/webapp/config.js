@@ -30,7 +30,7 @@
         $httpProvider.interceptors.push('authInterceptor');
         $routeProvider
         	.when("/", {
-            templateUrl:"./views/user/templates/landingPage.view.client.html",
+            templateUrl:"./views/user/templates/landingPagenew.view.client.html",
             controller:"LandingPageController",
             controllerAs:"model",
         	}).otherwise({

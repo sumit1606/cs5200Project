@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <span class="glorify redify" ng-show="model.error"  style="z-index: 100;color: red;font-size: x-large">
+        {{model.error}}
+    </span>
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="form-group" autocomplete="off" role="form" name="signUpForm">
+                <div class="row">
+                    <div class="col-xs-6 col-md-6">
+                        <input ng-change="model.error=null" type="text" name="firstname" required class="form-control input-lg" ng-model="model.user.firstName"  placeholder="First Name"/> </div>
+                    <div class="col-xs-6 col-md-6">
+                        <input ng-change="model.error=null" type="text" name="lastname" required class="form-control input-lg"  ng-model="model.user.lastName" placeholder="Last Name"/> </div>
+                </div>
+                <input ng-change="model.error=null" type="text" name="email"  required class="form-control input-lg" ng-model="model.user.emailAddress" placeholder="Your Email"/>
+                <!--<div class="row">-->
+                    <!--<div class="col-xs-6 col-md-6">-->
+                        <!--<input ng-change="model.error=null" pattern="^\d{10}$"-->
+                               <!--type="text" name="phone" required class="form-control input-lg"-->
+                               <!--ng-model="model.user.phone"-->
+                               <!--placeholder="Phone: #"-->
+                               <!--maxlength="10"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <input ng-change="model.error=null" type="password" required name="password" class="form-control input-lg" ng-model="model.user.password" placeholder="Password"/>
+                <input ng-change="model.error=null" type="password" required name="confirm_password" ng-model="model.user.cnfPassword" class="form-control input-lg" placeholder="Confirm Password"  />
+                <br/>
+                <button class="btn btn-lg btn-primary btn-block signup-btn" ng-click="signUpForm.$valid && model.createUser()" type="submit">Create my account</button>
+            </form>
+        </div>
+    </div>
+</div>
