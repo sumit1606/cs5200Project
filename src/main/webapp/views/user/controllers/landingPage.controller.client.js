@@ -10,6 +10,7 @@
         vm.Doctor = {};
         vm.Specialty = {};
         vm.searchedDoctors = {};
+        appointmentDoc = {}
         function init() {
         	UserService
             .test()
@@ -27,6 +28,16 @@
             },function (error) {
                 console.log(error);
             })
+        }
+        
+        vm.redirectToSearchDoc = function(fName, lName){
+        	for(d in vm.searchedDoctors) {
+        		if(vm.searchedDoctors[d].fName === fName && vm.searchedDoctors[d].lName === lName){
+        			appointmentDoc = vm.searchedDoctors[d];
+        			break;
+        		}
+        	}
+        	UserService.creatAppointmentDoctor(appointmentDoc);
         }
         
         

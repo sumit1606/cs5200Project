@@ -28,7 +28,7 @@
             <ul class="list-group" style="overflow-y: auto;height: 250px">
                 <li ng-repeat="doc in model.searchedDoctors" class="list-group-item">
                     <div class="row">
-                       <a >
+                             <a ng-click="model.redirectToSearchDoc(doc.fName,doc.lName)">
                                 {{doc.fName + ' ' + doc.lName}}
                             </a>
                     </div>                   

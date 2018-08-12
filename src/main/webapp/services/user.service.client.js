@@ -12,7 +12,8 @@
             "getUserByEmail": getUserByEmail,
             "findUserByCredentials": findUserByCredentials,
             "findDoctorByName": findDoctorByName,
-            "findDoctorBySpecialty":findDoctorBySpecialty
+            "findDoctorBySpecialty":findDoctorBySpecialty,
+            "creatAppointmentDoctor":creatAppointmentDoctor
         };
         return api;
 
@@ -24,9 +25,13 @@
         function getUserByEmail(email) {
             
         }
+        
+        function creatAppointmentDoctor(doctor) {     	
+        	return $http.post("/api/user/appointment", doctor);
+        }
 
         function findUserByCredentials(emailAddress , password) {
- 
+        	
         }
         
         function findDoctorByName(firstName , lastName) {
