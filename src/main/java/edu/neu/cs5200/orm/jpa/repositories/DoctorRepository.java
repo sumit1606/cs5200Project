@@ -21,4 +21,7 @@ public interface DoctorRepository extends CrudRepository<Doctor, Integer>{
 
 	@Query("select d from Doctor d join d.plansSupported p where d.id=:docid and p.id=:pid")
 	public List<Doctor> checkIfPlanExistsInDoctor(@Param("docid") int docid, @Param("pid") int pid);
+
+	@Query("select d from Doctor d join d.docSpecialties s where d.id=:docid and s.id=:sid")
+	public List<Doctor> checkIfSpecialtyExistsInDoctor(@Param("docid") int docid, @Param("sid") int sid);
 }

@@ -55,14 +55,14 @@ public class PlanDao {
 		public Plan createPlan(HealthProvider hp, Plan p) {
 			List<Plan> plans = (List<Plan>)planRepo.findPlanByName(p.getName());
 			if (plans != null && plans.size() > 0)
-				return null;
+				return plans.get(0);
 			Optional<HealthProvider> healthProvider = healthProviderRepository.findById(hp.getId());
 			if (healthProvider.isPresent()) {
 					p.setHp(hp);
 					return planRepo.save(p);
 			}
 			
-			return null;
+			return plans.get(0);
 		}
 		
 		public Plan updatePlan(int id, Plan p) {
@@ -87,7 +87,7 @@ public class PlanDao {
 					return this.findPlanById(id);
 			}
 			
-			return null;
+			return plan;
 
 		}
 		

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import edu.neu.cs5200.orm.jpa.entities.Blog;
 import edu.neu.cs5200.orm.jpa.entities.Doctor;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
+import edu.neu.cs5200.orm.jpa.entities.Specialty;
 import edu.neu.cs5200.orm.jpa.repositories.DoctorRepository;
 /**
  * @author sumitbhanwala
@@ -29,6 +30,9 @@ public class DoctorDao {
 	
 	@Autowired
 	PlanDao planDao;
+	
+	@Autowired
+	SpecialtyDao specialtyDao;
 	
 	public Doctor findDoctorbyId(int id) {
 		if(doctorRepository.findById(id) != null)
@@ -72,10 +76,12 @@ public class DoctorDao {
 	
 	// fixed: there should be == check with null
 	public Doctor createDoctor(Doctor d) {
+		Doctor doc = this.findDoctorByName(d.getfName(), d.getlName());
 		if (this.findDoctorByName(d.getfName(), d.getlName()) ==null) {
+			d.setDtype("doctor");
 			return doctorRepository.save(d);
 		}
-		return null;
+		return doc;
 	}
 	
 	public List<Blog> findAllBlogsForThisDoctor(int id) {
@@ -92,6 +98,7 @@ public class DoctorDao {
 			doc.set(d);
 			doc.setTitle(d.getTitle());
 			doc.setBio(d.getBio());
+			d.setDtype("doctor");
 			return doctorRepository.save(doc);
 			
 		}
@@ -131,7 +138,7 @@ public class DoctorDao {
 			
 			
 		}
-		return null;
+		return doc;
 	}
 	
 	public Doctor removePlan(int id, Plan p) {
@@ -146,6 +153,47 @@ public class DoctorDao {
 					Plan temp = plansI.next();
 					if (temp.getId() == pres.getId()) {
 						plansI.remove();
+						break;
+					}
+				}
+				return doctorRepository.save(doc);
+			} 
+		}
+		return null;
+	}
+	
+	
+	public Doctor addSpecialty(int id, Specialty s) {
+		Doctor doc = this.findDoctorbyId(id);
+		Specialty spec = specialtyDao.findSpecialtybyId(s.getId());
+		if (doc != null && spec != null) {
+
+			List<Doctor> specExistsInDoctor = doctorRepository.checkIfSpecialtyExistsInDoctor(doc.getId(), spec.getId());
+			if (specExistsInDoctor.size()==0) {				
+				if (doc.getDocSpecialties() == null) {
+					 doc.setDocSpecialties(new ArrayList<Specialty> ());
+				}
+				doc.getDocSpecialties().add(spec);
+				return doctorRepository.save(doc);
+			} 
+			
+			
+		}
+		return doc;
+	}
+	
+	public Doctor removeSpecialty(int id, Specialty s) {
+		Doctor doc = this.findDoctorbyId(id);
+		Specialty spec = specialtyDao.findSpecialtybyId(s.getId());
+		if (doc != null && spec != null) {
+
+			List<Doctor> specExistsInDoctor = doctorRepository.checkIfSpecialtyExistsInDoctor(doc.getId(), spec.getId());
+			if (specExistsInDoctor.size() > 0) {				
+				Iterator<Specialty> specI = doc.getDocSpecialties().iterator();
+				while(specI.hasNext()) {
+					Specialty temp = specI.next();
+					if (temp.getId() == spec.getId()) {
+						specI.remove();
 						break;
 					}
 				}

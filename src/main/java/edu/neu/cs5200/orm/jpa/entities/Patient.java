@@ -3,14 +3,20 @@ package edu.neu.cs5200.orm.jpa.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Patient extends Person {
 	
 	@ManyToOne
 	private Plan healthInsurancePlan;
+	
+	
+	@OneToMany(mappedBy="patient", cascade =  CascadeType.ALL)
+	private List<Appointment> appointments;
 
 	/**
 	 * @return the healthInsurancePlan

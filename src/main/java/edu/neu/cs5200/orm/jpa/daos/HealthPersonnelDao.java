@@ -60,7 +60,7 @@ public class HealthPersonnelDao {
 			 hp.setDtype("healthPersonnel");
 			 return hpRepo.save(hp);
 		}
-		return null;
+		return hp;
 	}
 	
 	

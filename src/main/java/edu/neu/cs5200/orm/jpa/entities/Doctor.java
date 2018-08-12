@@ -30,6 +30,27 @@ public class Doctor extends Person {
 		@ManyToMany
 		@JoinTable(name="doctor_plan", joinColumns = @JoinColumn(name="doc_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name="plan_id", referencedColumnName="id"))
 		private List<Plan> plansSupported;
+		
+		
+		@OneToMany(mappedBy="doctor", cascade =  CascadeType.ALL)
+		private List<Appointment> appointments;
+		
+	/**
+		 * @return the appointments
+		 */
+		public List<Appointment> getAppointments() {
+			return appointments;
+		}
+
+
+		/**
+		 * @param appointments the appointments to set
+		 */
+		public void setAppointments(List<Appointment> appointments) {
+			this.appointments = appointments;
+		}
+
+
 	/**
 	 * @return the blogs
 	 */

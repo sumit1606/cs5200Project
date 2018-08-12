@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import edu.neu.cs5200.orm.jpa.daos.AppointmentDao;
 import edu.neu.cs5200.orm.jpa.daos.BlogDao;
 import edu.neu.cs5200.orm.jpa.daos.DoctorDao;
 import edu.neu.cs5200.orm.jpa.daos.HealthPersonnelDao;
@@ -17,6 +18,7 @@ import edu.neu.cs5200.orm.jpa.daos.HealthProviderDao;
 import edu.neu.cs5200.orm.jpa.daos.PatientDao;
 import edu.neu.cs5200.orm.jpa.daos.PersonDao;
 import edu.neu.cs5200.orm.jpa.daos.PlanDao;
+import edu.neu.cs5200.orm.jpa.entities.Appointment;
 import edu.neu.cs5200.orm.jpa.entities.Blog;
 import edu.neu.cs5200.orm.jpa.entities.Doctor;
 import edu.neu.cs5200.orm.jpa.entities.HealthPersonnel;
@@ -53,6 +55,9 @@ public class Cs5200DoctorManagementApplicationTests {
 	
 	@Autowired
 	PersonDao pdao;
+	
+	@Autowired
+	AppointmentDao adao;
 	
 	@Test
 	public void contextLoads() {
@@ -477,9 +482,43 @@ public class Cs5200DoctorManagementApplicationTests {
 		ddao.AddPlan(p.getId(), p2);
 		ddao.AddPlan(p.getId(), p2);
 		
-		
-		
-		
 
+	}
+	
+	@Test
+	public void testAppointment() {
+		Doctor p = new Doctor();
+		p.setAddress("address");
+		p.setDob(new Utility().modifySQLDate(31,2,1991));
+		p.setEmail("a@a.com");
+		p.setfName("aashish");
+		p.setlName("singh");
+		p.setDtype("doctor");
+		p = ddao.createDoctor(p);
+		
+		Patient pat = new Patient();
+		pat.setAddress("address");
+		pat.setDob(new Utility().modifySQLDate(31,2,1991));
+		pat.setEmail("a@a.com");
+		pat.setfName("asd");
+		pat.setlName("singh");
+		pat.setDtype("patient");
+		pat = patientDao.createPatient(pat);
+		
+		Appointment a = new Appointment();
+		a.setDoctor(p);
+		a.setPatient(pat);
+		a.setDate(new Utility().modifySQLDate(31,2,1991));
+		a.setReason("cough");
+		a = adao.createAppointment(a);
+//		adao.deleteAppointmentById(a.getId());
+		
+//		ddao.deleteDoctorById(p.getId());
+		
+//		patientDao.deletePatientById(pat.getId());
+		
+		
+		
+		
 	}
 }
