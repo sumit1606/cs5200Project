@@ -30,16 +30,24 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
 public class UserService {
 
-	private String user_key = "c12b88e61fb35b5690f55e6e1886bcc0";
+	private String user_key = "8959e0a6be0bece2f59e51c7d159ce53";
 	@GetMapping("/api/user/test")
 	public  void testUser() {
 		System.out.println("Got here");
+	}
+	
+	
+	@PostMapping("/api/user/appointment")
+	public void bookAppointment(@RequestBody Doctor d) {
+		System.out.println(d.getfName() +"  " + d.getlName());
 	}
 	
 	
@@ -53,10 +61,9 @@ public class UserService {
 			sb.append("name=");
 			String [] strArr= parameters.get("name")[0].split("\\s+");
 			sb.append(String.join("%20", strArr));
-			sb.append("&limit=100");
+//			sb.append("&limit=100");
 			sb.append("&user_key=");
 			sb.append(user_key);
-			System.out.println(sb.toString());
 			try {
 				URL url = new URL(sb.toString());
 				HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -65,6 +72,7 @@ public class UserService {
 		        JsonParser jp = new JsonParser(); //from gson
 		        JsonElement root = jp.parse(new InputStreamReader((InputStream) con.getContent())); //Convert the input stream to a json element
 		        JsonObject rootobj = root.getAsJsonObject();
+		        
 		        return this.processDoctorBySpecialty(rootobj);
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
@@ -85,7 +93,6 @@ public class UserService {
 		sb.append(parameters.get("fName")[0]);
 		sb.append("&last_name=");
 		sb.append(parameters.get("lName")[0]);
-		sb.append("&limit=100");
 		sb.append("&user_key=");
 		sb.append(user_key);
 		try {
@@ -96,7 +103,7 @@ public class UserService {
 	        JsonParser jp = new JsonParser(); //from gson
 	        JsonElement root = jp.parse(new InputStreamReader((InputStream) con.getContent())); //Convert the input stream to a json element
 	        JsonObject rootobj = root.getAsJsonObject();
-	        return this.processDoctorBySpecialty(rootobj);
+	        return this.processDoctor(rootobj);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -133,9 +140,7 @@ public class UserService {
 				if(doctor.get("title") != null) {
 					title = doctor.get("title").getAsString();
 				}
-	
 				 bio = doctor.get("bio").getAsString();
-				
 				
 				JsonArray specialties = (JsonArray) ((JsonObject) d1).get("specialties");
 				JsonArray insurances = (JsonArray) ((JsonObject) d1).get("insurances");
@@ -143,8 +148,8 @@ public class UserService {
 				List<Specialty> tempSpecialty = this.getSpecialities(specialties);
 				
 				Doctor temp = new Doctor("d",fName, lName,null,street,null,title,bio);
-				temp.setSpecialties(tempSpecialty);
-				temp.setDocPlans(tempPlan);
+				temp.setDocSpecialties(tempSpecialty);
+				temp.setPlansSupported(tempPlan);
 				allDoctors.add(temp);
 			}		
 		}
@@ -183,8 +188,8 @@ public class UserService {
 				String street = address.get("street").getAsString();
 				String zip = address.get("zip").getAsString();
 				Doctor temp = new Doctor("d",fName, lName,null,street,null,title,bio);
-				temp.setSpecialties(tempSpecialty);
-				temp.setDocPlans(tempPlan);
+				temp.setDocSpecialties(tempSpecialty);
+				temp.setPlansSupported(tempPlan);
 				allDoctors.add(temp);
 				break;
 			}		

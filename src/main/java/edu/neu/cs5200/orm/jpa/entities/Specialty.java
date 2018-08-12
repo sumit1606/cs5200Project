@@ -28,6 +28,11 @@ public class Specialty {
 	@ManyToMany(mappedBy = "docSpecialties")
 	private List<Doctor> doctors;
 	
+	
+	public Specialty() {
+		
+	}
+	
 	public Specialty(String name) {
 		this.specialtyName = name;
 	}
@@ -51,6 +56,7 @@ public class Specialty {
 	public void setSpecialtyName(String specialtyName) {
 		this.specialtyName = specialtyName;
 	}
+	
 	public List<Doctor> getDoctors() {
 		return doctors;
 	}
