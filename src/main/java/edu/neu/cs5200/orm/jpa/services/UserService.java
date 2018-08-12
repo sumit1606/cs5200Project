@@ -75,13 +75,59 @@ public class UserService {
 		}
 		System.out.println(d.getfName() +"  " + d.getlName());
 		
-		
-		
+	}
+	
+	
+	// getting the doctor from the specialty	
+	@GetMapping("/api/doctor/allPlans")
+	public  List<Plan> getAllInsurances(HttpServletRequest request) throws IOException {
+		Map<String, String[]> parameters = request.getParameterMap();
+		StringBuilder sb = new StringBuilder();
+		sb.append("https://api.betterdoctor.com/2016-03-01/insurances?");
+//		sb.append("&limit=100");
+		sb.append("&user_key=");
+		sb.append(user_key);
+		try {
+			URL url = new URL(sb.toString());
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+	        con.setRequestMethod("GET");
+	        con.connect();
+	        JsonParser jp = new JsonParser(); //from gson
+	        JsonElement root = jp.parse(new InputStreamReader((InputStream) con.getContent())); //Convert the input stream to a json element
+	        JsonObject rootobj = root.getAsJsonObject();
+	        return this.processAllPlans(rootobj);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;	
 	}
 	
 	
 	
-	// getting the doctor from the specialty	
+	private List<Plan> processAllPlans(JsonObject rootobj) {
+		List<Plan> allPlans = new ArrayList<>();
+		JsonArray userMap = (JsonArray) rootobj.get("data");
+		// Object o will be a health provider and each object
+		// will have a health Provider and each health provider will have plans
+		for (Object o :userMap) {
+			String providerName =  ((JsonObject) o).get("name").getAsString();
+//			String providerName = providerObject.get("name").getAsString();
+			HealthProvider healthProvider = new HealthProvider(providerName);
+			JsonArray plans = (JsonArray) ((JsonObject) o).get("plans");
+			for(Object a1: plans) {
+				String planName = ((JsonObject) a1).get("name").getAsString();
+				Plan p = new Plan();
+				p.setName(planName);
+				p.setHp(healthProvider);
+				allPlans.add(p);
+			}		
+		}
+		return allPlans;
+	}
+
+
+		// getting the doctor from the specialty	
 		@GetMapping("/api/doctor/specialty")
 		public  List<Doctor> getDoctorBySpecialty(HttpServletRequest request) throws IOException {
 			Map<String, String[]> parameters = request.getParameterMap();
