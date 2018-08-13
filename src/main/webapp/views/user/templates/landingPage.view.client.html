@@ -86,7 +86,7 @@
                             type="submit" style="width: 100px;margin-top: 2px;margin-left: 100px"
                             ng-click="model.searchDoctor()">
                         Search </button>
-                    <div ng-show="model.searchedDoctors.length > 0">
+                    <div ng-show="model.searchedDoctors.length > 0 && model.displaySearchByName">
                         <ul class="list-group" style="overflow-y: auto;height: 250px">
                             <li ng-repeat="doc in model.searchedDoctors" class="list-group-item">
                                 <div class="row">
@@ -101,9 +101,9 @@
                     <input type="text" class="form-control" placeholder="Specialty Name" ng-model="model.Specialty.name" style="width: 300px">
                     <button class="btn btn-small btn-danger btn-block"
                             type="submit"
-                            ng-click="model.searchDoctor()" style="width: 150px;margin-top: 2px;margin-left: 80px">
+                            ng-click="model.searchBySpecialty()" style="width: 150px;margin-top: 2px;margin-left: 80px">
                         Search By Specialty</button>
-                    <div ng-show="model.searchedDoctors.length > 0">
+                    <div ng-show="model.searchedDoctors.length > 0  && !model.displaySearchByName">
                         <ul class="list-group" style="overflow-y: auto;height: 250px">
                             <li ng-repeat="doc in model.searchedDoctors" class="list-group-item">
                                 <div class="row">
