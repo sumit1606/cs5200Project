@@ -13,7 +13,8 @@
             "findUserByCredentials": findUserByCredentials,
             "findDoctorByName": findDoctorByName,
             "findDoctorBySpecialty":findDoctorBySpecialty,
-            "creatAppointmentDoctor":creatAppointmentDoctor
+            "creatAppointmentDoctor":creatAppointmentDoctor,
+            "createUser":createUser
         };
         return api;
 
@@ -24,6 +25,10 @@
         // adding trailing slash as spring is truncating the part after.
         function getUserByEmail(email) {
             
+        }
+
+        function createUser(user) {
+            return $http.post("/api/user", user);
         }
         
         function creatAppointmentDoctor(doctor) {     	

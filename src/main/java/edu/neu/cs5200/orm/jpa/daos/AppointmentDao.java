@@ -21,7 +21,6 @@ public class AppointmentDao {
 	}
 	
 	public List<Appointment> findAllAppointments() {
-
 		return (List<Appointment>)appointmentRepository.findAll();
 	}
 	

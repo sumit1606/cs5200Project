@@ -32,6 +32,7 @@ public abstract class Person {
 	private Date dob;
 	private String address;
 	private String email;
+	private String password;
 	
 	@ManyToMany
 	@JoinTable(name="person_follow_doctor", joinColumns = @JoinColumn(name="doc_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name="person_id", referencedColumnName="id"))
@@ -219,6 +220,16 @@ public abstract class Person {
 		this.address = obj.getAddress() != null ? obj.getAddress() : this.getAddress();
 		this.dob = obj.getDob() != null ? obj.getDob() : this.getDob();
 		this.email = obj.getEmail() != null ? obj.getEmail() : this.getEmail();
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 

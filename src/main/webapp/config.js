@@ -33,7 +33,12 @@
             templateUrl:"./views/user/templates/landingPage.view.client.html",
             controller:"LandingPageController",
             controllerAs:"model",
-        	}).otherwise({
+        	})
+            .when("/user/patientHomePage/:uidS", {
+                templateUrl:"/views/user/templates/homePage.view.client.html",
+                controller:"HomePageController",
+                controllerAs:"model",
+            }).otherwise({
             redirectTo:"/"
         });
     }
