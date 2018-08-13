@@ -51,8 +51,11 @@
                 promise.then(function(response) {
                     console.log(response);
                     var id = response.data.id;
-                    $location.url("/user/patientHomePage/"+id);
                     closeModal();
+                    $timeout(function () {
+                        $location.url("/user/patientHomePage/"+id);
+                    }, 250);
+
 
                 },function (err) {
                     console.log(err);
@@ -85,7 +88,7 @@
 
         // Function for closing the modal
         function closeModal() {
-            $('.modal').modal('hide');
+            $('#myModalSignup').modal('hide');
         }
     }
 })();
