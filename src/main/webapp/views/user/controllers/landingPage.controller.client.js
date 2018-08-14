@@ -10,8 +10,25 @@
         vm.Doctor = {};
         vm.Specialty = {};
         vm.searchedDoctors = {};
-        appointmentDoc = {}
+
+        vm.userOptions = [
+            {
+                "userType": "patient",
+                "label": "Patient"
+            },
+            {
+                "userType": "doctor",
+                "label": "Doctor"
+            },
+            {
+                "userType": "healthprovider",
+                "label": "healthProvider"
+            }
+        ];
+        appointmentDoc = {};
+
         function init() {
+            vm.userType =  vm.userOptions[1];
         }
         init();
         
@@ -23,7 +40,7 @@
             },function (error) {
                 console.log(error);
             })
-        }
+        };
         
         vm.redirectToSearchDoc = function(fName, lName){
         	for(d in vm.searchedDoctors) {
@@ -33,7 +50,7 @@
         		}
         	}
         	UserService.creatAppointmentDoctor(appointmentDoc);
-        }
+        };
         
         
         vm.searchBySpecialty = function() {
@@ -47,13 +64,26 @@
         };
 
         vm.createUser =  function () {
-                var promise = UserService.createUser(vm.user);
+            var promise;
+            if(vm.userType.userType == "patient"){
+                 promise = UserService.createUser(vm.user);
+            } else if (vm.userType.userType == "doctor"){
+                 promise = UserService.createDoctor(vm.user);
+            } else if(vm.userType.userType == "healthprovider") {
+                promise = UserService.createHealthProvider(vm.user);
+            }
                 promise.then(function(response) {
                     console.log(response);
                     var id = response.data.id;
                     closeModal();
                     $timeout(function () {
-                        $location.url("/user/patientHomePage/"+id);
+                        if(vm.userType.userType === "patient"){
+                            $location.url("/user/patientHomePage/"+id);
+                        } else if (vm.userType.userType === "doctor"){
+                            $location.url("/user/DoctorHomePage/"+id);
+                        } else if(vm.userType.userType === "healthprovider") {
+                            $location.url("/user/healthProviderHomePage/"+id);
+                        }
                     }, 250);
 
 

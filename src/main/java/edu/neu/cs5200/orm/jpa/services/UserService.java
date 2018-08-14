@@ -58,8 +58,21 @@ public class UserService {
 
 	
 	@PostMapping("/api/user")
-	public Patient createUser(@RequestBody Patient p) {
+	public Patient createPatient(@RequestBody Patient p) {
+		System.out.println("Patient created");
 		return patientDao.createPatient(p);
+	}
+	
+	@PostMapping("/api/doctor")
+	public Doctor createDoctor(@RequestBody Doctor d) {
+		System.out.println("Doctor created");
+		return doctorDao.createDoctor(d);
+	}
+	
+	@PostMapping("/api/heathprovider")
+	public HealthProvider createHealthProvider(@RequestBody HealthProvider hp) {
+		System.out.println("Health Provider Created");
+		return hpDao.createHealthProvider(hp);
 	}
 	
 	
