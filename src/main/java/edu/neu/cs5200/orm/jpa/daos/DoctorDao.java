@@ -4,6 +4,7 @@ package edu.neu.cs5200.orm.jpa.daos;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,16 +36,18 @@ public class DoctorDao {
 	SpecialtyDao specialtyDao;
 	
 	public Doctor findDoctorbyId(int id) {
-		if(doctorRepository.findById(id) != null)
-			return doctorRepository.findById(id).get();
+		Optional<Doctor> doc = doctorRepository.findById(id);
+		if( doc != null)
+			return doc.get();
 		else
 			return null;
 	}
 	
 	
 	public Doctor findDoctorByName(String fname, String lname) {
-		if(doctorRepository.findDoctorByName(fname, fname)!= null)
-			return doctorRepository.findDoctorByName(fname, lname);
+		Doctor doc = doctorRepository.findDoctorByName(fname, lname);
+		if(doc != null)
+			return doc;
 		else
 			return null;
 	}

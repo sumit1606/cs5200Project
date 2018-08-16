@@ -25,8 +25,11 @@
                 "label": "healthProvider"
             }
         ];
-        appointmentDoc = {};
-
+       
+        vm.displaySearchByName;
+        
+        appointmentDoc = {}
+        
         function init() {
             vm.userType =  vm.userOptions[1];
         }
@@ -34,6 +37,8 @@
         
         
         vm.searchDoctor = function() {
+        	vm.searchedDoctors = {};
+        	vm.displaySearchByName = true;
         	var promise = UserService.findDoctorByName(vm.Doctor.firstName, vm.Doctor.lastName);
             promise.then(function (response) {
             	vm.searchedDoctors = response.data;
@@ -54,6 +59,8 @@
         
         
         vm.searchBySpecialty = function() {
+        	vm.searchedDoctors = {};
+        	vm.displaySearchByName = false;
         	console.log(vm.Specialty.name);
         	var promise = UserService.findDoctorBySpecialty(vm.Specialty.name);
             promise.then(function (response) {
