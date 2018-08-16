@@ -11,12 +11,29 @@
         vm.Doctor = {};
         vm.Specialty = {};
         vm.searchedDoctors = {};
-        appointmentDoc = {}
+        vm.date = {};
+        vm.appointmentDoc = {};
+
         function init() {
 
         }
         init();
 
+
+        vm.selectDoctorForAppointment = function(fName, lName){
+            console.log(fName);
+            console.log(lName);
+            for(d in vm.searchedDoctors) {
+                 if(vm.searchedDoctors[d].fName === fName && vm.searchedDoctors[d].lName === lName){
+                     vm.appointmentDoc = vm.searchedDoctors[d];
+                     break;
+                 }
+             }
+        };
+
+        vm.bookAppointment = function(){
+            console.log("Booking the appointment");
+        };
 
         vm.searchDoctor = function() {
             var promise = UserService.findDoctorByName(vm.Doctor.firstName, vm.Doctor.lastName);
@@ -50,7 +67,7 @@
 
 
         // Function for closing the modal
-        function closeModal() {
+        vm.closeModal =  function () {
             $('.modal').modal('hide');
         }
     }

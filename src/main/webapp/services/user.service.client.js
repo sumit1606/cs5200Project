@@ -13,7 +13,7 @@
             "findUserByCredentials": findUserByCredentials,
             "findDoctorByName": findDoctorByName,
             "findDoctorBySpecialty":findDoctorBySpecialty,
-            "creatAppointmentDoctor":creatAppointmentDoctor,
+            "creatAppointment":creatAppointment,
             "createUser":createUser,
             "createDoctor":createDoctor,
             "createHealthProvider":createHealthProvider,
@@ -42,8 +42,8 @@
         }
 
         
-        function creatAppointmentDoctor(doctor) {     	
-        	return $http.post("/api/user/appointment", doctor);
+        function creatAppointment(appointment) {
+        	return $http.post("/api/user/appointment", appointment);
         }
 
         function findUserByCredentials(emailAddress , password) {

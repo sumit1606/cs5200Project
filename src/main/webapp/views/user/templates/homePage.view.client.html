@@ -1,1 +1,154 @@
-<h1>we are the patient home page</h1>
+<div class="container-fluid">
+    <!--Reserved for the profile or logout-->
+    <!--<nav class="navbar navbar-default navbar-fixed-top">-->
+        <!--<div class="container-fluid">-->
+            <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">-->
+                <!--<span class="sr-only">Toggle navigation</span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+            <!--</button>-->
+            <!--<div class="navbar-header">-->
+                <!--<a class="navbar-brand glorify">-->
+                    <!--<span style="color: red;font-family:Helvetica;">Find </span>Me Doctor-->
+                <!--</a>-->
+            <!--</div>-->
+            <!--<div id="navbar" class="navbar-collapse collapse ">-->
+                <!--<ul class="nav navbar-nav pull-right">-->
+                    <!--<li class="nav-item glorify"><a data-toggle="modal" data-target="#myModal"></a></li>-->
+                    <!--<li class="nav-item glorify"><a data-toggle="modal" data-target="#myModalSignup" target="_self">Sign Up</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</nav>-->
+
+    <div class="container-fluid">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-header">
+            <a class="navbar-brand glorify">
+                <span style="color: red;font-family:Helvetica;">Find </span>Me Doctor
+            </a>
+        </div>
+
+        <div class="container-fluid" style="margin-top: 5em">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5>Search by doctor first and last name</h5>
+                    <input type="text" class="form-control" placeholder="FirstName" ng-model="model.Doctor.firstName" style="width: 300px">
+                    <input type="text" class="form-control" placeholder="LastName" ng-model="model.Doctor.lastName" style="width: 300px">
+                    <button class="btn btn-small btn-danger btn-block"
+                            type="submit" style="width: 100px;margin-top: 2px;margin-left: 100px"
+                            ng-click="model.searchDoctor()">
+                        Search </button>
+                    <div ng-show="model.searchedDoctors.length > 0">
+                        <ul class="list-group" style="overflow-y: auto;height: 250px">
+                            <li ng-repeat="doc in model.searchedDoctors" class="list-group-item">
+                                <div class="row">
+                                    <a ng-click = "model.selectDoctorForAppointment(doc.fName,doc.lName)" data-toggle="modal" data-target="#bookAppointment">{{doc.fName + ' ' + doc.lName}}</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h5>Search by Specialty</h5>
+                    <input type="text" class="form-control" placeholder="Specialty Name" ng-model="model.Specialty.name" style="width: 300px">
+                    <button class="btn btn-small btn-danger btn-block"
+                            type="submit"
+                            ng-click="model.searchDoctor()" style="width: 150px;margin-top: 2px;margin-left: 80px">
+                        Search By Specialty</button>
+                    <div ng-show="model.searchedDoctors.length > 0">
+                        <ul class="list-group" style="overflow-y: auto;height: 250px">
+                            <li ng-repeat="doc in model.searchedDoctors" class="list-group-item">
+                                <div class="row">
+                                    <a ng-click = "model.selectDoctorForAppointment(doc.fName,doc.lName)" data-toggle="modal" data-target="#bookAppointment">{{doc.fName + ' ' + doc.lName}}</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid" style="margin-top: 5em">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5>Your Appointment</h5>
+                </div>
+                <div class="col-lg-6">
+                    <h5>Your Plans</h5>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="bookAppointment" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="model.clearUserFromModal()">&times;</button>
+                    <h4 class="modal-title">Book Appointment</h4>
+                </div>
+                <div class="modal-body" style="height: 600px">
+
+                    <div class="col-md-8 col-sm-6 col-xs-12 ">
+                        <form class="form-horizontal" style="font-size: medium" role="form" name="editProfileForm">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Day:</label>
+                                <div class="col-lg-8">
+                                    <input required class="form-control" placeholder="Day" value="" type="text" ng-model="model.date.day">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Month:</label>
+                                <div class="col-lg-8">
+                                    <input required class="form-control" placeholder="Month" value="" type="text" ng-model="model.date.month">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Year</label>
+                                <div class="col-lg-8">
+                                    <input required class="form-control" placeholder="Year" value="" type="text" ng-model="model.date.year">
+                                </div>
+                            </div >
+
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">First Name</label>
+                                <div class="col-lg-8">
+                                    <input disabled class="form-control" value="" type="text" ng-model="model.appointmentDoc.fName" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Last Name</label>
+                                <div class="col-lg-8">
+                                    <input disabled class="form-control" value="" type="text" ng-model="model.appointmentDoc.lName" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"></label>
+                                <div class="col-md-8">
+                                    <input class="btn btn-danger" value="Book Appointment" type="submit" ng-click="model.bookAppointment()">
+                                    <span></span>
+                                    <a class="btn btn-default" ng-click="model.closeModal()">Cancel</a>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+    </nav>
+</div>
