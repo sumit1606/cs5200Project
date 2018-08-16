@@ -9,14 +9,46 @@
         var vm = this;
         vm.userId = $routeParams.uidS;
         vm.Doctor = {};
+        var patient;
         vm.Specialty = {};
         vm.searchedDoctors = {};
-        appointmentDoc = {}
-        function init() {
+        vm.date = {};
+        vm.appointmentDoc = {};
 
+        function init() {
+            var promise = UserService.findPatientById(vm.userId);
+            promise.then(function (response) {
+                patient = response.data;
+            },function (error) {
+                console.log(error);
+            })
         }
+
         init();
 
+
+        vm.selectDoctorForAppointment = function(fName, lName){
+            console.log(fName);
+            console.log(lName);
+            for(d in vm.searchedDoctors) {
+                 if(vm.searchedDoctors[d].fName === fName && vm.searchedDoctors[d].lName === lName){
+                     vm.appointmentDoc = vm.searchedDoctors[d];
+                     break;
+                 }
+             }
+        };
+
+        vm.bookAppointment = function(){
+            appointment = {};
+            appointment.doctor = vm.appointmentDoc;
+            appointment.patient = patient;
+            var promise = UserService.createAppointment(appointment);
+            promise.then(function (response) {
+                patient = response.data;
+            },function (error) {
+                console.log(error);
+            })
+        };
 
         vm.searchDoctor = function() {
             var promise = UserService.findDoctorByName(vm.Doctor.firstName, vm.Doctor.lastName);
@@ -50,7 +82,7 @@
 
 
         // Function for closing the modal
-        function closeModal() {
+        vm.closeModal =  function () {
             $('.modal').modal('hide');
         }
     }
