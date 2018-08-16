@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,7 @@ import edu.neu.cs5200.orm.jpa.daos.HealthProviderDao;
 import edu.neu.cs5200.orm.jpa.daos.PatientDao;
 import edu.neu.cs5200.orm.jpa.daos.PlanDao;
 import edu.neu.cs5200.orm.jpa.daos.SpecialtyDao;
+import edu.neu.cs5200.orm.jpa.entities.Appointment;
 import edu.neu.cs5200.orm.jpa.entities.Doctor;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
 import edu.neu.cs5200.orm.jpa.entities.Patient;
@@ -76,26 +78,18 @@ public class UserService {
 	}
 	
 	
+	@GetMapping("/api/patient/{pid}")
+	public Patient getPatientById(@PathVariable("pid") int pid) throws IOException {
+		return patientDao.findPatientById(pid);
+	}
+	
+	
 	
 	@PostMapping("/api/user/appointment")
-	public void bookAppointment(@RequestBody Doctor d) {
+	public void bookAppointment(@RequestBody Appointment d) {
 //		String dtype, String fName, String lName, Date dob, String address, String email, String title, String bio
 		
-		Doctor temp = new Doctor(d.getDtype(), d.getfName(), d.getlName(), d.getDob(), d.getAddress(),d.getEmail(),d.getTitle(),d.getBio());
-		Doctor doc = doctorDao.createDoctor(temp);
-		
-		
-//		for(Plan p: d.getPlansSupported()) {
-//			HealthProvider hp = hpDao.createHealthProvider(p.getHp());
-//			Plan pres = planDao.createPlan(hp, p);
-//			planDao.addDoctorToThePlan(pres.getId(), doc);
-//		}
-		
-		for(Specialty s: d.getDocSpecialties()) {
-			Specialty tempSpec = specialtyDao.createSpecialty(s);
-			doctorDao.addSpecialty(doc.getId(), tempSpec);
-		}
-		System.out.println(d.getfName() +"  " + d.getlName());
+	System.out.println(d.toString());
 		
 	}
 	

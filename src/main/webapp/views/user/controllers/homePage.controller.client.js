@@ -9,14 +9,21 @@
         var vm = this;
         vm.userId = $routeParams.uidS;
         vm.Doctor = {};
+        var patient;
         vm.Specialty = {};
         vm.searchedDoctors = {};
         vm.date = {};
         vm.appointmentDoc = {};
 
         function init() {
-
+            var promise = UserService.findPatientById(vm.userId);
+            promise.then(function (response) {
+                patient = response.data;
+            },function (error) {
+                console.log(error);
+            })
         }
+
         init();
 
 
@@ -32,7 +39,15 @@
         };
 
         vm.bookAppointment = function(){
-            console.log("Booking the appointment");
+            appointment = {};
+            appointment.doctor = vm.appointmentDoc;
+            appointment.patient = patient;
+            var promise = UserService.createAppointment(appointment);
+            promise.then(function (response) {
+                patient = response.data;
+            },function (error) {
+                console.log(error);
+            })
         };
 
         vm.searchDoctor = function() {
