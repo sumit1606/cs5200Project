@@ -14,7 +14,9 @@
             "findDoctorByName": findDoctorByName,
             "findDoctorBySpecialty":findDoctorBySpecialty,
             "creatAppointmentDoctor":creatAppointmentDoctor,
-            "createUser":createUser
+            "createUser":createUser,
+            "createDoctor":createDoctor,
+            "createHealthProvider":createHealthProvider,
         };
         return api;
 
@@ -30,6 +32,15 @@
         function createUser(user) {
             return $http.post("/api/user", user);
         }
+
+        function createDoctor(doctor) {
+            return $http.post("/api/doctor", doctor);
+        }
+
+        function createHealthProvider(heathprovider) {
+            return $http.post("/api/heathprovider", heathprovider);
+        }
+
         
         function creatAppointmentDoctor(doctor) {     	
         	return $http.post("/api/user/appointment", doctor);

@@ -38,6 +38,16 @@
                 templateUrl:"/views/user/templates/homePage.view.client.html",
                 controller:"HomePageController",
                 controllerAs:"model",
+            })
+            .when("/user/DoctorHomePage/:uidS", {
+                templateUrl:"/views/user/templates/doctorHomePage.view.client.html",
+                controller:"DoctorHomePageController",
+                controllerAs:"model",
+            })
+            .when("/user/healthProviderHomePage/:uidS", {
+                templateUrl:"/views/user/templates/healthProvider.view.client.html",
+                controller:"healthProviderController",
+                controllerAs:"model",
             }).otherwise({
             redirectTo:"/"
         });
