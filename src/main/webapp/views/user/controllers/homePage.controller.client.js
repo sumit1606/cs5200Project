@@ -14,7 +14,8 @@
         vm.searchedDoctors = {};
         vm.date = {};
         vm.appointmentDoc = {};
-
+        vm.displaySearchByName;
+        
         function init() {
             var promise = UserService.findPatientById(vm.userId);
             promise.then(function (response) {
@@ -51,6 +52,8 @@
         };
 
         vm.searchDoctor = function() {
+        	vm.searchedDoctors = {};
+        	vm.displaySearchByName = true;
             var promise = UserService.findDoctorByName(vm.Doctor.firstName, vm.Doctor.lastName);
             promise.then(function (response) {
                 vm.searchedDoctors = response.data;
@@ -71,6 +74,8 @@
 
 
         vm.searchBySpecialty = function() {
+        	vm.searchedDoctors = {};
+        	vm.displaySearchByName = false;
             console.log(vm.Specialty.name);
             var promise = UserService.findDoctorBySpecialty(vm.Specialty.name);
             promise.then(function (response) {
