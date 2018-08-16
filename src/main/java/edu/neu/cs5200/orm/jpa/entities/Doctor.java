@@ -8,6 +8,8 @@ import java.sql.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author sumitbhanwala
  *
@@ -38,6 +40,7 @@ public class Doctor extends Person {
 	/**
 		 * @return the appointments
 		 */
+	
 		public List<Appointment> getAppointments() {
 			return appointments;
 		}

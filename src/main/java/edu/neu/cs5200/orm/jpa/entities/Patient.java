@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Patient extends Person {
 	
@@ -17,6 +19,21 @@ public class Patient extends Person {
 	
 	@OneToMany(mappedBy="patient", cascade =  CascadeType.ALL)
 	private List<Appointment> appointments;
+
+	/**
+	 * @return the appointments
+	 */
+
+	public List<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	/**
+	 * @param appointments the appointments to set
+	 */
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
+	}
 
 	/**
 	 * @return the healthInsurancePlan

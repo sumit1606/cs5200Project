@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import edu.neu.cs5200.orm.jpa.daos.AppointmentDao;
 import edu.neu.cs5200.orm.jpa.daos.DoctorDao;
 import edu.neu.cs5200.orm.jpa.daos.HealthProviderDao;
 import edu.neu.cs5200.orm.jpa.daos.PatientDao;
@@ -56,6 +58,9 @@ public class UserService {
 	@Autowired
 	PatientDao patientDao;
 	
+	@Autowired
+	AppointmentDao appointmentDao;
+	
 	private String user_key = "8959e0a6be0bece2f59e51c7d159ce53";
 
 	
@@ -83,16 +88,31 @@ public class UserService {
 		return patientDao.findPatientById(pid);
 	}
 	
+
 	
 	
-	@PostMapping("/api/user/appointment")
-	public void bookAppointment(@RequestBody Appointment d) {
+	@PostMapping("/api/patient/{pid}/appointment")
+	public Patient bookAppointment(@PathVariable("pid") int pid , @RequestBody Appointment apt) {
 //		String dtype, String fName, String lName, Date dob, String address, String email, String title, String bio
+		List<Specialty> specs = apt.getDoctor().getDocSpecialties();
+		List<Specialty> specsInDB = new ArrayList<>();
+		for(Specialty s: specs) {
+			specsInDB.add(specialtyDao.createSpecialty(s));
+		}
+		apt.getDoctor().setDocSpecialties(specsInDB);
+		Doctor doc = doctorDao.createDoctor(apt.getDoctor());
+		Patient pat = patientDao.findPatientById(apt.getPatient().getId());
+		apt.setDoctor(doc);
+		apt.setPatient(pat);
+		apt = appointmentDao.createAppointment(apt);
+		return apt.getPatient();
 		
-	System.out.println(d.toString());
+	
+	
 		
 	}
 	
+
 	
 	// getting the doctor from the specialty	
 	@GetMapping("/api/doctor/allPlans")

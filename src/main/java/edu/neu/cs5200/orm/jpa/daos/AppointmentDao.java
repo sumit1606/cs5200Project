@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import edu.neu.cs5200.orm.jpa.entities.Appointment;
+import edu.neu.cs5200.orm.jpa.entities.Patient;
 import edu.neu.cs5200.orm.jpa.repositories.AppointmentRepository;
 
 @Component
@@ -42,6 +43,11 @@ public class AppointmentDao {
 			appointmentRepository.deleteById(ap.getId());
 		}
 
+	}
+	
+	public List<Appointment> getAppointmnetsForThisPatient(Patient p) {
+		List<Appointment> apts = appointmentRepository.getAppointmnetsForThisPatient(p);
+		return apts;
 	}
 	
 

@@ -20,6 +20,7 @@
             var promise = UserService.findPatientById(vm.userId);
             promise.then(function (response) {
                 patient = response.data;
+
             },function (error) {
                 console.log(error);
             })
@@ -41,11 +42,13 @@
 
         vm.bookAppointment = function(){
             appointment = {};
+            console.log(vm.appointmentDoc);
             appointment.doctor = vm.appointmentDoc;
             appointment.patient = patient;
-            var promise = UserService.createAppointment(appointment);
+            var promise = UserService.createAppointment(patient.id, appointment);
             promise.then(function (response) {
                 patient = response.data;
+
             },function (error) {
                 console.log(error);
             })
@@ -57,6 +60,7 @@
             var promise = UserService.findDoctorByName(vm.Doctor.firstName, vm.Doctor.lastName);
             promise.then(function (response) {
                 vm.searchedDoctors = response.data;
+                console.log(vm.searchedDoctors);
             },function (error) {
                 console.log(error);
             })

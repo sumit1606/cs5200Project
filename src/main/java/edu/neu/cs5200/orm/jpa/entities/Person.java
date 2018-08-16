@@ -31,7 +31,10 @@ public abstract class Person {
 	private String lName;
 	private Date dob;
 	private String address;
+	
+	@Column(unique = true)
 	private String email;
+	
 	private String password;
 	
 	@ManyToMany
@@ -220,6 +223,7 @@ public abstract class Person {
 		this.address = obj.getAddress() != null ? obj.getAddress() : this.getAddress();
 		this.dob = obj.getDob() != null ? obj.getDob() : this.getDob();
 		this.email = obj.getEmail() != null ? obj.getEmail() : this.getEmail();
+		this.password = obj.getPassword() != null ? obj.getPassword() : this.getPassword();
 	}
 
 

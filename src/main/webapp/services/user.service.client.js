@@ -17,7 +17,8 @@
             "createUser":createUser,
             "createDoctor":createDoctor,
             "createHealthProvider":createHealthProvider,
-            "findPatientById":findPatientById
+            "findPatientById":findPatientById,
+            "findAppointmentsForPatient":findAppointmentsForPatient
         };
         return api;
 
@@ -47,8 +48,8 @@
         }
 
         
-        function createAppointment(appointment) {
-        	return $http.post("/api/user/appointment", appointment);
+        function createAppointment(patientId, appointment) {
+        	return $http.post("/api/patient/"+patientId+"/appointment", appointment);
         }
 
         function findUserByCredentials(emailAddress , password) {
@@ -69,6 +70,13 @@
         	    url: "api/doctor/specialty", 
         	    method: "GET",
         	    params: {name: name }
+        	 });
+        }
+        
+        function findAppointmentsForPatient(id) {
+        	return $http({
+        	    url: "api/patient/"+id+"/appointments", 
+        	    method: "GET"
         	 });
         }
         

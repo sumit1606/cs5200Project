@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Appointment {
@@ -27,9 +29,11 @@ public class Appointment {
 	private int id;
 	
 	@ManyToOne
+
 	private Doctor doctor;
 	
 	@ManyToOne
+	
 	private Patient patient;
 	
 	@Column(name="reason", columnDefinition = "TEXT")
