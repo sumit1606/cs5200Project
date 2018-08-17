@@ -21,8 +21,8 @@
                 "label": "Doctor"
             },
             {
-                "userType": "healthprovider",
-                "label": "healthProvider"
+                "userType": "healthpersonnel",
+                "label": "HealthPersonnel"
             }
         ];
        
@@ -31,7 +31,7 @@
         appointmentDoc = {}
         
         function init() {
-            vm.userType =  vm.userOptions[1];
+            vm.userType =  vm.userOptions[0];
         }
         init();
         
@@ -76,7 +76,7 @@
                  promise = UserService.createUser(vm.user);
             } else if (vm.userType.userType == "doctor"){
                  promise = UserService.createDoctor(vm.user);
-            } else if(vm.userType.userType == "healthprovider") {
+            } else if(vm.userType.userType == "healthPersonnel") {
                 promise = UserService.createHealthPersonnel(vm.user);
             }
                 promise.then(function(response) {
@@ -88,8 +88,8 @@
                             $location.url("/user/patientHomePage/"+id);
                         } else if (vm.userType.userType === "doctor"){
                             $location.url("/user/DoctorHomePage/"+id);
-                        } else if(vm.userType.userType === "healthprovider") {
-                            $location.url("/user/healthProviderHomePage/"+id);
+                        } else if(vm.userType.userType === "healthPersonnel") {
+                            $location.url("/user/healthPersonnelHomePage/"+id);
                         }
                     }, 250);
 
@@ -102,7 +102,7 @@
                     }
                 });
 
-        }
+        };
 
 
 
@@ -112,18 +112,20 @@
                 closeModalLogin();
                 console.log(response.data);
                 signedUser = response.data
-               $timeout(function () {
-                   if(signedUser.dtype === "patient"){
-                       $location.url("/user/patientHomePage/"+signedUser.id);
-                   } else if (signedUser.dtype === "doctor"){
-                       $location.url("/user/DoctorHomePage/"+signedUser.id);
-                   } else if(signedUser.dtype === "healthPersonnel") {
-                       $location.url("/user/healthProviderHomePage/"+signedUser.id);
-                   }
-               }, 350);
-           },function (error) {
-               console.log(error);
-           })
+
+                $timeout(function () {
+                    if(signedUser.dtype === "patient"){
+                        $location.url("/user/patientHomePage/"+signedUser.id);
+                    } else if (signedUser.dtype === "doctor"){
+                        $location.url("/user/DoctorHomePage/"+signedUser.id);
+                    } else if(signedUser.dtype === "healthPersonnel") {
+                        $location.url("/user/healthPersonnelHomePage/"+signedUser.id);
+                    }
+                }, 350);
+            },function (error) {
+                console.log(error);
+            })
+
          };
 
         // Function for closing the modal

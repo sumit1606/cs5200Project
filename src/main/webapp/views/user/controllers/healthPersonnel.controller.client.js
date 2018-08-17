@@ -2,9 +2,9 @@
 
     angular
         .module("GetYourAppointment")
-        .controller("healthProviderController",healthProviderController);
+        .controller("healthPersonnelController",healthPersonnelController);
 
-    function healthProviderController ($http,$location, $routeParams, $timeout, UserService, $window) {
+    function healthPersonnelController ($http,$location, $routeParams, $timeout, UserService, $window) {
         // By default we will be handling all the promise using than
         var vm = this;
         vm.userId = $routeParams.uidS;

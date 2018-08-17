@@ -44,9 +44,9 @@
                 controller:"DoctorHomePageController",
                 controllerAs:"model",
             })
-            .when("/user/healthProviderHomePage/:uidS", {
-                templateUrl:"/views/user/templates/healthProvider.view.client.html",
-                controller:"healthProviderController",
+            .when("/user/healthPersonnelHomePage/:uidS", {
+                templateUrl:"/views/user/templates/healthPersonnel.view.client.html",
+                controller:"healthPersonnelController",
                 controllerAs:"model",
             }).otherwise({
             redirectTo:"/"
