@@ -49,9 +49,7 @@ public class PatientDao {
 			 ps.setlName(p.getlName());
 			 ps.setAddress(p.getAddress());
 			 
-//			 Discuss how to handle this
-//			 ps.setDob(p.getDob());
-			 
+			 ps.setPassword(p.getPassword());
 			 ps.setDtype("patient");
 			 ps.setEmail(p.getEmail());
 			if (p.getHealthInsurancePlan() !=  null) {

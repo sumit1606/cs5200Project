@@ -58,6 +58,7 @@ public class HealthPersonnelDao {
 //			 hp.setDob(p.getDob());
 			 
 			 hp.setDtype("healthPersonnel");
+			 hp.setPassword(p.getPassword());
 			 return hpRepo.save(hp);
 		}
 		return hp;

@@ -25,4 +25,8 @@ public interface PersonRepository extends CrudRepository<Person, Integer>{
 	public List<Person> checkIfPersonLikedThisBlog(
 			@Param("pid") int pid, 
 			@Param("bid") int bid);
+	
+	
+	@Query("select person from Person person where person.email=:email and person.password=:password")
+	public Person findByCredentials(@Param("email") String email, @Param("password") String password);
 }

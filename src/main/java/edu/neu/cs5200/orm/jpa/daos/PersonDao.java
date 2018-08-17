@@ -34,6 +34,13 @@ public class PersonDao {
 			return null;
 	}
 	
+	public Person findByCredentials(String email, String password) {
+		if(personRepository.findByCredentials(email,password) != null)
+			return (Person) personRepository.findByCredentials(email,password);
+		else
+			return null;
+	}
+	
 	public void followDoctor(int docid, int pid) {
 		Doctor doc = (Doctor) this.findPersonbyId(docid);
 		if (!doc.getDtype().equals("doctor"))
@@ -129,13 +136,9 @@ public class PersonDao {
 			}
 		}
 		
-		
 		personRepository.save(p);
-		return;
-		
-		
+		return;	
 	}
-	
 	
 	
 	
