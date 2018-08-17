@@ -88,16 +88,30 @@ public class UserService {
 		return patientDao.findPatientById(pid);
 	}
 	
+	//Fix this shit
+	@GetMapping("/api/patient/{pid}/appointments")
+	public List<Appointment> getAppointmentForPatientById(@PathVariable("pid") int pid) throws IOException {
+		Patient p = patientDao.findPatientById(pid);
+		List<Appointment> temp = appointmentDao.getAppointmnetsForThisPatient(p);
+		return temp;
+	}
+	
+	
 
-	
-	
-	@PostMapping("/api/patient/appointment")
-	public Appointment bookAppointment( @RequestBody Appointment apt) {
+	@PostMapping("/api/patient/{pid}/appointment")
+	public Appointment bookAppointment(@PathVariable("pid") int pid , @RequestBody Appointment apt) {
 //		String dtype, String fName, String lName, Date dob, String address, String email, String title, String bio
 		
 		Doctor d = apt.getDoctor();
+		
+		if(d.getAddress() == null) {
+			d.setEmail(d.getfName() + d.getlName() + "@email.com");
+		}
+		if(d.getPassword() == null) {
+			d.setEmail(d.getfName());
+		}
+		
 		Doctor temp = new Doctor(d.getDtype(), d.getfName(), d.getlName(), d.getDob(), d.getAddress(),d.getEmail(),d.getTitle(),d.getBio());
-
 		Doctor doc = doctorDao.createDoctor(temp);
 		
 		
@@ -112,6 +126,7 @@ public class UserService {
 		for(Specialty s: specs) {
 			specsInDB.add(specialtyDao.createSpecialty(s));
 		}
+		
 
 		for(Specialty s: d.getDocSpecialties()) {
 			Specialty tempSpec = specialtyDao.createSpecialty(s);
@@ -122,14 +137,11 @@ public class UserService {
 		apt.setDoctor(doc);
 		apt.setPatient(pat);
 		apt = appointmentDao.createAppointment(apt);
+
 		return apt;
-		
-	
-	
 		
 	}
 	
-
 	
 	// getting the doctor from the specialty	
 	@GetMapping("/api/doctor/allPlans")

@@ -12,9 +12,10 @@
         var patient;
         vm.Specialty = {};
         vm.searchedDoctors = {};
-        vm.date = {};
         vm.appointmentDoc = {};
         vm.displaySearchByName;
+        vm.currentAppointments;
+        vm.date = new Date("2018-08-20");
         
         function init() {
             var promise = UserService.findPatientById(vm.userId);
@@ -23,15 +24,27 @@
 
             },function (error) {
                 console.log(error);
-            })
+            });
+
+            getAllAppointments();
+
         }
 
         init();
 
 
+        function getAllAppointments(){
+            // Getting all the appointments for the user
+            var promise1 = UserService.findAppointmentsForPatient(vm.userId);
+            promise1.then(function (response) {
+                vm.currentAppointments = response.data;
+            },function (error) {
+                console.log(error);
+            })
+        }
+
+
         vm.selectDoctorForAppointment = function(fName, lName){
-            console.log(fName);
-            console.log(lName);
             for(d in vm.searchedDoctors) {
                  if(vm.searchedDoctors[d].fName === fName && vm.searchedDoctors[d].lName === lName){
                      vm.appointmentDoc = vm.searchedDoctors[d];
@@ -42,13 +55,17 @@
 
         vm.bookAppointment = function(){
             appointment = {};
-            console.log(vm.appointmentDoc);
             appointment.doctor = vm.appointmentDoc;
             appointment.patient = patient;
+            appointment.date = vm.date;
+            appointment.reason = vm.reason;
             var promise = UserService.createAppointment(patient.id, appointment);
+
             promise.then(function (response) {
-               var apt = response;
-               console.log(apt);
+                vm.closeModal();
+                $timeout(function () {
+                }, 250);
+                getAllAppointments();
 
             },function (error) {
                 console.log(error);

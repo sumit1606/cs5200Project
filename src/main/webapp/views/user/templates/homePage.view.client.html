@@ -78,18 +78,20 @@
         <div class="container-fluid" style="margin-top: 5em">
             <div class="row">
                 <div class="col-lg-6">
-                    <h5>Your Appointment</h5>
-                     <div ng-show="model.appointments.length > 0">
+                    <h5>Your Appointments</h5>
+                    <div ng-show="model.currentAppointments.length > 0">
                         <ul class="list-group" style="overflow-y: auto;height: 250px">
-                            <li ng-repeat="" class="list-group-item">
+                            <li ng-repeat="appointment in model.currentAppointments" class="list-group-item">
                                 <div class="row">
-                                    <a ng-click = "" data-toggle="modal" data-target="#bookAppointment">{}</a>
+                                    <a>appointment</a>
                                 </div>
                             </li>
                         </ul>
                     </div>
-                 </div>
-               
+                    <div ng-show="model.currentAppointments.length == 0">
+                       <h7>You haven't scheduled any appointment</h7>
+                    </div>
+                </div>
                 <div class="col-lg-6">
                     <h5>Your Plans</h5>
                 </div>
@@ -109,25 +111,6 @@
 
                     <div class="col-md-8 col-sm-6 col-xs-12 ">
                         <form class="form-horizontal" style="font-size: medium" role="form" name="editProfileForm">
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Day:</label>
-                                <div class="col-lg-8">
-                                    <input required class="form-control" placeholder="Day" value="" type="text" ng-model="model.date.day">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Month:</label>
-                                <div class="col-lg-8">
-                                    <input required class="form-control" placeholder="Month" value="" type="text" ng-model="model.date.month">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Year</label>
-                                <div class="col-lg-8">
-                                    <input required class="form-control" placeholder="Year" value="" type="text" ng-model="model.date.year">
-                                </div>
-                            </div >
-
 
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">First Name</label>
@@ -142,6 +125,21 @@
                                     <input disabled class="form-control" value="" type="text" ng-model="model.appointmentDoc.lName" readonly>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Reason</label>
+                                <div class="col-lg-8">
+                                    <input required class="form-control" placeholder="Reason" value="" type="text" ng-model="model.reason">
+                                </div>
+                            </div >
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Date</label>
+                                <div class="col-lg-8">
+                                    <input required class="form-control" type="date"  id="myDate" ng-model="model.date" name="AppointmentDate">
+                                </div>
+                            </div>
+
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label"></label>
