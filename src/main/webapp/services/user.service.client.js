@@ -49,7 +49,7 @@
 
         
         function createAppointment(patientId, appointment) {
-        	return $http.post("/api/patient/"+patientId+"/appointment", appointment);
+        	return $http.post("/api/patient/appointment", appointment);
         }
 
         function findUserByCredentials(emailAddress , password) {

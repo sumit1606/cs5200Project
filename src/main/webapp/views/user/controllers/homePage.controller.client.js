@@ -47,7 +47,8 @@
             appointment.patient = patient;
             var promise = UserService.createAppointment(patient.id, appointment);
             promise.then(function (response) {
-                patient = response.data;
+               var apt = response;
+               console.log(apt);
 
             },function (error) {
                 console.log(error);

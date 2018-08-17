@@ -35,6 +35,7 @@ public class Doctor extends Person {
 		
 		
 		@OneToMany(mappedBy="doctor", cascade =  CascadeType.ALL)
+		@JsonIgnore
 		private List<Appointment> appointments;
 		
 	/**

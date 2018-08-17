@@ -91,21 +91,38 @@ public class UserService {
 
 	
 	
-	@PostMapping("/api/patient/{pid}/appointment")
-	public Patient bookAppointment(@PathVariable("pid") int pid , @RequestBody Appointment apt) {
+	@PostMapping("/api/patient/appointment")
+	public Appointment bookAppointment( @RequestBody Appointment apt) {
 //		String dtype, String fName, String lName, Date dob, String address, String email, String title, String bio
-		List<Specialty> specs = apt.getDoctor().getDocSpecialties();
+		
+		Doctor d = apt.getDoctor();
+		Doctor temp = new Doctor(d.getDtype(), d.getfName(), d.getlName(), d.getDob(), d.getAddress(),d.getEmail(),d.getTitle(),d.getBio());
+
+		Doctor doc = doctorDao.createDoctor(temp);
+		
+		
+		for(Plan p: d.getPlansSupported()) {
+			HealthProvider hp = hpDao.createHealthProvider(p.getHp());
+			Plan pres = planDao.createPlan(hp, p);
+			planDao.addDoctorToThePlan(pres.getId(), doc);
+		}
+		
+		List<Specialty> specs = d.getDocSpecialties();
 		List<Specialty> specsInDB = new ArrayList<>();
 		for(Specialty s: specs) {
 			specsInDB.add(specialtyDao.createSpecialty(s));
 		}
-		apt.getDoctor().setDocSpecialties(specsInDB);
-		Doctor doc = doctorDao.createDoctor(apt.getDoctor());
+
+		for(Specialty s: d.getDocSpecialties()) {
+			Specialty tempSpec = specialtyDao.createSpecialty(s);
+			doctorDao.addSpecialty(doc.getId(), tempSpec);
+		}
+	
 		Patient pat = patientDao.findPatientById(apt.getPatient().getId());
 		apt.setDoctor(doc);
 		apt.setPatient(pat);
 		apt = appointmentDao.createAppointment(apt);
-		return apt.getPatient();
+		return apt;
 		
 	
 	
