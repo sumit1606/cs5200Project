@@ -14,30 +14,29 @@
         vm.searchedDoctors = {};
         vm.appointmentDoc = {};
         vm.displaySearchByName;
-        vm.currentAppointments;
+        vm.currentAppointments={};
         vm.date = new Date("2018-08-20");
         
         function init() {
             var promise = UserService.findPatientById(vm.userId);
             promise.then(function (response) {
                 patient = response.data;
-
+                vm.getAllAppointments();
             },function (error) {
                 console.log(error);
             });
-
-            getAllAppointments();
 
         }
 
         init();
 
 
-        function getAllAppointments(){
+         vm.getAllAppointments= function(){
             // Getting all the appointments for the user
             var promise1 = UserService.findAppointmentsForPatient(vm.userId);
             promise1.then(function (response) {
                 vm.currentAppointments = response.data;
+                console.log(response);
             },function (error) {
                 console.log(error);
             })
@@ -62,10 +61,11 @@
             var promise = UserService.createAppointment(patient.id, appointment);
 
             promise.then(function (response) {
-                vm.closeModal();
+            	vm.closeModal();
                 $timeout(function () {
+                	vm.getAllAppointments();
                 }, 250);
-                getAllAppointments();
+                
 
             },function (error) {
                 console.log(error);

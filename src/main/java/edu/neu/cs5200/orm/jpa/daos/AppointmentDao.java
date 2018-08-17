@@ -1,6 +1,8 @@
 package edu.neu.cs5200.orm.jpa.daos;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class AppointmentDao {
 
 	@Autowired
 	AppointmentRepository appointmentRepository;
+	
+	@Autowired
+	PatientDao patientDao;
 	
 	public Appointment createAppointment(Appointment ap) {
 		return appointmentRepository.save(ap);
@@ -45,9 +50,15 @@ public class AppointmentDao {
 
 	}
 	
-	public List<Appointment> getAppointmnetsForThisPatient(Patient p) {
-		List<Appointment> apts = appointmentRepository.getAppointmnetsForThisPatient(p);
-		return apts;
+	public Map<Integer, String> getAppointmnetsForThisPatient(int pid) {
+		List<Appointment> apts = appointmentRepository.getAppointmnetsForThisPatient(patientDao.findPatientById(pid));
+		Map<Integer, String> aptMp = new HashMap<>();
+		for (Appointment a : apts) {
+			aptMp.put(a.getId(), a.getDate()+" "+a.getDoctor().getfName()+" "+a.getDoctor().getlName()+" "+a.getReason());
+		}
+		
+
+		return aptMp;
 	}
 	
 

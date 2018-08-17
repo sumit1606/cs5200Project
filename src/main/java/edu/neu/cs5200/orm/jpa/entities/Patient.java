@@ -16,8 +16,9 @@ public class Patient extends Person {
 	@ManyToOne
 	private Plan healthInsurancePlan;
 	
-	@JsonIgnore
+	
 	@OneToMany(mappedBy="patient", cascade =  CascadeType.ALL)
+	@JsonIgnore
 	private List<Appointment> appointments;
 
 	/**

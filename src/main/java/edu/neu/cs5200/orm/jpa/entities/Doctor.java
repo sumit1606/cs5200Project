@@ -29,15 +29,15 @@ public class Doctor extends Person {
 	private List<Blog> blogs;
 	
 
-		@ManyToMany
-		@JoinTable(name="doctor_plan", joinColumns = @JoinColumn(name="doc_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name="plan_id", referencedColumnName="id"))
-		private List<Plan> plansSupported;
-		
-		
-		@OneToMany(mappedBy="doctor", cascade =  CascadeType.ALL)
-		@JsonIgnore
-		private List<Appointment> appointments;
-		
+	@ManyToMany
+	@JoinTable(name="doctor_plan", joinColumns = @JoinColumn(name="doc_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name="plan_id", referencedColumnName="id"))
+	private List<Plan> plansSupported;
+	
+	
+	@OneToMany(mappedBy="doctor", cascade =  CascadeType.ALL)
+	@JsonIgnore
+	private List<Appointment> appointments;
+	
 	/**
 		 * @return the appointments
 		 */
@@ -76,8 +76,8 @@ public class Doctor extends Person {
 	private List<Specialty> docSpecialties;
 	
 
-	public Doctor(String dtype, String fName, String lName, Date dob, String address, String email, String title, String bio) {
-		super(dtype, fName, lName, dob, address, email);
+	public Doctor(String dtype, String fName, String lName, Date dob, String address, String email, String title, String bio, String password) {
+		super(dtype, fName, lName, dob, address, email, password);
 		this.bio = bio;
 		this.title = title;
 		// TODO Auto-generated constructor stub

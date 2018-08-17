@@ -119,13 +119,14 @@ public abstract class Person {
 	 * @param address
 	 * @param email
 	 */
-	public Person(String dtype, String fName, String lName, Date dob, String address, String email) {
+	public Person(String dtype, String fName, String lName, Date dob, String address, String email, String password) {
 		this.dtype = dtype;
 		this.fName = fName;
 		this.lName = lName;
 		this.dob = dob;
 		this.address = address;
 		this.email = email;
+		this.password = password;
 	}
 	
 	/**

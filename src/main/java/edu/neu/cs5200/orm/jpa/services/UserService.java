@@ -7,7 +7,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +34,6 @@ import edu.neu.cs5200.orm.jpa.entities.Appointment;
 import edu.neu.cs5200.orm.jpa.entities.Doctor;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
 import edu.neu.cs5200.orm.jpa.entities.Patient;
-import edu.neu.cs5200.orm.jpa.entities.Person;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
 import edu.neu.cs5200.orm.jpa.entities.Specialty;
 
@@ -90,10 +88,11 @@ public class UserService {
 	
 	//Fix this shit
 	@GetMapping("/api/patient/{pid}/appointments")
-	public List<Appointment> getAppointmentForPatientById(@PathVariable("pid") int pid) throws IOException {
-		Patient p = patientDao.findPatientById(pid);
-		List<Appointment> temp = appointmentDao.getAppointmnetsForThisPatient(p);
-		return temp;
+	public  Map<Integer, String> getAppointmentForPatientById(@PathVariable("pid") int pid) throws IOException {
+
+		return appointmentDao.getAppointmnetsForThisPatient(pid);
+		
+		
 	}
 	
 	
@@ -105,13 +104,18 @@ public class UserService {
 		Doctor d = apt.getDoctor();
 		
 		if(d.getAddress() == null) {
-			d.setEmail(d.getfName() + d.getlName() + "@email.com");
+			d.setAddress("ontact on email for more details: "+d.getfName() + d.getlName() + "@email.com");
 		}
-		if(d.getPassword() == null) {
-			d.setEmail(d.getfName());
+		if(d.getEmail() == null) {
+			String em = d.getfName()+d.getlName()+"@email.com";
+			d.setEmail(em);
 		}
 		
-		Doctor temp = new Doctor(d.getDtype(), d.getfName(), d.getlName(), d.getDob(), d.getAddress(),d.getEmail(),d.getTitle(),d.getBio());
+		if(d.getPassword() == null) {
+			d.setPassword(d.getfName());
+		}
+		
+		Doctor temp = new Doctor(d.getDtype(), d.getfName(), d.getlName(), d.getDob(), d.getAddress(),d.getEmail(),d.getTitle(),d.getBio(), d.getPassword());
 		Doctor doc = doctorDao.createDoctor(temp);
 		
 		
@@ -260,10 +264,10 @@ public class UserService {
 			// o is an doctor object
 			// get the profile json inside it
 			JsonObject address = (JsonObject) ((JsonObject) o).get("visit_address");
-			String city = address.get("city").getAsString();
-			String state = address.get("state").getAsString();
-			String street = address.get("street").getAsString();
-			String zip = address.get("zip").getAsString();
+			String city = address.get("city") != null?address.get("city").getAsString():null;
+			String state = address.get("state")!=null? address.get("state").getAsString():null;
+			String street = address.get("street") != null? address.get("street").getAsString():null;
+			String zip = address.get("zip") != null? address.get("zip").getAsString():null;
 			//practice , specialities, insurance are the Json array so we have to iterate over them
 			// to get all the data
 			JsonArray doctors = (JsonArray) ((JsonObject) o).get("doctors");
@@ -280,14 +284,14 @@ public class UserService {
 				if(doctor.get("title") != null) {
 					title = doctor.get("title").getAsString();
 				}
-				 bio = doctor.get("bio").getAsString();
+				 bio = doctor.get("bio") != null? doctor.get("bio").getAsString() : null;
 				
 				JsonArray specialties = (JsonArray) ((JsonObject) d1).get("specialties");
 				JsonArray insurances = (JsonArray) ((JsonObject) d1).get("insurances");
 				List<Plan> tempPlan = this.getPlans(insurances);
 				List<Specialty> tempSpecialty = this.getSpecialities(specialties);
 				
-				Doctor temp = new Doctor("d",fName, lName,null,street,null,title,bio);
+				Doctor temp = new Doctor("d",fName, lName,null,street,null,title,bio,null);
 				temp.setDocSpecialties(tempSpecialty);
 				temp.setPlansSupported(tempPlan);
 				allDoctors.add(temp);
@@ -306,8 +310,8 @@ public class UserService {
 			JsonObject profile = (JsonObject) ((JsonObject) o).get("profile");
 			String fName = profile.get("first_name").getAsString();
 			String lName = profile.get("last_name").getAsString();
-			String title = profile.get("title").getAsString();
-			String bio = profile.get("bio").getAsString();
+			String title = profile.get("title")!=null?profile.get("title").getAsString(): null;
+			String bio = profile.get("bio") != null?profile.get("bio").getAsString():null;
 			//practice , specialities, insurance are the Json array so we have to iterate over them
 			// to get all the data
 			JsonArray practices = (JsonArray) ((JsonObject) o).get("practices");
@@ -323,11 +327,11 @@ public class UserService {
 				if(address == null)
 					break;
 				
-				String city = address.get("city").getAsString();
-				String state = address.get("state").getAsString();
-				String street = address.get("street").getAsString();
-				String zip = address.get("zip").getAsString();
-				Doctor temp = new Doctor("d",fName, lName,null,street,null,title,bio);
+				String city = address.get("city") != null?address.get("city").getAsString():null;
+				String state = address.get("state")!=null? address.get("state").getAsString():null;
+				String street = address.get("street") != null? address.get("street").getAsString():null;
+				String zip = address.get("zip") != null? address.get("zip").getAsString():null;
+				Doctor temp = new Doctor("d",fName, lName,null,street,null,title,bio,null);
 				temp.setDocSpecialties(tempSpecialty);
 				temp.setPlansSupported(tempPlan);
 				allDoctors.add(temp);
