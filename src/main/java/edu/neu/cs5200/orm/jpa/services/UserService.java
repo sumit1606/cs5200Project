@@ -37,6 +37,7 @@ import edu.neu.cs5200.orm.jpa.entities.Doctor;
 import edu.neu.cs5200.orm.jpa.entities.HealthPersonnel;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
 import edu.neu.cs5200.orm.jpa.entities.Patient;
+import edu.neu.cs5200.orm.jpa.entities.Person;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
 import edu.neu.cs5200.orm.jpa.entities.Specialty;
 
@@ -106,9 +107,7 @@ public class UserService {
 	//Fix this shit
 	@GetMapping("/api/patient/{pid}/appointments")
 	public  Map<Integer, String> getAppointmentForPatientById(@PathVariable("pid") int pid) throws IOException {
-
 		return appointmentDao.getAppointmnetsForThisPatient(pid);
-		
 		
 	}
 	

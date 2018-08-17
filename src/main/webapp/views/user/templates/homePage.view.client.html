@@ -80,7 +80,22 @@
             <div class="row">
                 <div class="col-lg-6">
                     <h5>Your Appointments</h5>
-                   <!--  <div ng-show="model.currentAppointments.length > 0"> -->
+                     <div ng-show="model.currentAppointments.length > 0">
+
+                         <table class="table">
+                             <tr>
+                                 <th>Date</th>
+                                 <th>Doctor Name</th>
+                                 <th>Reason</th>
+                             </tr>
+                             <tr ng-repeat="appointment in model.currentAppointments" class="row">
+                                 <td >{{appointment}}</td>
+                                 <td >{{appointment}}</td>
+                                 <td >{{appointment}}</td>
+                             </tr>
+                         </table>
+
+
                         <ul class="list-group" style="overflow-y: auto;height: 250px">
                             <li ng-repeat="(key, value) in model.currentAppointments" class="list-group-item">
                                 <div class="row">
@@ -88,10 +103,10 @@
                                 </div>
                             </li>
                         </ul>
-                    <!-- </div> -->
-<!--                     <div ng-show="model.currentAppointments.length == 0">
+                     </div>
+                    <div ng-show="model.currentAppointments.length == 0">
                        <h7>You haven't scheduled any appointment</h7>
-                    </div> -->
+                    </div>
                 </div>
                 <div class="col-lg-6">
                     <h5>Your Plans</h5>

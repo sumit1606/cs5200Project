@@ -57,10 +57,7 @@ public class AppointmentDao {
 			aptMp.put(a.getId(), a.getDate()+" "+a.getDoctor().getfName()+" "+a.getDoctor().getlName()+" "+a.getReason());
 		}
 		
-
 		return aptMp;
 	}
-	
-
 	
 }

@@ -21,7 +21,7 @@
                 "label": "Doctor"
             },
             {
-                "userType": "healthpersonnel",
+                "userType": "healthPersonnel",
                 "label": "HealthPersonnel"
             }
         ];
