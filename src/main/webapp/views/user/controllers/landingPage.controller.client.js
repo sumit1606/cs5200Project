@@ -76,8 +76,8 @@
                  promise = UserService.createUser(vm.user);
             } else if (vm.userType.userType == "doctor"){
                  promise = UserService.createDoctor(vm.user);
-            } else if(vm.userType.userType == "healthprovider") {
-                promise = UserService.createHealthProvider(vm.user);
+            } else if(vm.userType.userType == "healthPersonnel") {
+                promise = UserService.createHealthPersonnel(vm.user);
             }
                 promise.then(function(response) {
                     console.log(response);
@@ -88,11 +88,10 @@
                             $location.url("/user/patientHomePage/"+id);
                         } else if (vm.userType.userType === "doctor"){
                             $location.url("/user/DoctorHomePage/"+id);
-                        } else if(vm.userType.userType === "healthprovider") {
-                            $location.url("/user/healthProviderHomePage/"+id);
+                        } else if(vm.userType.userType === "healthPersonnel") {
+                            $location.url("/user/healthPersonnelHomePage/"+id);
                         }
                     }, 250);
-
 
                 },function (err) {
                     console.log(err);
@@ -113,6 +112,7 @@
                 closeModalLogin();
                 console.log(response.data);
                 signedUser = response.data
+
                 $timeout(function () {
                     if(signedUser.dtype === "patient"){
                         $location.url("/user/patientHomePage/"+signedUser.id);
@@ -125,6 +125,7 @@
             },function (error) {
                 console.log(error);
             })
+
          };
 
         // Function for closing the modal
