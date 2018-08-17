@@ -21,8 +21,8 @@
                 "label": "Doctor"
             },
             {
-                "userType": "healthprovider",
-                "label": "healthProvider"
+                "userType": "healthPersonnel",
+                "label": "HealthPersonnel"
             }
         ];
        
@@ -31,7 +31,7 @@
         appointmentDoc = {}
         
         function init() {
-            vm.userType =  vm.userOptions[1];
+            vm.userType =  vm.userOptions[0];
         }
         init();
         
@@ -76,8 +76,8 @@
                  promise = UserService.createUser(vm.user);
             } else if (vm.userType.userType == "doctor"){
                  promise = UserService.createDoctor(vm.user);
-            } else if(vm.userType.userType == "healthprovider") {
-                promise = UserService.createHealthProvider(vm.user);
+            } else if(vm.userType.userType == "healthPersonnel") {
+                promise = UserService.createHealthPersonnel(vm.user);
             }
                 promise.then(function(response) {
                     console.log(response);
@@ -88,11 +88,10 @@
                             $location.url("/user/patientHomePage/"+id);
                         } else if (vm.userType.userType === "doctor"){
                             $location.url("/user/DoctorHomePage/"+id);
-                        } else if(vm.userType.userType === "healthprovider") {
-                            $location.url("/user/healthProviderHomePage/"+id);
+                        } else if(vm.userType.userType === "healthPersonnel") {
+                            $location.url("/user/healthPersonnelHomePage/"+id);
                         }
                     }, 250);
-
 
                 },function (err) {
                     console.log(err);
@@ -103,29 +102,39 @@
                     }
                 });
 
-        }
+        };
 
 
 
         vm.login = function() {
-//            var promise = UserService.findUserByCredentials(vm.user.emailAddress, vm.user.password);
-//            promise.then(function (response) {
-//                 $window.sessionStorage.token = response.data.token;
-//                 // you can use the below code to store data in the local storage rather the session storage
-//                 // $localStorage.currentUser = {email :vm.user.emailAddress, token: response.data.token};
-//                closeModal();
-//                // TODO getting the UserId from the response
-//                $timeout(function () {
-//                    $location.url("/user/profilePage/"+ response.data.email);
-//                }, 350);
-//            },function (error) {
-//                console.log(error);
-//            })
+            var promise = UserService.findUserByCredentials(vm.user.emailAddress, vm.user.password);
+            promise.then(function (response) {
+                closeModalLogin();
+                console.log(response.data);
+                signedUser = response.data
+
+                $timeout(function () {
+                    if(signedUser.dtype === "patient"){
+                        $location.url("/user/patientHomePage/"+signedUser.id);
+                    } else if (signedUser.dtype === "doctor"){
+                        $location.url("/user/DoctorHomePage/"+signedUser.id);
+                    } else if(signedUser.dtype === "healthPersonnel") {
+                        $location.url("/user/healthPersonnelHomePage/"+signedUser.id);
+                    }
+                }, 350);
+            },function (error) {
+                console.log(error);
+            })
+
          };
 
         // Function for closing the modal
         function closeModal() {
             $('#myModalSignup').modal('hide');
+        }
+
+        function closeModalLogin() {
+            $('#myModal').modal('hide');
         }
     }
 })();

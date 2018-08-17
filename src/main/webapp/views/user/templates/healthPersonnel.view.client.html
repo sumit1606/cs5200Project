@@ -1,0 +1,104 @@
+
+<div class="container-fluid">
+    <!--Reserved for the profile or logout-->
+    <!--<nav class="navbar navbar-default navbar-fixed-top">-->
+    <!--<div class="container-fluid">-->
+    <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">-->
+    <!--<span class="sr-only">Toggle navigation</span>-->
+    <!--<span class="icon-bar"></span>-->
+    <!--<span class="icon-bar"></span>-->
+    <!--<span class="icon-bar"></span>-->
+    <!--</button>-->
+    <!--<div class="navbar-header">-->
+    <!--<a class="navbar-brand glorify">-->
+    <!--<span style="color: red;font-family:Helvetica;">Find </span>Me Doctor-->
+    <!--</a>-->
+    <!--</div>-->
+    <!--<div id="navbar" class="navbar-collapse collapse ">-->
+    <!--<ul class="nav navbar-nav pull-right">-->
+    <!--<li class="nav-item glorify"><a data-toggle="modal" data-target="#myModal"></a></li>-->
+    <!--<li class="nav-item glorify"><a data-toggle="modal" data-target="#myModalSignup" target="_self">Sign Up</a></li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</nav>-->
+
+    <div class="container-fluid">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-header">
+            <a class="navbar-brand glorify">
+                <span style="color: red;font-family:Helvetica;">Find </span>Me Doctor
+            </a>
+        </div>
+
+        <div class="container-fluid" style="margin-top: 5em">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5>Your Plans</h5>
+                    <div>
+                        <ul class="list-group" style="overflow-y: auto;height: 250px">
+                            <li ng-repeat="" class="list-group-item">
+                                <div class="row">
+                                    <a></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-small btn-danger btn-block"
+                            type="submit" style="width: 100px;margin-top: 2px;margin-left: 100px"
+                            data-toggle="modal" data-target="#createPlan" >
+                        Create Plan </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="createPlan" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="model.clearUserFromModal()">&times;</button>
+                    <h4 class="modal-title">Create Plan</h4>
+                </div>
+                <div class="modal-body" style="height: 600px">
+
+                    <div class="col-md-8 col-sm-6 col-xs-12 ">
+                        <form class="form-horizontal" style="font-size: medium" role="form" name="createPlanForm">
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Provider:</label>
+                                <div class="col-lg-8">
+                                    <input required class="form-control" placeholder="Provider" type="text" ng-model="model.plan.provider">
+                                </div>
+                            </div >
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Plan:</label>
+                                <div class="col-lg-8">
+                                    <input required class="form-control" type="text"  ng-model="model.plan.planName" name="planName">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"></label>
+                                <div class="col-md-8">
+                                    <input class="btn btn-danger" value="Create Plan" type="submit" ng-click="model.createPlan()">
+                                    <span></span>
+                                    <a class="btn btn-default" ng-click="model.closeModal()">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+    </nav>
+</div>

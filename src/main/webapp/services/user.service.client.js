@@ -16,7 +16,7 @@
             "createAppointment":createAppointment,
             "createUser":createUser,
             "createDoctor":createDoctor,
-            "createHealthProvider":createHealthProvider,
+            "createHealthPersonnel":createHealthPersonnel,
             "findPatientById":findPatientById,
             "findAppointmentsForPatient":findAppointmentsForPatient,
             "removeAppointment":removeAppointment
@@ -44,8 +44,8 @@
             return $http.post("/api/doctor", doctor);
         }
 
-        function createHealthProvider(heathprovider) {
-            return $http.post("/api/heathprovider", heathprovider);
+        function createHealthPersonnel(healthPersonnel) {
+            return $http.post("/api/healthPersonnel", healthPersonnel);
         }
 
         
@@ -54,7 +54,11 @@
         }
 
         function findUserByCredentials(emailAddress , password) {
-        	
+            var person ={
+                email: emailAddress,
+                password: password
+            };
+            return $http.post("/api/user/login",person);
         }
         
         function findDoctorByName(firstName , lastName) {
