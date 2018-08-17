@@ -59,10 +59,9 @@
             appointment.patient = patient;
             appointment.date = vm.date;
             appointment.reason = vm.reason;
-            var promise = UserService.createAppointment(patient.id, appointment)
+            var promise = UserService.createAppointment(patient.id, appointment);
 
             promise.then(function (response) {
-                patient = response.data;
                 vm.closeModal();
                 $timeout(function () {
                 }, 250);

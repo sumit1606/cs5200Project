@@ -57,6 +57,7 @@ public class HealthProviderDao {
 		
 		hpRes = new HealthProvider();
 		hpRes.setName(hp.getName());
+	
 		if (hp.getPlans() != null && hp.getPlans().size() > 0) {
 			for(Plan p : hp.getPlans()) {
 					hpRes.addPlan(p);
