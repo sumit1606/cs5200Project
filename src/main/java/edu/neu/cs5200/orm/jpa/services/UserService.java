@@ -96,8 +96,6 @@ public class UserService {
 		return temp;
 	}
 	
-
-	
 	
 	@PostMapping("/api/patient/{pid}/appointment")
 	public void bookAppointment(@PathVariable("pid") int pid , @RequestBody Appointment apt) {
@@ -108,7 +106,14 @@ public class UserService {
 			specsInDB.add(specialtyDao.createSpecialty(s));
 		}
 		apt.getDoctor().setDocSpecialties(specsInDB);
-		Doctor doc = doctorDao.createDoctor(apt.getDoctor());
+		Doctor doc = apt.getDoctor();
+		if(doc.getAddress() == null) {
+			doc.setEmail(doc.getfName() + doc.getlName() + "@email.com");
+		}
+		if(doc.getPassword() == null) {
+			doc.setEmail(doc.getfName());
+		}
+		doc = doctorDao.createDoctor(doc);
 		Patient pat = patientDao.findPatientById(apt.getPatient().getId());
 		apt.setDoctor(doc);
 		apt.setPatient(pat);
