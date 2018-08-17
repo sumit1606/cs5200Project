@@ -88,11 +88,19 @@ public class UserService {
 		return patientDao.findPatientById(pid);
 	}
 	
+	//Fix this shit
+	@GetMapping("/api/patient/{pid}/appointments")
+	public List<Appointment> getAppointmentForPatientById(@PathVariable("pid") int pid) throws IOException {
+		Patient p = patientDao.findPatientById(pid);
+		List<Appointment> temp = appointmentDao.getAppointmnetsForThisPatient(p);
+		return temp;
+	}
+	
 
 	
 	
 	@PostMapping("/api/patient/{pid}/appointment")
-	public Patient bookAppointment(@PathVariable("pid") int pid , @RequestBody Appointment apt) {
+	public void bookAppointment(@PathVariable("pid") int pid , @RequestBody Appointment apt) {
 //		String dtype, String fName, String lName, Date dob, String address, String email, String title, String bio
 		List<Specialty> specs = apt.getDoctor().getDocSpecialties();
 		List<Specialty> specsInDB = new ArrayList<>();
@@ -105,14 +113,11 @@ public class UserService {
 		apt.setDoctor(doc);
 		apt.setPatient(pat);
 		apt = appointmentDao.createAppointment(apt);
-		return apt.getPatient();
-		
-	
-	
+//		return apt.getPatient();
+//		
 		
 	}
 	
-
 	
 	// getting the doctor from the specialty	
 	@GetMapping("/api/doctor/allPlans")

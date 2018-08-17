@@ -39,6 +39,9 @@ public class Appointment {
 	@Column(name="reason", columnDefinition = "TEXT")
 	private String reason;
 	
+
+	private Date date;
+	
 	/**
 	 * @return the id
 	 */
@@ -107,10 +110,6 @@ public class Appointment {
 	 */
 	public void setReason(String reason) {
 		this.reason = reason;
-	}
-
-	private Date date;
-	
-	
+	}	
 
 }
