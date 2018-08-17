@@ -84,7 +84,10 @@
                         <ul class="list-group" style="overflow-y: auto;height: 250px">
                             <li ng-repeat="(key, value) in model.currentAppointments" class="list-group-item">
                                 <div class="row">
-                                    <a>{{value}}</a>
+                                    <div class="col-xs-10">{{value}}</div>
+                                    <div class="col-xs-2">
+                                    <div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeAppointment(key)"></div>
+                                    </div>
                                 </div>
                             </li>
                         </ul>

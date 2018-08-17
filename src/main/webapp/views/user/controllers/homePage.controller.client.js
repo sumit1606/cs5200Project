@@ -108,6 +108,15 @@
         };
 
 
+        vm.removeAppointment = function(key) {
+        	var promise = UserService.removeAppointment(vm.userId, key);
+        	promise.then(function(){
+        		vm.getAllAppointments();
+        	}, function(error) {
+        		
+        	})
+        }
+        
         // Function for closing the modal
         vm.closeModal =  function () {
             $('.modal').modal('hide');

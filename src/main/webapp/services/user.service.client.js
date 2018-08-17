@@ -18,7 +18,8 @@
             "createDoctor":createDoctor,
             "createHealthProvider":createHealthProvider,
             "findPatientById":findPatientById,
-            "findAppointmentsForPatient":findAppointmentsForPatient
+            "findAppointmentsForPatient":findAppointmentsForPatient,
+            "removeAppointment":removeAppointment
         };
         return api;
 
@@ -78,6 +79,13 @@
         	    url: "api/patient/"+id+"/appointments", 
         	    method: "GET"
         	 });
+        }
+        
+        function removeAppointment(id, key) {
+        	return $http({
+        		url: "api/patient/"+id+"/appointments/"+key,
+        		method: "DELETE"
+        	});
         }
         
     };
