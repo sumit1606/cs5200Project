@@ -21,7 +21,6 @@ public class Cs5200DoctorManagementApplication implements CommandLineRunner {
 	AdminDao adminDao;
 	@Override
 	public void run(String... args) throws Exception {
-		
 		Admin a = new Admin();
 		a.setAddress("address");
 		a.setDob(new Utility().modifySQLDate(31,2,1991));
