@@ -1,28 +1,7 @@
 
 <div class="container-fluid">
     <!--Reserved for the profile or logout-->
-    <!--<nav class="navbar navbar-default navbar-fixed-top">-->
-    <!--<div class="container-fluid">-->
-    <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">-->
-    <!--<span class="sr-only">Toggle navigation</span>-->
-    <!--<span class="icon-bar"></span>-->
-    <!--<span class="icon-bar"></span>-->
-    <!--<span class="icon-bar"></span>-->
-    <!--</button>-->
-    <!--<div class="navbar-header">-->
-    <!--<a class="navbar-brand glorify">-->
-    <!--<span style="color: red;font-family:Helvetica;">Find </span>Me Doctor-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--<div id="navbar" class="navbar-collapse collapse ">-->
-    <!--<ul class="nav navbar-nav pull-right">-->
-    <!--<li class="nav-item glorify"><a data-toggle="modal" data-target="#myModal"></a></li>-->
-    <!--<li class="nav-item glorify"><a data-toggle="modal" data-target="#myModalSignup" target="_self">Sign Up</a></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</nav>-->
-
+    <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -35,47 +14,119 @@
                 <span style="color: red;font-family:Helvetica;">Find </span>Me Doctor
             </a>
         </div>
+        <div id="navbar" class="navbar-collapse collapse ">
+            <ul class="nav navbar-nav pull-right">
+                <li class="nav-item glorify"><a data-toggle="modal" data-target="#myProfile">Profile</a></li>
+                <li class="nav-item glorify"><a data-toggle="modal" data-target="#myModalCreate" target="_self">Create User</a></li>
+            </ul>
+        </div>
+    </div>
+    </nav>
 
-        <div class="container-fluid" style="margin-top: 5em">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h5>Search by doctor first and last name</h5>
-                    <input type="text" class="form-control" placeholder="FirstName" ng-model="model.Doctor.firstName" style="width: 300px">
-                    <input type="text" class="form-control" placeholder="LastName" ng-model="model.Doctor.lastName" style="width: 300px">
-                    <button class="btn btn-small btn-danger btn-block"
-                            type="submit" style="width: 100px;margin-top: 2px;margin-left: 100px"
-                            ng-click="model.searchDoctor()">
-                        Search </button>
-                    <div ng-show="model.searchedDoctors.length > 0 && model.displaySearchByName">
-                        <ul class="list-group" style="overflow-y: auto;height: 250px">
-                            <li ng-repeat="doc in model.searchedDoctors" class="list-group-item">
-                                <div class="row">
-                                    <a ng-click = "model.selectDoctorForAppointment(doc.fName,doc.lName)" data-toggle="modal" data-target="#bookAppointment">{{doc.fName + ' ' + doc.lName}}</a>
+
+    <div class="container-fluid" style="margin-top: 5em">
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Your Appointments</h5>
+                <div>
+                    <ul class="list-group" style="overflow-y: auto;height: 250px">
+                        <li ng-repeat="(key, value) in model.currentAppointments" class="list-group-item">
+                            <div class="row">
+                                <div class="col-xs-10">{{value}}</div>
+                                <div class="col-xs-2">
+                                    <div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeAppointment(key)"></div>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-lg-6">
-                    <h5>Search by Specialty</h5>
-                    <input type="text" class="form-control" placeholder="Specialty Name" ng-model="model.Specialty.name" style="width: 300px">
-                    <button class="btn btn-small btn-danger btn-block"
-                            type="submit"
-                            ng-click="model.searchBySpecialty()" style="width: 150px;margin-top: 2px;margin-left: 80px">
-                        Search By Specialty</button>
-                    <div ng-show="model.searchedDoctors.length > 0 && !model.displaySearchByName">
-                        <ul class="list-group" style="overflow-y: auto;height: 250px">
-                            <li ng-repeat="doc in model.searchedDoctors" class="list-group-item">
-                                <div class="row">
-                                    <a ng-click = "model.selectDoctorForAppointment(doc.fName,doc.lName)" data-toggle="modal" data-target="#bookAppointment">{{doc.fName + ' ' + doc.lName}}</a>
-                                </div>
-                            </li>
-                        </ul>
+
+            </div>
+            <div class="col-lg-6">
+                <h5>Your Plans</h5>
+            </div>
+        </div>
+    </div>
+
+    <div id="myProfile" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Profile</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form class="form-group" autocomplete="off" role="form" name="signUpForm">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-md-6">
+                                            <input type="text" name="firstname" required class="form-control input-lg" ng-model="model.updatedUser.fName"  placeholder="First Name"/> </div>
+                                        <div class="col-xs-6 col-md-6">
+                                            <input type="text" name="lastname" required class="form-control input-lg"  ng-model="model.updatedUser.lName" placeholder="Last Name"/> </div>
+                                    </div>
+                                    <input disabled type="text" name="email"  required class="form-control input-lg" ng-model="model.updatedUser.email" placeholder="Your Email"/>
+                                    <input type="password" required name="password" class="form-control input-lg" ng-model="model.updatedUser.password" placeholder="Password"/>
+                                    <input type="text" class="form-control input-lg" ng-model="model.updatedUser.address" placeholder="address"/>
+                                    <br/>
+                                    <div class="col-xs-6 col-md-6">
+                                        <br>
+                                    </div>
+                                    <button class="btn btn-lg btn-primary btn-block signup-btn" ng-click="model.updateUser()" type="submit">Save Changes</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
+
+    <div id="myModalCreate" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="model.clearUserFromModal()">&times;</button>
+                    <h4 class="modal-title">Create User</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form class="form-group" autocomplete="off" role="form" name="signUpForm">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-md-6">
+                                            <input ng-change="model.error=null" type="text" name="firstname" required class="form-control input-lg" ng-model="model.newUser.fName"  placeholder="First Name"/> </div>
+                                        <div class="col-xs-6 col-md-6">
+                                            <input ng-change="model.error=null" type="text" name="lastname" required class="form-control input-lg"  ng-model="model.newUser.lName" placeholder="Last Name"/> </div>
+                                    </div>
+                                    <input ng-change="model.error=null" type="text" name="email"  required class="form-control input-lg" ng-model="model.newUser.email" placeholder="Your Email"/>
+                                    <input ng-change="model.error=null" type="password" required name="password" class="form-control input-lg" ng-model="model.newUser.password" placeholder="Password"/>
+                                    <br/>
+
+                                    <div class="col-xs-6 col-md-6">
+                                        <select ng-change="model.error=null" required class = "form-control" style="height: 46px;"  name="singleSelect" ng-model="model.userType" ng-options="x.label for x in model.userOptions">
+                                        </select>
+                                        <br>
+                                    </div>
+
+                                    <div class="col-xs-6 col-md-6" ng-show="model.userType.userType == 'healthPersonnel'">
+                                        <input  type="text" name="Provider" class="form-control input-lg" ng-model="model.providerName"  placeholder="Aetna"/>
+                                    </div>
+
+                                    <div class="col-xs-6 col-md-6">
+                                        <br>
+                                    </div>
+                                    <button class="btn btn-lg btn-primary btn-block signup-btn" ng-click="model.createUser()" type="submit">Create this user</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <nav class="navbar navbar-default navbar-fixed-bottom">

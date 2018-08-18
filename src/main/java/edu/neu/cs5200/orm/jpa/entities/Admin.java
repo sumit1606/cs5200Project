@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,9 +20,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Admin extends Person {
 	
-	@Id
-	@GeneratedValue
-	(strategy=GenerationType.IDENTITY)
-	private int id;
+	@Column(unique = true)
+	private String privilege;
+
+	public String getPrivilege() {
+		return privilege;
+	}
+
+	public void setPrivilege(String privilege) {
+		this.privilege = privilege;
+	}
+		
 
 }

@@ -96,6 +96,8 @@ public class UserService {
 		return hpDao.addPlanToHealthProvider(hp, plan);
 	}
 	
+
+	
 	
 	@PostMapping("/api/doctor")
 	public Doctor createDoctor(@RequestBody Doctor d) {
@@ -121,6 +123,7 @@ public class UserService {
 		return hpDao.findHealthProviderById(hpid);
 	}
 	
+
 	
 	@GetMapping("/api/healthPersonnel/{hid}")
 	public  HealthPersonnel getHealthPersonnelById(@PathVariable("hid") int hid) throws IOException {

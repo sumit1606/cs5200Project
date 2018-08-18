@@ -103,6 +103,10 @@ public class PatientDao {
 		}
 		patientRepository.deleteAll();
 	}
+
+	public void save(Patient old) {
+		patientRepository.save(old);
+	}
 	
 	public Patient deletePlanFromPatient(int id) {
 		Patient p = this.findPatientById(id);

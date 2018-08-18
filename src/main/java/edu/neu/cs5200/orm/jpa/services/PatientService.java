@@ -47,7 +47,7 @@ import edu.neu.cs5200.orm.jpa.entities.Specialty;
 
 
 @RestController
-public class AdminService {
+public class PatientService {
 
 	@Autowired
 	DoctorDao doctorDao;
@@ -78,29 +78,16 @@ public class AdminService {
 	PersonDao personDao;
 	
 	private String user_key = "8959e0a6be0bece2f59e51c7d159ce53";
-
-	
-	@PostMapping("/api/admin")
-	public Admin createAdmin(@RequestBody Admin a) {
-		System.out.println("Admin created");
-		return adminDao.createAdmin(a);
-	}
 	
 	
-	@GetMapping("/api/admin/{aid}")
-	public Admin getAdminById(@PathVariable("aid") int aid) throws IOException {
-		return adminDao.findAdminById(aid);
-	}
-	
-	
-	@PutMapping("api/admin/{aid}")
-	public void updateAdmin(@RequestBody Admin a,@PathVariable("aid") int aid) {
-		Admin old = adminDao.findAdminById(aid);
-		old.setfName(a.getfName());
-		old.setlName(a.getlName());
-		old.setPassword(a.getPassword());
-		old.setAddress(a.getAddress());
-		adminDao.save(old);
+	@PutMapping("api/patient/{pid}")
+	public void updatePatientById(@RequestBody Patient p,@PathVariable("pid") int pid) {
+		Patient old = patientDao.findPatientById(pid);
+		old.setfName(p.getfName());
+		old.setlName(p.getlName());
+		old.setPassword(p.getPassword());
+		old.setAddress(p.getAddress());
+		patientDao.save(old);
 	}
 	
 	

@@ -24,6 +24,7 @@
             var promise = UserService.findPatientById(vm.userId);
             promise.then(function (response) {
                 patient = response.data;
+                vm.updatedUser = response.data;
                 vm.getAllAppointments();
                 vm.plansTakenByPat(vm.userId );
                 vm.getAllPlans();
@@ -45,7 +46,7 @@
             },function (error) {
                 console.log(error);
             })
-        }
+        };
 
 
         vm.selectDoctorForAppointment = function(fName, lName){
@@ -121,6 +122,7 @@
         	}, function(error) {
         		
         	})
+
         }
         vm.plansTakenByPat = function(id) {
         	var promise = UserService.getAllPlanforPatient(id);
@@ -164,9 +166,22 @@
         	})
         }
         
+        vm.updateUser = function(){
+            var promise = UserService.updatePatientById(vm.userId, vm.updatedUser);
+            promise.then(function (response) {
+                vm.closeModal();
+            },function (error) {
+                console.log(error);
+            })
+        };
+
+        
         // Function for closing the modal
         vm.closeModal =  function () {
             $('.modal').modal('hide');
         }
-    }
+        
+    };
+
+
 })();
