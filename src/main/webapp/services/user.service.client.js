@@ -21,7 +21,10 @@
             "findHealthPersonnelById":findHealthPersonnelById,
             "findAppointmentsForPatient":findAppointmentsForPatient,
             "findHealthProviderById":findHealthProviderById,
-            "addPlanToProvider":addPlanToProvider
+            "addPlanToProvider":addPlanToProvider,
+            "findAppointmentsForPatient":findAppointmentsForPatient,
+            "removeAppointment":removeAppointment
+
         };
         return api;
 
@@ -99,6 +102,13 @@
         	    url: "api/patient/"+id+"/appointments", 
         	    method: "GET"
         	 });
+        }
+        
+        function removeAppointment(id, key) {
+        	return $http({
+        		url: "api/patient/"+id+"/appointments/"+key,
+        		method: "DELETE"
+        	});
         }
         
     };

@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -411,6 +412,12 @@ public class UserService {
 			lOfSpecialty.add(temp);
 		}
 		return lOfSpecialty;	
+	}
+	
+	@DeleteMapping("/api/patient/{pid}/appointments/{aid}")
+	public void deleteAppointment(@PathVariable("pid") int pid, @PathVariable("aid") int aid) throws IOException {
+		 appointmentDao.deleteAppointmentById(aid);	
+	
 	}
 
 	
