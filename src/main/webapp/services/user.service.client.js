@@ -26,7 +26,12 @@
             "removeAppointment":removeAppointment,
             "deletePlanById":deletePlanById,
             "createAdmin":createAdmin,
-            "findAllPlans":findAllPlans
+            "findAllPlans":findAllPlans,
+            "findAllAppointment":findAllAppointment,
+            "findAdminById":findAdminById,
+            "updateAdminById":updateAdminById,
+            "updateHealthPersonnelById":updateHealthPersonnelById,
+            "updatePatientById":updatePatientById
         };
         return api;
 
@@ -44,7 +49,19 @@
                 url: "api/healthPersonnel/"+hpid+"/plan/"+pid,
                 method: "DELETE"
             });
+        }
+        
+        
+        function updateAdminById(id , user) {
+            return $http.put("api/admin/"+id,user);
+        }
 
+        function updatePatientById(id , user) {
+            return $http.put("api/patient/"+id,user);
+        }
+
+        function updateHealthPersonnelById(id , user) {
+            return $http.put("api/healthPersonnel/"+id,user);
         }
 
         function addPlanToProvider(plan,providerId) {
@@ -54,6 +71,10 @@
 
         function findHealthPersonnelById(id) {
             return $http.get("api/healthPersonnel/"+id);
+        }
+
+        function findAdminById(id) {
+            return $http.get("api/admin/"+id);
         }
 
         function findHealthProviderById(id) {
@@ -115,6 +136,13 @@
         	    url: "api/patient/"+id+"/appointments", 
         	    method: "GET"
         	 });
+        }
+
+        function findAllAppointment() {
+            return $http({
+                url: "api/appointments",
+                method: "GET"
+            });
         }
         
         function removeAppointment(id, key) {

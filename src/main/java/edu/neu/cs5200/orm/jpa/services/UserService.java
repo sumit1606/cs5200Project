@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -95,6 +96,8 @@ public class UserService {
 		return hpDao.addPlanToHealthProvider(hp, plan);
 	}
 	
+
+	
 	
 	@PostMapping("/api/doctor")
 	public Doctor createDoctor(@RequestBody Doctor d) {
@@ -120,6 +123,7 @@ public class UserService {
 		return hpDao.findHealthProviderById(hpid);
 	}
 	
+
 	
 	@GetMapping("/api/healthPersonnel/{hid}")
 	public  HealthPersonnel getHealthPersonnelById(@PathVariable("hid") int hid) throws IOException {
