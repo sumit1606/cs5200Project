@@ -331,6 +331,8 @@ public class UserService {
 		sb.append(parameters.get("lName")[0]);
 		sb.append("&user_key=");
 		sb.append(user_key);
+		System.out.println("Here");
+		List<Doctor> foundedDocs = null;
 		try {
 			URL url = new URL(sb.toString());
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -339,12 +341,15 @@ public class UserService {
 	        JsonParser jp = new JsonParser(); //from gson
 	        JsonElement root = jp.parse(new InputStreamReader((InputStream) con.getContent())); //Convert the input stream to a json element
 	        JsonObject rootobj = root.getAsJsonObject();
-	        return this.processDoctor(rootobj);
+	        foundedDocs = this.processDoctor(rootobj);
+	        
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;	
+		Doctor fromLocalDataBase = doctorDao.findDoctorByName(parameters.get("fName")[0],parameters.get("lName")[0]);
+		foundedDocs.add(fromLocalDataBase);
+		return foundedDocs;	
 	}
 	
 	
