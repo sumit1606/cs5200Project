@@ -48,6 +48,11 @@
                 templateUrl:"/views/user/templates/healthPersonnel.view.client.html",
                 controller:"healthPersonnelController",
                 controllerAs:"model",
+            })
+            .when("/user/adminHomePage/:uidS", {
+                templateUrl:"/views/user/templates/adminHomePage.view.client.html",
+                controller:"AdminPageController",
+                controllerAs:"model",
             }).otherwise({
             redirectTo:"/"
         });
