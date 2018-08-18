@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import edu.neu.cs5200.orm.jpa.entities.Doctor;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
+import edu.neu.cs5200.orm.jpa.entities.Patient;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
 import edu.neu.cs5200.orm.jpa.repositories.HealthProviderRepository;
 import edu.neu.cs5200.orm.jpa.repositories.PlanRepository;
@@ -29,6 +30,9 @@ public class PlanDao {
 		
 		@Autowired
 		DoctorDao doctorDao;
+		
+		@Autowired
+		PatientDao patientDao;
 		
 		public Plan findPlanById(int id) {
 			Optional<Plan> planRes = planRepo.findById(id);
@@ -99,12 +103,22 @@ public class PlanDao {
 			return null; 
 		}
 
+		public void deleteThisPlanFromPatients(int id) {
+			List<Patient> pts = patientDao.findAllPatientWithThisPlan(id);
+			if (pts.size()>0) {
+				for (Patient p : pts) {
+					patientDao.deletePlanFromPatient(p.getId());
+				}
+			}
+		}
+		
 		public void deletePlanById(int id) {
 			Plan p = this.findPlanById(id);
 			if (p != null) {
 				for (Doctor d: p.getDoctorsEnrolled()) {
 					this.removeDoctorFromPlan(p.getId(), d);
 				}
+				this.deleteThisPlanFromPatients(id);
 				planRepo.deleteById(p.getId());
 			}
 		}
