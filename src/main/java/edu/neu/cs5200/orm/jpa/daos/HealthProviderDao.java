@@ -31,10 +31,10 @@ public class HealthProviderDao {
 		Optional<HealthProvider> hp = healthProviderRepo.findHealthProviderByName(name);
 		if (hp.isPresent()) {
 			return hp.get();
-		}
-		
+		}	
 		return null;
 	}
+
 	
 	public HealthProvider findHealthProviderById(int hpId) {
 		 Optional<HealthProvider> hpRes = healthProviderRepo.findById(hpId);

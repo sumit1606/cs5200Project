@@ -77,6 +77,7 @@
             } else if (vm.userType.userType == "doctor"){
                  promise = UserService.createDoctor(vm.user);
             } else if(vm.userType.userType == "healthPersonnel") {
+                vm.user.hprovider = vm.providerName;
                 promise = UserService.createHealthPersonnel(vm.user);
             }
                 promise.then(function(response) {
