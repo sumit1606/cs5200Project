@@ -25,7 +25,6 @@
             },function (error) {
                 console.log(error);
             });
-
         }
 
         init();

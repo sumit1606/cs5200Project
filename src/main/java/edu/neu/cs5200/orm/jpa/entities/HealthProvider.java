@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class HealthProvider {
 	@Id
@@ -26,6 +28,7 @@ public class HealthProvider {
 	private Set<Plan> plans;
 	
 	@OneToMany (mappedBy="hprovider")
+	@JsonIgnore
 	private Set<HealthPersonnel> hpUsers;
 	
 	public HealthProvider() {

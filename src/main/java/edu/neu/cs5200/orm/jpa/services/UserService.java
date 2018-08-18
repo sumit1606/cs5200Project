@@ -86,6 +86,13 @@ public class UserService {
 	}
 	
 	
+	@PostMapping("/api/healthProvider/{pid}/plan")
+	public HealthProvider addPlanToProvider(@RequestBody Plan plan ,@PathVariable("pid") int providerId) {
+		HealthProvider hp = hpDao.findHealthProviderById(providerId);
+		return hpDao.addPlanToHealthProvider(hp, plan);
+	}
+	
+	
 	@PostMapping("/api/doctor")
 	public Doctor createDoctor(@RequestBody Doctor d) {
 		System.out.println("Doctor created");
@@ -104,7 +111,19 @@ public class UserService {
 		return patientDao.findPatientById(pid);
 	}
 	
-	//Fix this shit
+	
+	@GetMapping("/api/healthProvider/{hpid}")
+	public HealthProvider getHealthProviderById(@PathVariable("hpid") int hpid) throws IOException {
+		return hpDao.findHealthProviderById(hpid);
+	}
+	
+	
+	@GetMapping("/api/healthPersonnel/{hid}")
+	public  HealthPersonnel getHealthPersonnelById(@PathVariable("hid") int hid) throws IOException {
+		return hpersonalDao.findHealthPersonnelById(hid);
+	}
+	
+	
 	@GetMapping("/api/patient/{pid}/appointments")
 	public  Map<Integer, String> getAppointmentForPatientById(@PathVariable("pid") int pid) throws IOException {
 		return appointmentDao.getAppointmnetsForThisPatient(pid);

@@ -46,17 +46,15 @@ public class HealthPersonnelDao {
 	
 	public HealthPersonnel createHealthPersonnel(HealthPersonnel p) {
 		HealthPersonnel hp = this.findPersonnelByName(p);
-		
 		if ( hp == null) {
 			 hp = new HealthPersonnel();
 			 hp.setfName(p.getfName());
 			 hp.setlName(p.getlName());
 			 hp.setAddress(p.getAddress());
 			 hp.setEmail(p.getEmail());
-		
+			 hp.setHprovider(p.getHprovider());
 //			 Discuss how to handle this
 //			 hp.setDob(p.getDob());
-			 
 			 hp.setDtype("healthPersonnel");
 			 hp.setPassword(p.getPassword());
 			 return hpRepo.save(hp);

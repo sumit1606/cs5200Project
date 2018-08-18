@@ -42,23 +42,23 @@
                     <h5>Your Plans</h5>
                     <div>
                         <ul class="list-group" style="overflow-y: auto;height: 250px">
-                            <li ng-repeat="" class="list-group-item">
+                            <li ng-repeat="plan in model.allPlansByPersonnel" class="list-group-item">
                                 <div class="row">
-                                    <a></a>
+                                    <a>{{plan.name}}</a>
                                 </div>
                             </li>
                         </ul>
                     </div>
                     <a class="btn btn-small btn-danger btn-block"
                             type="submit" style="width: 100px;margin-top: 2px;margin-left: 100px"
-                            data-toggle="modal" data-target="#createPlan" >
+                            data-toggle="modal" data-target="#createPlanModal" >
                         Create Plan </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="createPlan" class="modal fade" role="dialog">
+    <div id="createPlanModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -73,14 +73,14 @@
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Provider:</label>
                                 <div class="col-lg-8">
-                                    <input required class="form-control" placeholder="Provider" type="text" ng-model="model.plan.provider">
+                                    <input disabled required class="form-control" placeholder="Provider" type="text" ng-model="model.healthProvider.name" readonly>
                                 </div>
-                            </div >
+                            </div>
 
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Plan:</label>
                                 <div class="col-lg-8">
-                                    <input required class="form-control" type="text"  ng-model="model.plan.planName" name="planName">
+                                    <input required class="form-control" type="text"  ng-model="model.plan.name" name="planName">
                                 </div>
                             </div>
 

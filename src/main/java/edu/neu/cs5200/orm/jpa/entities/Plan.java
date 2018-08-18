@@ -9,6 +9,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Plan {
 	@Id
@@ -23,6 +25,7 @@ public class Plan {
 	private List<Doctor> doctorsEnrolled;
 	
 	@ManyToOne
+	@JsonIgnore
 	private HealthProvider hp;
 	
 	
@@ -67,6 +70,7 @@ public class Plan {
 	/**
 	 * @return the hp
 	 */
+	@JsonIgnore
 	public HealthProvider getHp() {
 		return hp;
 	}
