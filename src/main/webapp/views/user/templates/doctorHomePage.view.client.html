@@ -1,1 +1,141 @@
-<h1>we are at the doctor home page</h1>
+
+<div class="container-fluid">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-header">
+                <a class="navbar-brand glorify">
+                    <span style="color: red;font-family:Helvetica;">Find </span>Me Doctor
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse ">
+                <ul class="nav navbar-nav pull-right">
+                    <li class="nav-item glorify"><a data-toggle="modal" data-target="#myProfile">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-header">
+            <a class="navbar-brand glorify">
+                <span style="color: red;font-family:Helvetica;">Find </span>Me Doctor
+            </a>
+        </div>
+
+        <div class="container-fluid" style="margin-top: 5em">
+ 
+        </div>
+
+        <div class="container-fluid" style="margin-top: 5em">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5>Your Appointments</h5>
+                     <div>
+
+                        <ul class="list-group" style="overflow-y: auto;height: 250px">
+                            <li ng-repeat="(key, value) in model.currentAppointments" class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-10">{{value}}</div>
+                                    <div class="col-xs-2">
+                                    <div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeAppointment(key)"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                     </div>
+    
+                </div>
+                <div class="col-lg-6">
+                    <h5>Your Plans</h5>
+                     <div ng-if="model.plansTaken.length>0">
+                      <ul class="list-group" style="overflow-y: auto;height: 250px">
+                            <li  ng-repeat="p in model.plansTaken" class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-10">{{p.name}}</div>
+                                    <div class="col-xs-2">
+                                    <div class="pull-left glyphicon glyphicon-remove" ng-click="model.deletePlan(p.id)"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                     </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    
+          
+    
+                </div>
+                <div class="col-lg-6">
+                    <h5>Available Plans</h5>
+                     <div ng-if="model.allPlans.length>0">
+                      <ul class="list-group" style="overflow-y: auto;height: 250px">
+                            <li  ng-repeat="p in model.allPlans" class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-10">{{p.name}}</div>
+                                    <div class="col-xs-2">
+                                    <div class="pull-left glyphicon glyphicon-plus" ng-click="model.addPlanToSupported(p.id)"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="myProfile" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Profile</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form class="form-group" autocomplete="off" role="form" name="signUpForm">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-md-6">
+                                            <input type="text" name="firstname" required class="form-control input-lg" ng-model="model.updatedUser.fName"  placeholder="First Name"/> </div>
+                                        <div class="col-xs-6 col-md-6">
+                                            <input type="text" name="lastname" required class="form-control input-lg"  ng-model="model.updatedUser.lName" placeholder="Last Name"/> </div>
+                                    </div>
+                                    <input disabled type="text" name="email"  required class="form-control input-lg" ng-model="model.updatedUser.email" placeholder="Your Email"/>
+                                    <input type="password" required name="password" class="form-control input-lg" ng-model="model.updatedUser.password" placeholder="Password"/>
+                                    <input type="text" class="form-control input-lg" ng-model="model.updatedUser.address" placeholder="address"/>
+                                    <br/>
+                                    <div class="col-xs-6 col-md-6">
+                                        <br>
+                                    </div>
+                                    <button class="btn btn-lg btn-primary btn-block signup-btn" ng-click="model.updateUser()" type="submit">Save Changes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+    </nav>
+</div>

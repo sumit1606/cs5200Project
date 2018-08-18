@@ -21,6 +21,9 @@ public class AppointmentDao {
 	@Autowired
 	PatientDao patientDao;
 	
+	@Autowired
+	DoctorDao doctorDao;
+	
 	public Appointment createAppointment(Appointment ap) {
 		return appointmentRepository.save(ap);
 		
@@ -55,6 +58,16 @@ public class AppointmentDao {
 		Map<Integer, String> aptMp = new HashMap<>();
 		for (Appointment a : apts) {
 			aptMp.put(a.getId(), a.getDate()+" "+a.getDoctor().getfName()+" "+a.getDoctor().getlName()+" "+a.getReason());
+		}
+		
+		return aptMp;
+	}
+	
+	public Map<Integer, String> getAppointmnetsForThisDoctor(int pid) {
+		List<Appointment> apts = appointmentRepository.getAppointmnetsForThisDoctor(doctorDao.findDoctorbyId(pid));
+		Map<Integer, String> aptMp = new HashMap<>();
+		for (Appointment a : apts) {
+			aptMp.put(a.getId(), a.getDate()+" "+a.getPatient().getfName()+" "+a.getPatient().getlName()+" "+a.getReason());
 		}
 		
 		return aptMp;

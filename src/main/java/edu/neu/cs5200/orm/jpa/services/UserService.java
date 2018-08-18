@@ -118,6 +118,8 @@ public class UserService {
 	}
 	
 	
+	
+	
 	@GetMapping("/api/healthProvider/{hpid}")
 	public HealthProvider getHealthProviderById(@PathVariable("hpid") int hpid) throws IOException {
 		return hpDao.findHealthProviderById(hpid);
@@ -219,10 +221,7 @@ public class UserService {
 //		 return plansForThisDoctor;
 //	}
 	
-	@GetMapping("/api/Doctor/{id}/plans")
-	public  List<Plan> getAllPlansForDoctor(@PathVariable("id") int id) throws IOException {
-		 return doctorDao.findDoctorbyId(id).getPlansSupported();
-	}
+
 	
 //	@GetMapping("api/plans")
 //	public  List<Plan> getAllPlans() throws IOException {

@@ -65,9 +65,17 @@ public class AdminDao {
 	
 	public Admin createAdmin(Admin a) {
 		a.setPrivilege("CRUD");
-		return adminRepository.save(a);
+		Admin ad = this.findAdminRoleExists();
+		if( ad == null)
+			return adminRepository.save(a);
+		return ad;
 	}
 	
+	public Admin findAdminRoleExists() {
+		 Admin admin = adminRepository.findByIfAdminExists("admin");
+		
+		 return admin;
+	}
 	
 	public Admin findAdminById(int aid) {
 		 Optional<Admin> admin = adminRepository.findById(aid);

@@ -22,7 +22,6 @@
             "findAppointmentsForPatient":findAppointmentsForPatient,
             "findHealthProviderById":findHealthProviderById,
             "addPlanToProvider":addPlanToProvider,
-            "findAppointmentsForPatient":findAppointmentsForPatient,
             "removeAppointment":removeAppointment,
             "deletePlanById":deletePlanById,
 
