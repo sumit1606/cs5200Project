@@ -25,10 +25,105 @@
     </nav>
 
 
+   
+       <div class="container-fluid" style="margin-top: 5em">
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Doctors</h5>
+                <div>
+	                <table>
+					  <tr>
+					    <th>FirstName</th>
+					    <th>LastName</th>
+					    <th>Email</th>
+					    <th>Specialty</th>
+					  </tr>
+					    
+					  <tr ng-repeat="apt in model.doctors">
+					    <td>{{apt.fNmae}}</td>
+					    <td> {{apt.lName}}</td>
+					    <td>{{apt.email}}</td>
+					    <td>{{apt.specialty}}</td>
+					    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeDoctor(apt.id)"></div></td>
+					  </tr>
+					  </table>
+
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <h5>Patients</h5>
+                <div>
+	                <table>
+					  <tr>
+					    <th>FirstName</th>
+					    <th>LastName</th>
+					    <th>Email</th>
+					  </tr>
+					    
+					  <tr ng-repeat="apt in model.patients">
+					    <td>{{apt.fNmae}}</td>
+					    <td> {{apt.lName}}</td>
+					    <td>{{apt.email}}</td>
+				
+					    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removePatients(apt.id)"></div></td>
+					  </tr>
+					  </table>
+
+                </div>
+            </div>
+        </div>
+   </div>
+   
+          <div class="container-fluid" style="margin-top: 5em">
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Health Personnels</h5>
+                <div>
+	                <table>
+					  <tr>
+					    <th>FirstName</th>
+					    <th>LastName</th>
+					    <th>Email</th>
+					    <th>HealthProvider</th>
+					  </tr>
+					    
+					  <tr ng-repeat="apt in model.doctors">
+					    <td>{{apt.fNmae}}</td>
+					    <td> {{apt.lName}}</td>
+					    <td>{{apt.email}}</td>
+					    <td>{{apt.hprovider}}</td>
+					    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeHealthPersonnel(apt.id)"></div></td>
+					  </tr>
+					  </table>
+
+                </div>
+
+            </div>
+             <div class="col-lg-6">
+                <h5>Plans</h5>
+                  <div>
+	                <table>
+					  <tr>
+					    <th>Name</th>
+					  </tr>
+					    
+					  <tr ng-repeat="apt in model.plans">
+					    <td>{{apt.name}}</td>
+					    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeHealthPersonnel(apt.id)"></div></td>
+					  </tr>
+					  </table>
+
+                </div>
+            </div>
+        </div>
+   </div>
+   
+   
     <div class="container-fluid" style="margin-top: 5em">
         <div class="row">
             <div class="col-lg-6">
-                <h5>Your Appointments</h5>
+                <h5>Appointments</h5>
                 <div>
                 <table>
 				  <tr>
@@ -47,29 +142,13 @@
 				    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeAppointment(apt.id)"></div></td>
 				  </tr>
 				  </table>
-<!--                     <ul class="list-group" style="overflow-y: auto;height: 250px">
-                        <li ng-repeat="apt in model.currentAppointments" class="list-group-item">
-                            <div class="row">
-                                <div class="col-xs-1"></div>
-                                <div class="col-xs-2"></div>
-                                <div class="col-xs-2"></div>
-                                <div class="col-xs-2"></div>
-                                <div class="col-xs-2"></div>
-                                <div class="col-xs-3"></div>
-                                <div class="col-xs-2">
-                                    
-                                </div>
-                            </div>
-                        </li>
-                    </ul> -->
+
                 </div>
 
             </div>
-            <div class="col-lg-6">
-                <h5>Your Plans</h5>
-            </div>
+
         </div>
-    </div>
+   </div>
 
     <div id="myProfile" class="modal fade" role="dialog">
         <div class="modal-dialog">

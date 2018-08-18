@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import edu.neu.cs5200.orm.jpa.entities.Blog;
 import edu.neu.cs5200.orm.jpa.entities.Doctor;
+import edu.neu.cs5200.orm.jpa.entities.Patient;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
 import edu.neu.cs5200.orm.jpa.entities.Specialty;
 import edu.neu.cs5200.orm.jpa.repositories.DoctorRepository;
@@ -53,6 +54,10 @@ public class DoctorDao {
 	}
 	
 	
+	public List<Doctor> findAllDoctors() {
+
+		return (List<Doctor>)doctorRepository.findAll();
+	}
 	
 	
 	public void deleteDoctorById(int id) {

@@ -36,8 +36,13 @@
             "findAdminById":findAdminById,
             "updateAdminById":updateAdminById,
             "updateHealthPersonnelById":updateHealthPersonnelById,
-            "updatePatientById":updatePatientById
-
+            "updatePatientById":updatePatientById,
+            "getAllDoctors":getAllDoctors,
+            "getAllHealthPersonnels":getAllHealthPersonnels,
+            "getAllPatients":getAllPatients,
+            "getAllPlans":getAllPlans
+            
+            
         };
         return api;
 
@@ -193,6 +198,33 @@
         	 });  
         }
         
+        function getAllDoctors() {
+        	return $http({
+        	    url: "/api/doctors", 
+        	    method: "GET"
+        	 }); 
+        }
+        
+        function getAllPatients() {
+        	return $http({
+        	    url: "/api/patients", 
+        	    method: "GET"
+        	 }); 
+        }
+        
+        function getAllHealthPersonnels() {
+        	return $http({
+        	    url: "/api/healthPersonnels", 
+        	    method: "GET"
+        	 }); 
+        }
+
+        function getAllPlans(){
+        	return $http({
+        	    url: "/api/plans", 
+        	    method: "GET"
+        	 }); 
+        }
     };
     
     

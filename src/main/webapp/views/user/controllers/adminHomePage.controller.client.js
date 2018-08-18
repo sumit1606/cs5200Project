@@ -10,7 +10,11 @@
         vm.userId = $routeParams.uidS;
         vm.newUser ={};
         vm.currentAppointments={};
-   
+        vm.doctors = [];
+        vm.patients =[];
+        vm.healthPersonnel =[];
+        vm.plans=[];
+        
         vm.userOptions = [
             {
                 "userType": "patient",
@@ -37,7 +41,10 @@
                 vm.user = response.data;
                 vm.updatedUser = response.data;
                 vm.getAllAppointments();
-                // vm.getAllAppointments();
+                vm.getAllDoctors();
+                vm.getAllPatients();
+                vm.getAllHealthPersonnel();
+                vm.getAllPlans();
             },function (error) {
                 console.log(error);
             });
@@ -108,6 +115,34 @@
         // Function for closing the modal
         vm.closeModal =  function () {
             $('.modal').modal('hide');
+        }
+        
+        vm.getAllDoctors = function () {
+        	var promise = UserService.getAllDoctors();
+        	promise.then((res)=> {
+        		vm.doctors = res.data;
+        	})
+        }
+        
+        vm.getAllPatients = function () {
+        	var promise = UserService.getAllPatients();
+        	promise.then((res)=> {
+        		vm.patients = res.data;
+        	})
+        }
+        
+        vm.getAllHealthPersonnel = function () {
+        	var promise = UserService.getAllHealthPersonnels();
+        	promise.then((res)=> {
+        		vm.healthPersonnel = res.data;
+        	})
+        }
+        
+        vm.getAllPlans = function() {
+        	var promise = UserService.getAllPlans();
+        	promise.then((res)=> {
+        		vm.plans = res.data;
+        	})
         }
     }
 })();

@@ -72,6 +72,7 @@ public class Doctor extends Person {
 
 
 	@ManyToMany
+	
 	@JoinTable(name = "doctor_specialty",joinColumns = @JoinColumn(name = "doc_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "specialty_id", referencedColumnName = "id"))
 	private List<Specialty> docSpecialties;
 	

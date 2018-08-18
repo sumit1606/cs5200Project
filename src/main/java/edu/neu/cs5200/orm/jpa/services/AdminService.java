@@ -108,6 +108,22 @@ public class AdminService {
 		return appointmentDao.findAllAppointments();
 	}
 	
+	@GetMapping("/api/doctors")
+	public List<Doctor> getAllDotors() {
+		return doctorDao.findAllDoctors();
+	}
+	
+	@GetMapping("/api/patients")
+	public List<Patient> getAllPatients() {
+		return patientDao.findAllPatients();
+	}
+	
+	
+	@GetMapping("/api/healthPersonnels")
+	public List<HealthPersonnel> getAllHealthPersonnels() {
+		return hpersonalDao.findAllHealthPersonnel();
+	}
+	
 	
 	
 }

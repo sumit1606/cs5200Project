@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "Specialty")
@@ -26,6 +28,7 @@ public class Specialty {
 	private String specialtyName;
 	
 	@ManyToMany(mappedBy = "docSpecialties")
+	
 	private List<Doctor> doctors;
 	
 	
@@ -57,6 +60,7 @@ public class Specialty {
 		this.specialtyName = specialtyName;
 	}
 	
+	@JsonIgnore
 	public List<Doctor> getDoctors() {
 		return doctors;
 	}
