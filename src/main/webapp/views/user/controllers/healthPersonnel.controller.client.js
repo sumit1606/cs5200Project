@@ -19,7 +19,12 @@
                 var promise1 = UserService.findHealthProviderById(vm.heathPersonnel.hprovider.id);
                 promise1.then(function (response1) {
                     vm.healthProvider = response1.data;
-                    vm.allPlansByPersonnel =vm.healthProvider.plans;
+                    var promise2 = UserService.findAllPlans(vm.heathPersonnel.id, vm.healthProvider.id);
+                    promise2.then(function(resp) {
+                    	vm.allPlansByPersonnel = resp.data;
+                    	console.log(vm.allPlansByPersonnel);
+                    })
+                    
                 },function (error) {
                     console.log(error);
                 })
@@ -36,7 +41,12 @@
                 var promise1 = UserService.findHealthProviderById(vm.heathPersonnel.hprovider.id);
                 promise1.then(function (response1) {
                     vm.healthProvider = response1.data;
-                    vm.allPlansByPersonnel =vm.healthProvider.plans;
+                    var promise2 = UserService.findAllPlans(vm.heathPersonnel.id, vm.healthProvider.id);
+                    promise2.then(function(resp) {
+                    	vm.allPlansByPersonnel = resp.data;
+                    	console.log(vm.allPlansByPersonnel);
+                    })
+                    
                 },function (error) {
                     console.log(error);
                 })
@@ -49,8 +59,14 @@
             var promise = UserService.addPlanToProvider(vm.plan,vm.healthProvider.id);
             promise.then(function (res) {
                 vm.healthProvider = res.data;
-                vm.allPlansByPersonnel =vm.healthProvider.plans;
-                closeModal();
+                var promise2 = UserService.findAllPlans(vm.heathPersonnel.id, vm.healthProvider.id);
+                promise2.then(function(resp) {
+                	vm.allPlansByPersonnel = resp.data;
+                	console.log(vm.allPlansByPersonnel);
+                	closeModal();
+                })
+                
+                
                 $timeout(function () {
                 }, 250);
             },function (error) {
