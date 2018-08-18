@@ -25,6 +25,7 @@ public class Plan {
 	private List<Doctor> doctorsEnrolled;
 	
 	@ManyToOne
+
 	private HealthProvider hp;
 	
 	
@@ -69,6 +70,7 @@ public class Plan {
 	/**
 	 * @return the hp
 	 */
+
 	public HealthProvider getHp() {
 		return hp;
 	}

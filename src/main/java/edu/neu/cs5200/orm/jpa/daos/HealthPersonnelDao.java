@@ -150,6 +150,10 @@ public class HealthPersonnelDao {
 		hpRepo.deleteAll();
 	}
 
+	public void save(HealthPersonnel old) {
+		hpRepo.save(old);
+	}
+
 
 
 }

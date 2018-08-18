@@ -3,6 +3,7 @@ package edu.neu.cs5200.orm.jpa.daos;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -66,12 +67,18 @@ public class AdminDao {
 		a.setPrivilege("CRUD");
 		return adminRepository.save(a);
 	}
+	
+	
+	public Admin findAdminById(int aid) {
+		 Optional<Admin> admin = adminRepository.findById(aid);
+		 if (admin.isPresent())
+			 return admin.get();
+		 return null;
+	}
 
+	public void save(Admin old) {
+		adminRepository.save(old);
+	}
 	
-
-	
-	
-	
-
 	
 }

@@ -7,8 +7,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -93,6 +96,8 @@ public class UserService {
 		return hpDao.addPlanToHealthProvider(hp, plan);
 	}
 	
+
+	
 	
 	@PostMapping("/api/doctor")
 	public Doctor createDoctor(@RequestBody Doctor d) {
@@ -118,6 +123,7 @@ public class UserService {
 		return hpDao.findHealthProviderById(hpid);
 	}
 	
+
 	
 	@GetMapping("/api/healthPersonnel/{hid}")
 	public  HealthPersonnel getHealthPersonnelById(@PathVariable("hid") int hid) throws IOException {
@@ -184,6 +190,14 @@ public class UserService {
 		return apt;
 		
 	}
+	
+	@GetMapping("api/healthPersonnel/{id}/provider/{proId}/plans")
+	public  Set<Plan> getAllPlansForPersonnel(@PathVariable("id") int id) throws IOException {
+		 HealthPersonnel hp = hpersonalDao.findHealthPersonnelById(id);
+		 Set<Plan> plansForThisHp = hp.getHprovider() != null? hp.getHprovider().getPlans() : new HashSet<>();
+		 return plansForThisHp;
+	}
+	
 	
 	
 	// getting the doctor from the specialty	

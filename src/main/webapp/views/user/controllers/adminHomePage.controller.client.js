@@ -8,7 +8,8 @@
         // By default we will be handling all the promise using than
         var vm = this;
         vm.userId = $routeParams.uidS;
-        vm.newUser ={}
+        vm.newUser ={};
+        vm.currentAppointments={};
         vm.userOptions = [
             {
                 "userType": "patient",
@@ -30,10 +31,11 @@
 
 
         function init() {
-            var promise = UserService.findPatientById(vm.userId);
+            var promise = UserService.findAdminById(vm.userId);
             promise.then(function (response) {
                 vm.user = response.data;
-                vm.getAllAppointments();
+                vm.updatedUser = response.data;
+                // vm.getAllAppointments();
             },function (error) {
                 console.log(error);
             });
@@ -44,9 +46,8 @@
 
 
         vm.getAllAppointments= function(){
-            // Getting all the appointments for the user
-            var promise1 = UserService.findAppointmentsForPatient(vm.userId);
-            promise1.then(function (response) {
+            var promise = UserService.findAllAppointment();
+            promise.then(function (response) {
                 vm.currentAppointments = response.data;
                 console.log(response);
             },function (error) {
@@ -76,6 +77,17 @@
             },function (err) {
                 console.log(err);
             });
+        };
+
+
+        vm.updateUser = function(){
+            var promise = UserService.updateAdminById(vm.user.id, vm.updatedUser);
+            promise.then(function (response) {
+                vm.closeModal();
+                console.log(response);
+            },function (error) {
+                console.log(error);
+            })
         };
 
         // Function for closing the modal

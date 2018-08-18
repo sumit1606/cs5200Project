@@ -16,10 +16,16 @@
             var promise = UserService.findHealthPersonnelById(vm.userId);
             promise.then(function (response) {
                 vm.heathPersonnel = response.data;
+                vm.updatedUser = response.data;
                 var promise1 = UserService.findHealthProviderById(vm.heathPersonnel.hprovider.id);
                 promise1.then(function (response1) {
                     vm.healthProvider = response1.data;
-                    vm.allPlansByPersonnel =vm.healthProvider.plans;
+                    var promise2 = UserService.findAllPlans(vm.heathPersonnel.id, vm.healthProvider.id);
+                    promise2.then(function(resp) {
+                    	vm.allPlansByPersonnel = resp.data;
+                    	console.log(vm.allPlansByPersonnel);
+                    })
+                    
                 },function (error) {
                     console.log(error);
                 })
@@ -36,7 +42,12 @@
                 var promise1 = UserService.findHealthProviderById(vm.heathPersonnel.hprovider.id);
                 promise1.then(function (response1) {
                     vm.healthProvider = response1.data;
-                    vm.allPlansByPersonnel =vm.healthProvider.plans;
+                    var promise2 = UserService.findAllPlans(vm.heathPersonnel.id, vm.healthProvider.id);
+                    promise2.then(function(resp) {
+                    	vm.allPlansByPersonnel = resp.data;
+                    	console.log(vm.allPlansByPersonnel);
+                    })
+                    
                 },function (error) {
                     console.log(error);
                 })
@@ -49,12 +60,27 @@
             var promise = UserService.addPlanToProvider(vm.plan,vm.healthProvider.id);
             promise.then(function (res) {
                 vm.healthProvider = res.data;
-                vm.allPlansByPersonnel =vm.healthProvider.plans;
-                closeModal();
+                var promise2 = UserService.findAllPlans(vm.heathPersonnel.id, vm.healthProvider.id);
+                promise2.then(function(resp) {
+                	vm.allPlansByPersonnel = resp.data;
+                	console.log(vm.allPlansByPersonnel);
+                	closeModal();
+                })
                 $timeout(function () {
                 }, 250);
             },function (error) {
                 console.log("error");
+            })
+        };
+
+
+        vm.updateUser = function(){
+            var promise = UserService.updateHealthPersonnelById(vm.heathPersonnel.id, vm.updatedUser);
+            promise.then(function (response) {
+                closeModal();
+                console.log(response);
+            },function (error) {
+                console.log(error);
             })
         };
 

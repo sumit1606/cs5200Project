@@ -100,5 +100,9 @@ public class PatientDao {
 		}
 		patientRepository.deleteAll();
 	}
+
+	public void save(Patient old) {
+		patientRepository.save(old);
+	}
 	
 }
