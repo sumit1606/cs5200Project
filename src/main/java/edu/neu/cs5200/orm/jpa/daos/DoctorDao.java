@@ -206,5 +206,9 @@ public class DoctorDao {
 		return null;
 	}
 	
+	public void save(Doctor d) {
+		doctorRepository.save(d);
+	}
+	
 	
 }

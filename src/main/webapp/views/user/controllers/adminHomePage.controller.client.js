@@ -101,6 +101,10 @@
         	})
         }
 
+        vm.logout = function () {
+            $location.url("/");
+        };
+
         // Function for closing the modal
         vm.closeModal =  function () {
             $('.modal').modal('hide');

@@ -82,6 +82,18 @@ public class DoctorService {
 	
 
 	
+	@PutMapping("api/doctor/{did}")
+	public void updateDoctor(@RequestBody Doctor d,@PathVariable("did") int did) {
+		Doctor old = doctorDao.findDoctorbyId(did);
+		old.setfName(d.getfName());
+		old.setlName(d.getlName());
+		old.setPassword(d.getPassword());
+		old.setAddress(d.getAddress());
+		old.setTitle(d.getTitle());
+		old.setBio(d.getBio());
+		doctorDao.save(old);
+	}
+	
 	@GetMapping("/api/doctor/{did}")
 	public Doctor findDoctorbyId(@PathVariable("did") int did) throws IOException {
 		return doctorDao.findDoctorbyId(did);
