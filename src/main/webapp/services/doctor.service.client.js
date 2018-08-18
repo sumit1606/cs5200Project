@@ -14,7 +14,8 @@
         	"getAllPlans":getAllPlans,
         	"getAllPlanforDoctor":getAllPlanforDoctor,
         	"deletePlanFromDoctor":deletePlanFromDoctor,
-        	"addPlanToSupported": addPlanToSupported
+        	"addPlanToSupported": addPlanToSupported,
+			"updateDoctorById":updateDoctorById
 
         };
         return api;
@@ -28,6 +29,10 @@
         	    url: "/api/doctor/"+id+"/appointments", 
         	    method: "GET"
         	 });
+        }
+
+        function updateDoctorById(id , user) {
+            return $http.put("api/doctor/"+id,user);
         }
         
         function removeAppointment(id, key) {

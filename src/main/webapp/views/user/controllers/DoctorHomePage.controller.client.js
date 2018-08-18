@@ -17,6 +17,7 @@
         	var promise = DoctorService.findDoctorById(vm.userId);
         	promise.then((response) => {
         		vm.doc = response.data;
+                vm.updatedUser = response.data;
         		vm.getAllAppointments();
         		vm.plansTakenByDoc(vm.userId );
                 vm.getAllPlans();
@@ -75,6 +76,22 @@
         		vm.allPlans = res.data;
         	})
         }
+
+        vm.updateUser = function () {
+            var promise = DoctorService.updateDoctorById(vm.doc.id, vm.updatedUser);
+            promise.then(function (response) {
+                closeModal();
+                console.log(response);
+            },function (error) {
+                console.log(error);
+            })
+        };
+
+        vm.logout = function () {
+            $location.url("/");
+        };
+
+
         // Function for closing the modal
         function closeModal() {
             $('.modal').modal('hide');

@@ -84,6 +84,10 @@
             })
         };
 
+        vm.logout = function () {
+            $location.url("/");
+        };
+
         // Function for closing the modal
         function closeModal() {
             $('.modal').modal('hide');

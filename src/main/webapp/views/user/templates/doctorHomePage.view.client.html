@@ -15,6 +15,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse ">
                 <ul class="nav navbar-nav pull-right">
+                    <li class="nav-item glorify"><a ng-click="model.logout()">Logout</a></li>
                     <li class="nav-item glorify"><a data-toggle="modal" data-target="#myProfile">Profile</a></li>
                 </ul>
             </div>
@@ -120,6 +121,8 @@
                                     </div>
                                     <input disabled type="text" name="email"  required class="form-control input-lg" ng-model="model.updatedUser.email" placeholder="Your Email"/>
                                     <input type="password" required name="password" class="form-control input-lg" ng-model="model.updatedUser.password" placeholder="Password"/>
+                                    <input type="text" required class="form-control input-lg" ng-model="model.updatedUser.title" placeholder="Title"/>
+                                    <input type="textarea" required class="form-control input-lg" ng-model="model.updatedUser.bio" placeholder="Bio"/>
                                     <input type="text" class="form-control input-lg" ng-model="model.updatedUser.address" placeholder="address"/>
                                     <br/>
                                     <div class="col-xs-6 col-md-6">
