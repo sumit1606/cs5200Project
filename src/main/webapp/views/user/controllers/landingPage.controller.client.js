@@ -112,8 +112,7 @@
             promise.then(function (response) {
                 closeModalLogin();
                 console.log(response.data);
-                signedUser = response.data
-
+                signedUser = response.data;
                 $timeout(function () {
                     if(signedUser.dtype === "patient"){
                         $location.url("/user/patientHomePage/"+signedUser.id);
@@ -121,6 +120,8 @@
                         $location.url("/user/DoctorHomePage/"+signedUser.id);
                     } else if(signedUser.dtype === "healthPersonnel") {
                         $location.url("/user/healthPersonnelHomePage/"+signedUser.id);
+                    } else if(signedUser.dtype === "admin") {
+                        $location.url("/user/adminHomePage/"+signedUser.id);
                     }
                 }, 350);
             },function (error) {
