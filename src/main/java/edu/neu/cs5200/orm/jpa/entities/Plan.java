@@ -25,7 +25,6 @@ public class Plan {
 	private List<Doctor> doctorsEnrolled;
 	
 	@ManyToOne
-	@JsonIgnore
 	private HealthProvider hp;
 	
 	
@@ -70,7 +69,6 @@ public class Plan {
 	/**
 	 * @return the hp
 	 */
-	@JsonIgnore
 	public HealthProvider getHp() {
 		return hp;
 	}
