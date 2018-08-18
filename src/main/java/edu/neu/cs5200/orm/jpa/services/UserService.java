@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -187,13 +188,53 @@ public class UserService {
 		
 	}
 	
-	@GetMapping("api/healthPersonnel/{id}/provider/{proId}/plans")
+	@GetMapping("/api/healthPersonnel/{id}/provider/{proId}/plans")
 	public  Set<Plan> getAllPlansForPersonnel(@PathVariable("id") int id) throws IOException {
 		 HealthPersonnel hp = hpersonalDao.findHealthPersonnelById(id);
 		 Set<Plan> plansForThisHp = hp.getHprovider() != null? hp.getHprovider().getPlans() : new HashSet<>();
 		 return plansForThisHp;
 	}
 	
+//	@GetMapping("api/patient/{id}/plans")
+//	public  Plan getAllPlansForPatient(@PathVariable("id") int id) throws IOException {
+//		 Patient p = patientDao.findPatientById(id);
+//		 
+//		 Plan plansForThisPatient = p.getHealthInsurancePlan()!= null?  p.getHealthInsurancePlan() : null;
+//		 return plansForThisPatient;
+//	}
+	
+	@GetMapping("/api/patient/{id}/plans")
+	public  Plan getAllPlansForPatient(@PathVariable("id") int id) throws IOException {
+		 Plan p =  patientDao.findPatientById(id).getHealthInsurancePlan();
+		 return p;
+	}
+//	@GetMapping("api/Doctor/{id}/plans")
+//	public  List<Plan> getAllPlansForDoctor(@PathVariable("id") int id) throws IOException {
+//		 Doctor p = doctorDao.findDoctorbyId(id);
+//		 
+//		 List<Plan> plansForThisDoctor = p.getPlansSupported()!= null? p.getPlansSupported() : new ArrayList<>();
+//		 return plansForThisDoctor;
+//	}
+	
+	@GetMapping("/api/Doctor/{id}/plans")
+	public  List<Plan> getAllPlansForDoctor(@PathVariable("id") int id) throws IOException {
+		 return doctorDao.findDoctorbyId(id).getPlansSupported();
+	}
+	
+//	@GetMapping("api/plans")
+//	public  List<Plan> getAllPlans() throws IOException {
+//		List<Plan> plans = planDao.findAllPlan(); 
+//		return plans;
+//	}
+	
+	@GetMapping("/api/plans")
+	public  List<Plan> getAllPlans() throws IOException {
+		List<Plan> plans = planDao.findAllPlan(); 
+		return plans;
+	}
+	
+	
+//	@PutMapping("/api/doctor/{did}")
 	
 	
 	// getting the doctor from the specialty	
@@ -432,6 +473,20 @@ public class UserService {
 		 appointmentDao.deleteAppointmentById(aid);	
 	
 	}
+	
 
+	@DeleteMapping("/api/patient/{id}/plans/{pid}")
+	public Patient deletePlanFromPatient(@PathVariable("id") int id, @PathVariable("pid") int pid) throws IOException {
+		 return patientDao.deletePlanFromPatient(id);
+	
+	}
+
+	
+
+	@PutMapping("/api/patient/{patid}/plan/{pid}")
+	public Patient replacePatientPlan(@PathVariable("patid") int patid, @PathVariable("pid") int pid) throws IOException {
+		this.deletePlanFromPatient(patid, pid);
+		return patientDao.addPlanToPatient(patid, pid);
+	}
 	
 }

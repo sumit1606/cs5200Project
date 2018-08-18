@@ -16,12 +16,18 @@
         vm.displaySearchByName;
         vm.currentAppointments={};
         vm.date = new Date("2018-08-20");
+        vm.plansTaken=null;
+        vm.planPresent=false;
+        vm.allPlans=[];
         
         function init() {
             var promise = UserService.findPatientById(vm.userId);
             promise.then(function (response) {
                 patient = response.data;
                 vm.getAllAppointments();
+                vm.plansTakenByPat(vm.userId );
+                vm.getAllPlans();
+                
             },function (error) {
                 console.log(error);
             });
@@ -63,6 +69,7 @@
             	vm.closeModal();
                 $timeout(function () {
                 	vm.getAllAppointments();
+                	vm.getAllPlans();
                 }, 250);
                 
 
@@ -113,6 +120,47 @@
         		vm.getAllAppointments();
         	}, function(error) {
         		
+        	})
+        }
+        vm.plansTakenByPat = function(id) {
+        	var promise = UserService.getAllPlanforPatient(id);
+        	promise.then((res)=>{
+        		if (res.data.name.length>0){
+        			vm.plansTaken = res.data;
+        			vm.planPresent=true;
+        		}
+        			
+        	})
+        	
+        }
+        
+        vm.deletePlan= function(id) {
+        	vm.planPresent=false;
+        	vm.plansTaken==null;
+        	var promise = UserService.deletePlanFromPatient(vm.userId, id);
+        	promise.then((res)=>{
+        		
+        	})
+        }
+        
+        
+        vm.getAllPlans=function() {
+        	var promise = UserService.getAllPlans();
+        	promise.then((res)=>{
+        		vm.allPlans = res.data;
+        	})
+        }
+        
+        
+        vm.replacePlan = function(pid) {
+        	vm.planPresent=false;
+        	vm.plansTaken==null;
+        	var promise = UserService.replacePlan(vm.userId, pid);
+        	promise.then((res)=>{
+        		if (res.data.healthInsurancePlan.name.length>0){
+        			vm.plansTaken = res.data.healthInsurancePlan;
+        			vm.planPresent=true;
+        		}
         	})
         }
         

@@ -25,7 +25,11 @@
             "findAppointmentsForPatient":findAppointmentsForPatient,
             "removeAppointment":removeAppointment,
             "deletePlanById":deletePlanById,
-            "findAllPlans":findAllPlans
+            "findAllPlans":findAllPlans,
+            "getAllPlanforPatient":getAllPlanforPatient,
+            "deletePlanFromPatient":deletePlanFromPatient,
+            "getAllPlans":getAllPlans,
+            "replacePlan":replacePlan
 
         };
         return api;
@@ -41,7 +45,7 @@
 
         function deletePlanById(hpid, pid) {
             return $http({
-                url: "api/healthPersonnel/"+hpid+"/plan/"+pid,
+                url: "/api/healthPersonnel/"+hpid+"/plan/"+pid,
                 method: "DELETE"
             });
 
@@ -53,15 +57,15 @@
 
 
         function findHealthPersonnelById(id) {
-            return $http.get("api/healthPersonnel/"+id);
+            return $http.get("/api/healthPersonnel/"+id);
         }
 
         function findHealthProviderById(id) {
-            return $http.get("api/healthProvider/"+id);
+            return $http.get("/api/healthProvider/"+id);
         }
 
         function findPatientById(id) {
-            return $http.get("api/patient/"+id);
+            return $http.get("/api/patient/"+id);
         }
 
         function createUser(user) {
@@ -91,7 +95,7 @@
         
         function findDoctorByName(firstName , lastName) {
         	return $http({
-        	    url: "api/doctor/name", 
+        	    url: "/api/doctor/name", 
         	    method: "GET",
         	    params: {fName: firstName , lName: lastName}
         	 });
@@ -100,7 +104,7 @@
         
         function findDoctorBySpecialty(name){
         	return $http({
-        	    url: "api/doctor/specialty", 
+        	    url: "/api/doctor/specialty", 
         	    method: "GET",
         	    params: {name: name }
         	 });
@@ -108,23 +112,51 @@
         
         function findAppointmentsForPatient(id) {
         	return $http({
-        	    url: "api/patient/"+id+"/appointments", 
+        	    url: "/api/patient/"+id+"/appointments", 
         	    method: "GET"
         	 });
         }
         
         function removeAppointment(id, key) {
         	return $http({
-        		url: "api/patient/"+id+"/appointments/"+key,
+        		url: "/api/patient/"+id+"/appointments/"+key,
         		method: "DELETE"
         	});
         }
         
         function findAllPlans(id, proId) {
          	return $http({
-        	    url: "api/healthPersonnel/"+id+"/provider/"+proId+"/plans", 
+        	    url: "/api/healthPersonnel/"+id+"/provider/"+proId+"/plans", 
         	    method: "GET"
         	 });
+        }
+        
+        function getAllPlanforPatient(id) {
+        	return $http({
+        	    url: "/api/patient/"+id+"/plans", 
+        	    method: "GET"
+        	 }); 
+        }
+        
+        function deletePlanFromPatient(id, pid){
+        	return $http({
+        	    url: "/api/patient/"+id+"/plans/"+pid, 
+        	    method: "DELETE"
+        	 }); 
+        }
+        
+        function getAllPlans() {
+        	return $http({
+        	    url: "/api/plans", 
+        	    method: "GET"
+        	 });         	
+        }
+        
+        function replacePlan(patid, pid) {
+        	return $http({
+        	    url: "/api/patient/"+patid+"/plan/"+pid, 
+        	    method: "PUT"
+        	 });  
         }
         
     };

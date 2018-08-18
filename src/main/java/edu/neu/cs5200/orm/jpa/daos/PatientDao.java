@@ -23,6 +23,9 @@ public class PatientDao {
 	@Autowired
 	PersonDao personDao;
 	
+	@Autowired
+	PlanDao planDao;
+	
 	
 	public Patient findPatientByName(Patient p) {
 		return patientRepository.findPatientByName(p.getfName(), p.getlName());
@@ -99,6 +102,19 @@ public class PatientDao {
 			
 		}
 		patientRepository.deleteAll();
+	}
+	
+	public Patient deletePlanFromPatient(int id) {
+		Patient p = this.findPatientById(id);
+		p.setHealthInsurancePlan(null);
+		return patientRepository.save(p);
+	}
+	
+	public Patient addPlanToPatient(int patid, int pid) {
+		Patient pat = this.findPatientById(patid);
+		Plan pl = planDao.findPlanById(pid);
+		pat.setHealthInsurancePlan(pl);
+		return patientRepository.save(pat);
 	}
 	
 }

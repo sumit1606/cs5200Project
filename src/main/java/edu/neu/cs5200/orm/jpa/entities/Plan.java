@@ -56,6 +56,7 @@ public class Plan {
 	/**
 	 * @return the patients
 	 */
+	@JsonIgnore
 	public List<Patient> getPatients() {
 		return patients;
 	}
@@ -116,6 +117,7 @@ public class Plan {
 	/**
 	 * @return the doctorsEnrolled
 	 */
+	@JsonIgnore
 	public List<Doctor> getDoctorsEnrolled() {
 		return doctorsEnrolled;
 	}

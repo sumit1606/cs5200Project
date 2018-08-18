@@ -98,6 +98,41 @@
                 </div>
                 <div class="col-lg-6">
                     <h5>Your Plans</h5>
+                     <div ng-if="model.planPresent">
+                      <ul class="list-group" style="overflow-y: auto;height: 250px">
+                            <li   class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-10">{{model.plansTaken.name}}</div>
+                                    <div class="col-xs-2">
+                                    <div class="pull-left glyphicon glyphicon-remove" ng-click="model.deletePlan(model.plansTaken.id)"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                     </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    
+          
+    
+                </div>
+                <div class="col-lg-6">
+                    <h5>Available Plans</h5>
+                     <div ng-if="model.allPlans.length>0">
+                      <ul class="list-group" style="overflow-y: auto;height: 250px">
+                            <li  ng-repeat="p in model.allPlans" class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-10">{{p.name}}</div>
+                                    <div class="col-xs-2">
+                                    <div class="pull-left glyphicon glyphicon-plus" ng-click="model.replacePlan(p.id)"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                     </div>
                 </div>
             </div>
         </div>
