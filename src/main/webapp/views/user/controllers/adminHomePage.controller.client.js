@@ -4,7 +4,7 @@
         .module("GetYourAppointment")
         .controller("AdminPageController",AdminPageController);
 
-    function AdminPageController ($http,$location, $routeParams, $timeout, UserService, $window) {
+    function AdminPageController ($http,$location, $routeParams, $timeout, UserService, DoctorService, $window) {
         // By default we will be handling all the promise using than
         var vm = this;
         vm.userId = $routeParams.uidS;
@@ -142,6 +142,14 @@
         	var promise = UserService.getAllPlans();
         	promise.then((res)=> {
         		vm.plans = res.data;
+        	})
+        }
+        
+        vm.removeDoctor = function(id) {
+        	var promise = DoctorService.deleteDoctorById(id);
+        	promise.then((res)=> {
+        		vm.doctors = res.data;
+        		vm.getAllAppointments();
         	})
         }
     }

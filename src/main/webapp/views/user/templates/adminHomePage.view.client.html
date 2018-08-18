@@ -88,12 +88,12 @@
 					    <th>HealthProvider</th>
 					  </tr>
 					    
-					  <tr ng-repeat="apt in model.doctors">
+					  <tr ng-repeat="apt in model.healthPersonnel">
 					    <td>{{apt.fNmae}}</td>
 					    <td> {{apt.lName}}</td>
 					    <td>{{apt.email}}</td>
-					    <td>{{apt.hprovider}}</td>
-					    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeHealthPersonnel(apt.id)"></div></td>
+					    <td>{{apt.hprovider.name}}</td>
+					    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeHealthPersonnels(apt.id)"></div></td>
 					  </tr>
 					  </table>
 
@@ -110,7 +110,7 @@
 					    
 					  <tr ng-repeat="apt in model.plans">
 					    <td>{{apt.name}}</td>
-					    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeHealthPersonnel(apt.id)"></div></td>
+					    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeHealthPlans(apt.id)"></div></td>
 					  </tr>
 					  </table>
 

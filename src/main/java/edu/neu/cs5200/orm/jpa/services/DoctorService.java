@@ -128,6 +128,13 @@ public class DoctorService {
 		return doctorDao.AddPlan(did, planDao.findPlanById(pid));
 	}
 	
+	@DeleteMapping("/api/doctor/{did}")
+	public List<Doctor> deleteDoctorById(@PathVariable("did") int did) throws IOException {
+		 doctorDao.deleteDoctorById(did);
+		 return doctorDao.findAllDoctors();
+	
+	}
+	
 	
 	
 }

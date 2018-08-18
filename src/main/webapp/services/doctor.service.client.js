@@ -15,7 +15,8 @@
         	"getAllPlanforDoctor":getAllPlanforDoctor,
         	"deletePlanFromDoctor":deletePlanFromDoctor,
         	"addPlanToSupported": addPlanToSupported,
-			"updateDoctorById":updateDoctorById
+			"updateDoctorById":updateDoctorById,
+			"deleteDoctorById":deleteDoctorById
 
         };
         return api;
@@ -67,6 +68,13 @@
           	return $http({
         	    url: "/api/doctor/"+did+"/plans/"+pid, 
         	    method: "PUT"
+        	 }); 
+        }
+        
+        function deleteDoctorById(did) {
+        	return $http({
+        	    url: "/api/doctor/"+did, 
+        	    method: "DELETE"
         	 }); 
         }
         
