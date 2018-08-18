@@ -10,6 +10,7 @@
         vm.userId = $routeParams.uidS;
         vm.newUser ={};
         vm.currentAppointments={};
+   
         vm.userOptions = [
             {
                 "userType": "patient",
@@ -35,6 +36,7 @@
             promise.then(function (response) {
                 vm.user = response.data;
                 vm.updatedUser = response.data;
+                vm.getAllAppointments();
                 // vm.getAllAppointments();
             },function (error) {
                 console.log(error);
@@ -89,6 +91,15 @@
                 console.log(error);
             })
         };
+        
+        vm.removeAppointment=function(id) {
+        	var promise = UserService.removeAppointment(vm.userId, id);
+        	promise.then(function(){
+        		vm.getAllAppointments();
+        	}, function(error) {
+        		
+        	})
+        }
 
         // Function for closing the modal
         vm.closeModal =  function () {

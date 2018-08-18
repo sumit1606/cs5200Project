@@ -103,5 +103,11 @@ public class AdminService {
 		adminDao.save(old);
 	}
 	
+	@GetMapping("/api/appointments")
+	public List<Appointment> getAdminAllAppointments() throws IOException {
+		return appointmentDao.findAllAppointments();
+	}
+	
+	
 	
 }

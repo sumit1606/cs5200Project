@@ -63,9 +63,14 @@ public class AdminDao {
 		}
 	}
 	
+	public Admin findAdminByName(Admin p) {
+		return adminRepository.findAdminByName(p.getfName(), p.getlName());
+	
+	}
+	
 	public Admin createAdmin(Admin a) {
 		a.setPrivilege("CRUD");
-		Admin ad = this.findAdminRoleExists();
+		Admin ad = this.findAdminByName(a);
 		if( ad == null)
 			return adminRepository.save(a);
 		return ad;

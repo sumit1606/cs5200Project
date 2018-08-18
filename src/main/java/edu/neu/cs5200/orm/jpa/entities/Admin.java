@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Admin extends Person {
 	
-	@Column(unique = true)
+	
 	private String privilege;
 
 	public String getPrivilege() {

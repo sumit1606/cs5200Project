@@ -141,7 +141,10 @@ public class UserService {
 	
 	@DeleteMapping("/api/healthPersonnel/{hpid}/plan/{pid}")
 	public void deletePlanById(@PathVariable("hpid") int hpid ,@PathVariable("pid") int pid) throws IOException {
-		planDao.deletePlanById(pid);
+//		planDao.deletePlanById(pid);
+		HealthProvider hp = planDao.findPlanById(pid).getHp();
+		
+		
 	}
 
 	@PostMapping("/api/patient/{pid}/appointment")
