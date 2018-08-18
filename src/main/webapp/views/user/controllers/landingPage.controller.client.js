@@ -102,7 +102,6 @@
                         vm.error = "Some Error occurred! Please try again.";
                     }
                 });
-
         };
 
 

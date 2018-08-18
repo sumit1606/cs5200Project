@@ -8,14 +8,36 @@
         // By default we will be handling all the promise using than
         var vm = this;
         vm.userId = $routeParams.uidS;
+        vm.newUser ={}
+        vm.userOptions = [
+            {
+                "userType": "patient",
+                "label": "Patient"
+            },
+            {
+                "userType": "doctor",
+                "label": "Doctor"
+            },
+            {
+                "userType": "healthPersonnel",
+                "label": "HealthPersonnel"
+            },
+            {
+                "userType": "admin",
+                "label": "Admin"
+            }
+        ];
+
 
         function init() {
             var promise = UserService.findPatientById(vm.userId);
             promise.then(function (response) {
+                vm.user = response.data;
                 vm.getAllAppointments();
             },function (error) {
                 console.log(error);
             });
+            vm.userType =  vm.userOptions[0];
         }
 
         init();
@@ -30,6 +52,30 @@
             },function (error) {
                 console.log(error);
             })
+        };
+
+        vm.createUser =  function () {
+            var promise;
+            if(vm.userType.userType == "patient"){
+                promise = UserService.createUser(vm.newUser);
+            } else if (vm.userType.userType == "doctor"){
+                promise = UserService.createDoctor(vm.newUser);
+            } else if(vm.userType.userType == "healthPersonnel") {
+                vm.newUser.hprovider = vm.providerName;
+                promise = UserService.createHealthPersonnel(vm.newUser);
+            }  else if(vm.userType.userType == "admin") {
+                vm.newUser.dtype= "admin";
+                promise = UserService.createAdmin(vm.newUser);
+            }
+            promise.then(function(response) {
+                console.log(response);
+                vm.closeModal();
+                $timeout(function () {
+                }, 250);
+
+            },function (err) {
+                console.log(err);
+            });
         };
 
         // Function for closing the modal

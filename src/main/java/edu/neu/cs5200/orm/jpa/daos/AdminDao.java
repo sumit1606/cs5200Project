@@ -7,12 +7,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import edu.neu.cs5200.orm.jpa.entities.Admin;
 import edu.neu.cs5200.orm.jpa.entities.Blog;
 import edu.neu.cs5200.orm.jpa.entities.Doctor;
 import edu.neu.cs5200.orm.jpa.entities.HealthPersonnel;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
 import edu.neu.cs5200.orm.jpa.entities.Patient;
 import edu.neu.cs5200.orm.jpa.entities.Person;
+import edu.neu.cs5200.orm.jpa.repositories.AdminRepository;
 import edu.neu.cs5200.orm.jpa.repositories.DoctorRepository;
 import edu.neu.cs5200.orm.jpa.repositories.PersonRepository;
 
@@ -20,6 +22,9 @@ import edu.neu.cs5200.orm.jpa.repositories.PersonRepository;
 public class AdminDao {
 	@Autowired
 	PersonRepository personRepository;
+	
+	@Autowired
+	AdminRepository adminRepository;
 	
 	@Autowired
 	DoctorDao doctorDao;
@@ -55,6 +60,11 @@ public class AdminDao {
 			case "healthPersonnel": return hpPersonDao.createHealthPersonnel((HealthPersonnel)p);
 			default: return null;
 		}
+	}
+	
+	public Admin createAdmin(Admin a) {
+		a.setPrivilege("CRUD");
+		return adminRepository.save(a);
 	}
 
 	
