@@ -25,8 +25,8 @@
             "findAppointmentsForPatient":findAppointmentsForPatient,
             "removeAppointment":removeAppointment,
             "deletePlanById":deletePlanById,
-            "createAdmin":createAdmin
-
+            "createAdmin":createAdmin,
+            "findAllPlans":findAllPlans
         };
         return api;
 
@@ -122,6 +122,13 @@
         		url: "api/patient/"+id+"/appointments/"+key,
         		method: "DELETE"
         	});
+        }
+        
+        function findAllPlans(id, proId) {
+         	return $http({
+        	    url: "api/healthPersonnel/"+id+"/provider/"+proId+"/plans", 
+        	    method: "GET"
+        	 });
         }
         
     };

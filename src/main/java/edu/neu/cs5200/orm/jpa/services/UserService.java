@@ -7,8 +7,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -184,6 +186,14 @@ public class UserService {
 		return apt;
 		
 	}
+	
+	@GetMapping("api/healthPersonnel/{id}/provider/{proId}/plans")
+	public  Set<Plan> getAllPlansForPersonnel(@PathVariable("id") int id) throws IOException {
+		 HealthPersonnel hp = hpersonalDao.findHealthPersonnelById(id);
+		 Set<Plan> plansForThisHp = hp.getHprovider() != null? hp.getHprovider().getPlans() : new HashSet<>();
+		 return plansForThisHp;
+	}
+	
 	
 	
 	// getting the doctor from the specialty	
