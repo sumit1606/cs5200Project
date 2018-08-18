@@ -127,11 +127,14 @@ public class UserService {
 	
 	@GetMapping("/api/patient/{pid}/appointments")
 	public  Map<Integer, String> getAppointmentForPatientById(@PathVariable("pid") int pid) throws IOException {
-		return appointmentDao.getAppointmnetsForThisPatient(pid);
-		
+		return appointmentDao.getAppointmnetsForThisPatient(pid);	
 	}
 	
 	
+	@DeleteMapping("/api/healthPersonnel/{hpid}/plan/{pid}")
+	public void deletePlanById(@PathVariable("hpid") int hpid ,@PathVariable("pid") int pid) throws IOException {
+		planDao.deletePlanById(pid);
+	}
 
 	@PostMapping("/api/patient/{pid}/appointment")
 	public Appointment bookAppointment(@PathVariable("pid") int pid , @RequestBody Appointment apt) {
