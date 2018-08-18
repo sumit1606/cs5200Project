@@ -174,7 +174,6 @@ public class Cs5200DoctorManagementApplicationTests {
 		Plan pl = pld.findPlanById(8);
 		p.setHealthInsurancePlan(pl);
 		patientDao.createPatient(p);
-
 	}
 	
 	

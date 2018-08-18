@@ -24,7 +24,8 @@
             "addPlanToProvider":addPlanToProvider,
             "findAppointmentsForPatient":findAppointmentsForPatient,
             "removeAppointment":removeAppointment,
-            "deletePlanById":deletePlanById
+            "deletePlanById":deletePlanById,
+            "createAdmin":createAdmin
 
         };
         return api;
@@ -65,6 +66,10 @@
 
         function createUser(user) {
             return $http.post("/api/user", user);
+        }
+
+        function createAdmin(admin) {
+            return $http.post("/api/admin", admin);
         }
 
         function createDoctor(doctor) {
