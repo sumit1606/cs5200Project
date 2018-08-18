@@ -25,6 +25,7 @@ public class HealthProvider {
 	private String name;
 	
 	@OneToMany(mappedBy="hp", orphanRemoval=true, cascade=CascadeType.ALL)
+	@JsonIgnore
 	private Set<Plan> plans;
 	
 	@OneToMany (mappedBy="hprovider")
@@ -54,6 +55,7 @@ public class HealthProvider {
 	/**
 	 * @return the plans
 	 */
+	@JsonIgnore
 	public Set<Plan> getPlans() {
 		return plans;
 	}
