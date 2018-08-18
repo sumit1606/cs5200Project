@@ -29,6 +29,22 @@
         }
         init();
 
+
+        vm.removePlan = function(id){
+            var promise = UserService.deletePlanById(vm.heathPersonnel.id,id);
+            promise.then(function (res) {
+                var promise1 = UserService.findHealthProviderById(vm.heathPersonnel.hprovider.id);
+                promise1.then(function (response1) {
+                    vm.healthProvider = response1.data;
+                    vm.allPlansByPersonnel =vm.healthProvider.plans;
+                },function (error) {
+                    console.log(error);
+                })
+            },function (error) {
+                console.log("Error");
+            })
+        };
+
         vm.createPlan = function () {
             var promise = UserService.addPlanToProvider(vm.plan,vm.healthProvider.id);
             promise.then(function (res) {

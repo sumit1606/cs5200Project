@@ -86,9 +86,7 @@ public class PlanDao {
 					doctorDao.AddPlan(doc.getId(), plan);
 					return this.findPlanById(id);
 			}
-			
 			return plan;
-
 		}
 		
 		public Plan removeDoctorFromPlan(int id, Doctor d) {

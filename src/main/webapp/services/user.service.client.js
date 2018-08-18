@@ -23,7 +23,8 @@
             "findHealthProviderById":findHealthProviderById,
             "addPlanToProvider":addPlanToProvider,
             "findAppointmentsForPatient":findAppointmentsForPatient,
-            "removeAppointment":removeAppointment
+            "removeAppointment":removeAppointment,
+            "deletePlanById":deletePlanById
 
         };
         return api;
@@ -37,6 +38,13 @@
             
         }
 
+        function deletePlanById(hpid, pid) {
+            return $http({
+                url: "api/healthPersonnel/"+hpid+"/plan/"+pid,
+                method: "DELETE"
+            });
+
+        }
 
         function addPlanToProvider(plan,providerId) {
             return $http.post("/api/healthProvider/"+providerId+"/plan",plan)
