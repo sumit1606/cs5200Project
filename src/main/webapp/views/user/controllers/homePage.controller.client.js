@@ -19,6 +19,7 @@
         vm.plansTaken=null;
         vm.planPresent=false;
         vm.allPlans=[];
+        vm.tempp;
         
         function init() {
             var promise = UserService.findPatientById(vm.userId);
