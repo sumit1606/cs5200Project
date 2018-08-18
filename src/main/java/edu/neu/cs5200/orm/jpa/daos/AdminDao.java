@@ -54,7 +54,6 @@ public class AdminDao {
 			case "doctor":  return doctorDao.createDoctor((Doctor)p);
 			case "healthPersonnel": return hpPersonDao.createHealthPersonnel((HealthPersonnel)p);
 			default: return null;
-			
 		}
 	}
 
