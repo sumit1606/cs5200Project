@@ -32,7 +32,6 @@
             "updateAdminById":updateAdminById,
             "updateHealthPersonnelById":updateHealthPersonnelById,
             "updatePatientById":updatePatientById
-
         };
         return api;
 
