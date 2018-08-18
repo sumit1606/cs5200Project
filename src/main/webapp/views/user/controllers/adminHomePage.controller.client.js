@@ -152,5 +152,36 @@
         		vm.getAllAppointments();
         	})
         }
+        
+        vm.removePatient = function(id) {
+        	var promise = UserService.deletePatientById(id);
+        	promise.then((res)=> {
+        		vm.patients = res.data;
+        		vm.getAllAppointments();
+        	})
+        }
+        
+        vm.removeHealthPersonnel = function(id) {
+        	var promise = UserService.deleteHealthPersonnelById(id);
+        	promise.then((res)=> {
+        		vm.healthPersonnel = res.data;
+        	})
+        }
+        
+        vm.removeHealthPlans = function(pid) {
+        	var promise = UserService.deletePlanById(pid);
+        	promise.then((res)=> {
+        		vm.plans = res.data;
+        	})       	
+        }
+        
+        vm.removeAppointment = function(aid) {
+        	var promise = UserService.deleteAppointmentById(aid);
+        	promise.then(function(){
+        		vm.getAllAppointments();
+        	}, function(error) {
+        		
+        	})
+        }
     }
 })();

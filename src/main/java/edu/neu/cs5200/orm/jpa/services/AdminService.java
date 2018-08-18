@@ -124,6 +124,16 @@ public class AdminService {
 		return hpersonalDao.findAllHealthPersonnel();
 	}
 	
+	@DeleteMapping("/api/plan/{pid}")
+	public List<Plan> deletePlanById(@PathVariable("pid") int pid) {
+		planDao.deletePlanById(pid);;
+		return planDao.findAllPlan();
+	}	
+	
+	@DeleteMapping("/api/appointment/{aid}")
+	public void deleteAppointmentById(@PathVariable("aid") int aid) {
+		appointmentDao.deleteAppointmentById(aid);
+	}
 	
 	
 }

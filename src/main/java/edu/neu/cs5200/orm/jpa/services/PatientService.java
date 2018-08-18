@@ -90,5 +90,11 @@ public class PatientService {
 		patientDao.save(old);
 	}
 	
+	@DeleteMapping("/api/patient/{pid}")
+	public List<Patient> deletePatientById(@PathVariable("pid") int pid) {
+		 patientDao.deletePatientById(pid);
+		 return patientDao.findAllPatients();
+	}
+	
 	
 }

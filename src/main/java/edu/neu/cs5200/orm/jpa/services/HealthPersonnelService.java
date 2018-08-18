@@ -90,5 +90,12 @@ public class HealthPersonnelService {
 		hpersonalDao.save(old);
 	}
 	
+	@DeleteMapping("/api/healthPersonnel/{hpid}")
+	public List<HealthPersonnel> deleteHealthPersonnelById(@PathVariable("hpid") int hpid) throws IOException {
+		hpersonalDao.deleteHealthPersonnel(hpid);
+		 return hpersonalDao.findAllHealthPersonnel();
+	
+	}
+	
 	
 }
