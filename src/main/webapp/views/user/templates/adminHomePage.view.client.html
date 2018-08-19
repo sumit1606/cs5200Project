@@ -130,7 +130,7 @@
    </div>
    
    
-    <div class="container-fluid" style="margin-top: 5em; margin-bottom:10em;">
+    <div class="container-fluid" style="margin-top: 5em;">
         <div class="row">
              <div class="col-lg-6">
                 <h5>Health Providers</h5>
@@ -177,6 +177,28 @@
 
         </div>
    </div>
+   
+   
+   <div class="container-fluid" style="margin-top: 5em; margin-bottom:10em;">
+   	<h5>Blogs</h5>
+        <div class="row" ng-repeat="b in model.blogs" style="border-left: 6px solid red;margin-top:1em;">
+             <div class="col-xs-10" >
+				{{b.title}}
+            </div>
+            <div class="col-xs-2">
+            	<div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeBlog(b.id)"></div>
+            </div>
+            <div class="col-xs-12" >
+            	{{b.content}}
+            </div>
+
+        </div>
+   </div>
+   
+   
+   
+   
+   
 
     <div id="myProfile" class="modal fade" role="dialog">
         <div class="modal-dialog">

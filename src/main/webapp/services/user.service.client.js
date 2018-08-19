@@ -44,7 +44,9 @@
             "deleteHealthPersonnelById": deleteHealthPersonnelById,
             "deletePlanById":deletePlanById,
             "getAllHealthProviders":getAllHealthProviders,
-            "removeHealthProvider":removeHealthProvider
+            "removeHealthProvider":removeHealthProvider,
+            "getAllBlogs":getAllBlogs,
+            "removeBlog": removeBlog
         };
         return api;
 
@@ -274,6 +276,20 @@
         	    url: "/api/healthProvider/"+id, 
         	    method: "DELETE"
         	 });  
+        }
+        
+        function getAllBlogs(){
+        	return $http({
+        	    url: "/api/blogs", 
+        	    method: "GET"
+        	 });         	
+        }
+        
+        function removeBlog(id) {
+        	return $http({
+        	    url: "/api/blogs/"+id, 
+        	    method: "DELETE"
+        	 }); 
         }
         
         

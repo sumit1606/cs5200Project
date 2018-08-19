@@ -28,6 +28,7 @@ import com.google.gson.JsonParser;
 
 import edu.neu.cs5200.orm.jpa.daos.AdminDao;
 import edu.neu.cs5200.orm.jpa.daos.AppointmentDao;
+import edu.neu.cs5200.orm.jpa.daos.BlogDao;
 import edu.neu.cs5200.orm.jpa.daos.DoctorDao;
 import edu.neu.cs5200.orm.jpa.daos.HealthPersonnelDao;
 import edu.neu.cs5200.orm.jpa.daos.HealthProviderDao;
@@ -37,6 +38,7 @@ import edu.neu.cs5200.orm.jpa.daos.PlanDao;
 import edu.neu.cs5200.orm.jpa.daos.SpecialtyDao;
 import edu.neu.cs5200.orm.jpa.entities.Admin;
 import edu.neu.cs5200.orm.jpa.entities.Appointment;
+import edu.neu.cs5200.orm.jpa.entities.Blog;
 import edu.neu.cs5200.orm.jpa.entities.Doctor;
 import edu.neu.cs5200.orm.jpa.entities.HealthPersonnel;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
@@ -76,6 +78,9 @@ public class AdminService {
 	
 	@Autowired
 	PersonDao personDao;
+	
+	@Autowired
+	BlogDao blogDao;
 	
 	private String user_key = "8959e0a6be0bece2f59e51c7d159ce53";
 
@@ -147,7 +152,16 @@ public class AdminService {
 		 hpDao.deleteHealthProviderByName(hpDao.findHealthProviderById(hid).getName());
 		 return this.getAllHealthProviders();
 	}
+	
+	@GetMapping("/api/blogs")
+	public List<Blog> getAllBlogs() {
+		return blogDao.findAllBlogs();
+	}
 
+	@DeleteMapping("/api/blogs/{id}") 
+	public void removeBlog(@PathVariable("id") int id) {
+		blogDao.deleteBlog(id);
+	}
 	
 	
 }
