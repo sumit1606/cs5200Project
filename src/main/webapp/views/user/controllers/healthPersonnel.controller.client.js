@@ -36,25 +36,25 @@
         init();
 
 
-        vm.removePlan = function(id){
-            var promise = UserService.deletePlanById(vm.heathPersonnel.id,id);
-            promise.then(function (res) {
-                var promise1 = UserService.findHealthProviderById(vm.heathPersonnel.hprovider.id);
-                promise1.then(function (response1) {
-                    vm.healthProvider = response1.data;
-                    var promise2 = UserService.findAllPlans(vm.heathPersonnel.id, vm.healthProvider.id);
-                    promise2.then(function(resp) {
-                    	vm.allPlansByPersonnel = resp.data;
-                    	console.log(vm.allPlansByPersonnel);
-                    })
-                    
-                },function (error) {
-                    console.log(error);
-                })
-            },function (error) {
-                console.log("Error");
-            })
-        };
+//        vm.removePlan = function(id){
+//            var promise = UserService.deletePlanById(vm.heathPersonnel.id,id);
+//            promise.then(function (res) {
+//                var promise1 = UserService.findHealthProviderById(vm.heathPersonnel.hprovider.id);
+//                promise1.then(function (response1) {
+//                    vm.healthProvider = response1.data;
+//                    var promise2 = UserService.findAllPlans(vm.heathPersonnel.id, vm.healthProvider.id);
+//                    promise2.then(function(resp) {
+//                    	vm.allPlansByPersonnel = resp.data;
+//                    	console.log(vm.allPlansByPersonnel);
+//                    })
+//                    
+//                },function (error) {
+//                    console.log(error);
+//                })
+//            },function (error) {
+//                console.log("Error");
+//            })
+//        };
 
         vm.createPlan = function () {
             var promise = UserService.addPlanToProvider(vm.plan,vm.healthProvider.id);
@@ -83,6 +83,13 @@
                 console.log(error);
             })
         };
+        
+        vm.removePlan = function(pid){
+        	var promise = UserService.deletePlanById(pid);
+        	promise.then((res)=> {
+        		init();
+        	})  
+        }
 
         vm.logout = function () {
             $location.url("/");

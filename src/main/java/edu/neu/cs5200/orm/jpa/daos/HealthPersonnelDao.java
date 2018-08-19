@@ -52,12 +52,23 @@ public class HealthPersonnelDao {
 			 hp.setlName(p.getlName());
 			 hp.setAddress(p.getAddress());
 			 hp.setEmail(p.getEmail());
-			 hp.setHprovider(p.getHprovider());
+//			 
 //			 Discuss how to handle this
 //			 hp.setDob(p.getDob());
 			 hp.setDtype("healthPersonnel");
 			 hp.setPassword(p.getPassword());
+			 hp =  hpRepo.save(hp);
+			 HealthProvider hprovider = hpd.findProviderByName(p.getHprovider().getName());
+			 if (hprovider == null) {
+				 hp.setHprovider(p.getHprovider());
+			 } else {
+				 hp.setHprovider(hprovider);
+			 }
 			 return hpRepo.save(hp);
+			 
+			 
+			 
+			 
 		}
 		return hp;
 	}
