@@ -11,6 +11,8 @@
         vm.heathPersonnel ;
         vm.healthProvider;
         vm.plan;
+        vm.doctors={};
+        vm.patients={};
 
         function init() {
             var promise = UserService.findHealthPersonnelById(vm.userId);
@@ -23,6 +25,8 @@
                     var promise2 = UserService.findAllPlans(vm.heathPersonnel.id, vm.healthProvider.id);
                     promise2.then(function(resp) {
                     	vm.allPlansByPersonnel = resp.data;
+                    	vm.findAllDoctorsInWithThisProvider();
+                    	vm.findAllPatientsInThisProvider();
                     	console.log(vm.allPlansByPersonnel);
                     })
                     
@@ -80,6 +84,36 @@
         vm.logout = function () {
             $location.url("/");
         };
+        
+        vm.findAllDoctorsInWithThisProvider = function() {
+        	var promise = UserService.findAllDoctorsInThisProvider(vm.userId);
+        	promise.then((response) => {     		
+        		vm.doctors = response.data;
+        	})
+        }
+        
+        vm.findAllPatientsInThisProvider = function () {
+        	var promise = UserService.findAllPatientsInThisProvider(vm.userId);
+        	promise.then((response) => {     		
+        		vm.patients = response.data;
+        		console.log(vm.patients);
+        	})
+        }
+        
+        vm.removeDoctorFromPlan = function(docid, planName) {
+        	var promise = UserService.removeDoctorFromPlan(docid, planName);
+        	promise.then((response)=>{
+        		vm.findAllDoctorsInWithThisProvider();
+        	})
+        }
+        
+        
+        vm.removePatientFromPlan = function(patid, planName) {
+        	var promise = UserService.removePatientFromPlan(patid, planName);
+        	promise.then((response)=>{
+        		vm.findAllPatientsInThisProvider();
+        	})
+        }
 
         // Function for closing the modal
         function closeModal() {

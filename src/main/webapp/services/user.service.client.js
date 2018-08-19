@@ -46,7 +46,11 @@
             "getAllHealthProviders":getAllHealthProviders,
             "removeHealthProvider":removeHealthProvider,
             "getAllBlogs":getAllBlogs,
-            "removeBlog": removeBlog
+            "removeBlog": removeBlog,
+            "findAllDoctorsInThisProvider":findAllDoctorsInThisProvider,
+            "findAllPatientsInThisProvider":findAllPatientsInThisProvider,
+            "removeDoctorFromPlan":removeDoctorFromPlan,
+            "removePatientFromPlan":removePatientFromPlan
         };
         return api;
 
@@ -288,6 +292,34 @@
         function removeBlog(id) {
         	return $http({
         	    url: "/api/blogs/"+id, 
+        	    method: "DELETE"
+        	 }); 
+        }
+        
+        function findAllDoctorsInThisProvider(id) {
+        	return $http({
+        		url: "/api/healthPersonnel/"+id+"/doctors",
+        		method: "GET"
+        	})
+        }
+        
+        function findAllPatientsInThisProvider(id) {
+        	return $http({
+        		url: "/api/healthPersonnel/"+id+"/patients",
+        		method: "GET"
+        	})
+        }
+        
+        function removeDoctorFromPlan(did, planName) {
+        	return $http({
+        	    url: "/api/plan/"+planName+"/doctor/"+did, 
+        	    method: "DELETE"
+        	 }); 
+        }
+        
+        function removePatientFromPlan(patid, planName) {
+        	return $http({
+        	    url: "/api/plan/"+planName+"/patient/"+patid, 
         	    method: "DELETE"
         	 }); 
         }

@@ -68,7 +68,64 @@
                             data-toggle="modal" data-target="#createPlanModal" >
                         Create Plan </a>
                 </div>
+                
+                <div class="col-lg-6">
+                      
+                    <div ng-if="model.doctors !== undefined">
+                      <h5>Doctors enrolled in plans</h5>
+                        <ul class="list-group" style="overflow-y: auto;height: 250px">
+	                        <div class="list-group-item">
+	                        <div class = "row">
+	                        	 <div class="col-xs-3">Plan</div>
+		                         <div class="col-xs-2">Doctor</div>
+	                        </div>
+	
+	                        </div>
+                            <div ng-repeat="(key, value) in model.doctors" class="list-group-item">
+ 								 <div class="row" ng-repeat="d in model.doctors[key]">
+                                    <div class="col-xs-3">{{key}}</div>
+                                    <div class="col-xs-2">{{d.fName}}  {{d.lName}}</div>
+                                    
+                                    <div class="col-xs-2 pull-right" >
+                                        <div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeDoctorFromPlan(d.id, key)"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
+        </div>
+        
+        <div class="container-fluid" style="margin-top: 5em">
+        	<div class="row">
+        	   <div class="col-lg-6 pull-right">
+                        <h5>Patients enrolled in plans</h5>
+                    <div >
+                        <ul class="list-group" style="overflow-y: auto;height: 250px">
+	                        <div class="list-group-item">
+	                        <div class = "row">
+	                        	 <div class="col-xs-3">Plan</div>
+		                         <div class="col-xs-2">Patient</div>
+	                        </div>
+	
+	                        </div>
+                            <div ng-repeat="(key, value) in model.patients" class="list-group-item">
+ 								 <div class="row" ng-repeat="p in model.patients[key]">
+                                    <div class="col-xs-3">{{key}}</div>
+                                    <div class="col-xs-2">{{p.fName}}  {{p.lName}}</div>
+                                    
+                                    <div class="col-xs-2 pull-right" >
+                                        <div class="pull-left glyphicon glyphicon-remove" ng-click="model.removePatientFromPlan(p.id, key)"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+        	</div>
+
         </div>
     </div>
 

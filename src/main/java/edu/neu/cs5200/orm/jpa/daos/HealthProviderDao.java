@@ -3,15 +3,20 @@
 package edu.neu.cs5200.orm.jpa.daos;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import edu.neu.cs5200.orm.jpa.entities.Doctor;
 import edu.neu.cs5200.orm.jpa.entities.HealthPersonnel;
 import edu.neu.cs5200.orm.jpa.entities.HealthProvider;
+import edu.neu.cs5200.orm.jpa.entities.Patient;
 import edu.neu.cs5200.orm.jpa.entities.Plan;
 import edu.neu.cs5200.orm.jpa.repositories.HealthPersonnelRepository;
 import edu.neu.cs5200.orm.jpa.repositories.HealthProviderRepository;
@@ -153,6 +158,38 @@ public class HealthProviderDao {
 			healthProviderRepo.deleteById(hpRes.getId());
 			
 	}
+	
+	
+	
+	public Map<String, List<Doctor>> findAllDoctorsUsingThisProvider(int id) {
+		HealthProvider hpRes = this.findHealthProviderById(id);
+		
+		Map<String, List<Doctor>> result = new HashMap<>();
+		for(Plan p : hpRes.getPlans()) {
+			if (p.getDoctorsEnrolled() != null && p.getDoctorsEnrolled().size()>0) {
+				List<Doctor> docs = new ArrayList<>(p.getDoctorsEnrolled());
+				result.put(p.getName(), docs);
+				
+			}
+		}
+		return result;
+	}
+	
+	public Map<String, List<Patient>> findAllPatientsUsingThisProvider(int id) {
+		HealthProvider hpRes = this.findHealthProviderById(id);
+		
+		Map<String, List<Patient>> result = new HashMap<>();
+		for(Plan p : hpRes.getPlans()) {
+			if (p.getPatients() != null && p.getPatients().size()>0) {
+				List<Patient> pats = new ArrayList<>(p.getPatients());
+				result.put(p.getName(), pats);
+				
+			}
+		}
+		return result;
+	}
+	
+
 	
 
 	

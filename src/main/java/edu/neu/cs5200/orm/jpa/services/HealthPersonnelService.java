@@ -97,5 +97,40 @@ public class HealthPersonnelService {
 	
 	}
 	
+	@GetMapping("/api/healthPersonnel/{hpid}/doctors") 
+	public Map<String, List<Doctor>> getAllDoctorsEnrolledInThisPlan(@PathVariable("hpid") int hpid) {
+		HealthProvider hp = hpDao.findHealthProviderById(hpersonalDao.findHealthPersonnelById(hpid).getHprovider().getId());
+		if (hp != null) {
+			return hpDao.findAllDoctorsUsingThisProvider(hp.getId());
+		}
+		
+		return null;
+				
+	}
+	
+	@GetMapping("/api/healthPersonnel/{hpid}/patients") 
+	public Map<String, List<Patient>> getAllPatientsEnrolledInThisPlan(@PathVariable("hpid") int hpid) {
+		HealthProvider hp = hpDao.findHealthProviderById(hpersonalDao.findHealthPersonnelById(hpid).getHprovider().getId());
+		if (hp != null) {
+			return hpDao.findAllPatientsUsingThisProvider(hp.getId());
+		}
+		
+		return null;
+				
+	}
+	
+
+	@DeleteMapping("/api/plan/{planName}/doctor/{did}")
+	public void deleteDoctorFromPlan(@PathVariable("planName") String planName, @PathVariable("did") int did) throws IOException {
+		 Plan p = planDao.findPlanByName(planName);
+		 doctorDao.removePlan(did, p);
+	
+	}
+	
+	@DeleteMapping("/api/plan/{planName}/patient/{pid}")
+	public  void deletePatientFromPlan(@PathVariable("planName") String planName,  @PathVariable("pid") int pid) throws IOException {
+		  patientDao.deletePlanFromPatient(pid);
+	
+	}
 	
 }

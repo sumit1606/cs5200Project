@@ -88,8 +88,8 @@
                             <th scope="col">FirstName</th>
                             <th scope="col">LastName</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Edit</th>
                             <th scope="col">HealthProvider</th>
+                            <th scope="col">Edit</th>
                             <th scope="col">Delete </th>
                         </tr>
                         </thead>
@@ -142,7 +142,7 @@
 				    <th scope="col">Delete</th>
 				  </tr>
 				  <tr ng-repeat="provider in model.healthProviders">
-				    <td>{{apt.name}}</td>
+				    <td>{{provider.name}}</td>
                       <td><div class="pull-left glyphicon glyphicon-pencil" ng-click="model.editProvider(provider)"></div></td>
 				    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeHealthProviders(provider.id)"></div></td>
 				  </tr>
