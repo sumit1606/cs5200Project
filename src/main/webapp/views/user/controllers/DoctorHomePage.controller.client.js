@@ -91,6 +91,10 @@
             $location.url("/");
         };
 
+        vm.redirectToFollowersFollowing = function(){
+            $location.url("/user/FollowPage/"+vm.userId);
+        };
+
 
         // Function for closing the modal
         function closeModal() {

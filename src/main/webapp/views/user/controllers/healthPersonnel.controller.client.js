@@ -84,6 +84,10 @@
             })
         };
 
+        vm.redirectToFollowersFollowing = function(){
+            $location.url("/user/FollowPage/"+vm.userId);
+        };
+
         vm.logout = function () {
             $location.url("/");
         };
