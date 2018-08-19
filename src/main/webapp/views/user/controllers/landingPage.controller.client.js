@@ -75,6 +75,11 @@
             if(vm.userType.userType == "patient"){
                  promise = UserService.createUser(vm.user);
             } else if (vm.userType.userType == "doctor"){
+                docSpecialties = []
+                currSpecialty = {};
+                currSpecialty.specialtyName = vm.tempSpecialty;
+                docSpecialties.push(currSpecialty);
+                vm.user.docSpecialties = docSpecialties;
                  promise = UserService.createDoctor(vm.user);
             } else if(vm.userType.userType == "healthPersonnel") {
                 vm.user.hprovider = vm.providerName;

@@ -85,7 +85,6 @@ public class UserService {
 	
 	@PostMapping("/api/user")
 	public Patient createPatient(@RequestBody Patient p) {
-		System.out.println("Patient created");
 		return patientDao.createPatient(p);
 	}
 	
@@ -96,18 +95,22 @@ public class UserService {
 		return hpDao.addPlanToHealthProvider(hp, plan);
 	}
 	
-
-	
 	
 	@PostMapping("/api/doctor")
 	public Doctor createDoctor(@RequestBody Doctor d) {
-		System.out.println("Doctor created");
-		return doctorDao.createDoctor(d);
+
+		Doctor temp = new Doctor(d.getDtype(), d.getfName(), d.getlName(), d.getDob(), d.getAddress(),d.getEmail(),d.getTitle(),d.getBio(), d.getPassword());
+		Doctor doc = doctorDao.createDoctor(temp);
+		for(Specialty s: d.getDocSpecialties()) {
+			Specialty tempSpec = specialtyDao.createSpecialty(s);
+			doctorDao.addSpecialty(doc.getId(), tempSpec);
+		}
+		
+		return doc;
 	}
 	
 	@PostMapping("/api/healthPersonnel")
 	public HealthPersonnel createHealthPersonnel(@RequestBody HealthPersonnel hp) {
-		System.out.println("Health Personnel Created");
 		return hpersonalDao.createHealthPersonnel(hp);
 	}
 	
@@ -173,14 +176,7 @@ public class UserService {
 			HealthProvider hp = hpDao.createHealthProvider(p.getHp());
 			Plan pres = planDao.createPlan(hp, p);
 			planDao.addDoctorToThePlan(pres.getId(), doc);
-		}
-		
-		List<Specialty> specs = d.getDocSpecialties();
-		List<Specialty> specsInDB = new ArrayList<>();
-		for(Specialty s: specs) {
-			specsInDB.add(specialtyDao.createSpecialty(s));
-		}
-		
+		}	
 
 		for(Specialty s: d.getDocSpecialties()) {
 			Specialty tempSpec = specialtyDao.createSpecialty(s);
@@ -303,6 +299,7 @@ public class UserService {
 //			sb.append("&limit=100");
 			sb.append("&user_key=");
 			sb.append(user_key);
+			List<Doctor> foundedDocs = null;
 			try {
 				URL url = new URL(sb.toString());
 				HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -311,13 +308,17 @@ public class UserService {
 		        JsonParser jp = new JsonParser(); //from gson
 		        JsonElement root = jp.parse(new InputStreamReader((InputStream) con.getContent())); //Convert the input stream to a json element
 		        JsonObject rootobj = root.getAsJsonObject();
-		        
-		        return this.processDoctorBySpecialty(rootobj);
+		        processDoctorBySpecialty(rootobj);
+		        foundedDocs = this.processDoctorBySpecialty(rootobj);
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return null;	
+			Specialty s = specialtyDao.findSpecialtyByName(parameters.get("name")[0]);
+			if(s != null && s.getDoctors() !=null) {
+				foundedDocs.addAll(s.getDoctors());
+			}
+			return foundedDocs;
 		}
 	
 	

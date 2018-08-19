@@ -90,13 +90,19 @@ public class DoctorService {
 	@PutMapping("api/doctor/{did}")
 	public void updateDoctor(@RequestBody Doctor d,@PathVariable("did") int did) {
 		Doctor old = doctorDao.findDoctorbyId(did);
+		
 		old.setfName(d.getfName());
 		old.setlName(d.getlName());
 		old.setPassword(d.getPassword());
 		old.setAddress(d.getAddress());
 		old.setTitle(d.getTitle());
 		old.setBio(d.getBio());
-		doctorDao.save(old);
+		Doctor doc = doctorDao.save(old);
+		
+		for(Specialty s: d.getDocSpecialties()) {
+			Specialty tempSpec = specialtyDao.createSpecialty(s);
+			doctorDao.addSpecialty(doc.getId(), tempSpec);
+		}
 	}
 	
 	@GetMapping("/api/doctor/{did}")
