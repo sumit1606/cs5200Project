@@ -24,7 +24,7 @@
        <div class="container-fluid" style="margin-top: 10em;">
         <div class="row">
             <div class="col-lg-6">
-                <h5>Doctors</h5>
+                <h4>Doctors</h4>
                 <div>
                     <table class="table table-striped">
                         <thead>
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <h5>Patients</h5>
+                <h4>Patients</h4>
                 <div>
                     <table class="table table-striped">
                         <thead>
@@ -80,7 +80,7 @@
           <div class="container-fluid" style="margin-top: 5em">
         <div class="row">
             <div class="col-lg-6">
-                <h5>Health Personnels</h5>
+                <h4>Health Personnels</h4>
                 <div>
                     <table class="table table-striped">
                         <thead>
@@ -109,7 +109,7 @@
                 </div>
             </div>
              <div class="col-lg-6">
-                <h5>Plans</h5>
+                <h4>Plans</h4>
                   <div>
 	                <table class="table table-striped">
 					  <tr>
@@ -133,7 +133,7 @@
     <div class="container-fluid" style="margin-top: 5em;">
         <div class="row">
              <div class="col-lg-6">
-                <h5>Health Providers</h5>
+                <h4>Health Providers</h4>
                 <div>
                 <table class="table table-striped">
 				  <tr>
@@ -152,7 +152,7 @@
 
             </div>
             <div class="col-lg-6">
-                <h5>Appointments</h5>
+                <h4>Appointments</h4>
                 <div>
                 <table class="table table-striped">
 				  <tr>
@@ -180,10 +180,10 @@
    
    
    <div class="container-fluid" style="margin-top: 5em; margin-bottom:10em;">
-   	<h5>Blogs</h5>
+   	<h4>Blogs</h4>
         <div class="row" ng-repeat="b in model.blogs" style="border-left: 6px solid red;margin-top:1em;">
              <div class="col-xs-10" >
-				{{b.title}}
+				<h5>{{b.title}}</h5>
             </div>
             <div class="col-xs-2">
             	<div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeBlog(b.id)"></div>
