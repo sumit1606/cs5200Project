@@ -39,7 +39,7 @@
         <div class="container-fluid" style="margin-top: 5em">
             <div class="row">
                 <div class="col-lg-6">
-                    <h5>Your Plans</h5>
+                    <h5>{{model.healthProvider.name}} Plans</h5>
                     <div ng-if="model.allPlansByPersonnel.length > 1">
                         <ul class="list-group" style="overflow-y: auto;height: 250px">
                             <li ng-repeat="plan in model.allPlansByPersonnel" class="list-group-item">
@@ -58,6 +58,7 @@
                             <li ng-repeat="plan in model.allPlansByPersonnel" class="list-group-item">
                                 <div class="row">
                                     <div class="col-xs-10">{{plan.name}}</div>
+                                    <div class="pull-right col-xs-2 glyphicon glyphicon-remove" ng-click="model.removePlan(plan.id)"></div>
                                 </div>
                             </li>
                         </ul>
@@ -83,6 +84,11 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <form class="form-group" autocomplete="off" role="form" name="signUpForm">
+                                <div class="row">
+                                	<label class="control-label">Provider:</label>
+                                	<input disabled required class="form-control" placeholder="Provider" type="text" ng-model="model.healthProvider.name" readonly>
+ 								</div>
+ 								<br/>
                                     <div class="row">
                                         <div class="col-xs-6 col-md-6">
                                             <input type="text" name="firstname" required class="form-control input-lg" ng-model="model.updatedUser.fName"  placeholder="First Name"/> </div>
