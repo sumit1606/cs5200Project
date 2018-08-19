@@ -132,9 +132,30 @@ public class DoctorService {
 	public List<Doctor> deleteDoctorById(@PathVariable("did") int did) throws IOException {
 		 doctorDao.deleteDoctorById(did);
 		 return doctorDao.findAllDoctors();
-	
 	}
 	
 	
+	@GetMapping("/api/doctorByName")
+	public  List<Doctor> getDoctor(HttpServletRequest request) throws IOException {
+		Map<String, String[]> parameters = request.getParameterMap();
+		String fName = parameters.get("fName")[0];
+		String lName = parameters.get("lName")[0];
+		List<Doctor> foundedDocs = new ArrayList<Doctor>();
+		Doctor fromLocalDataBase = doctorDao.findDoctorByName(fName,lName);
+		foundedDocs.add(fromLocalDataBase);
+		return foundedDocs;	
+	}
+	
+	@GetMapping("/api/doctor/{did}/follow/{pid}")
+	public void followDoctor(@PathVariable("did") int did, @PathVariable("pid") int pid) throws IOException {
+		personDao.followDoctor(did, pid);
+		return;
+	}
+	
+	@GetMapping("/api/doctor/{did}/unfollow/{pid}")
+	public void unfollowDoctor(@PathVariable("did") int did, @PathVariable("pid") int pid) throws IOException {
+		personDao.unfollowDoctor(did, pid);
+		return;
+	}
 	
 }

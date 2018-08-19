@@ -123,8 +123,8 @@
         	}, function(error) {
         		
         	})
+        };
 
-        }
         vm.plansTakenByPat = function(id) {
         	var promise = UserService.getAllPlanforPatient(id);
         	promise.then((res)=>{
@@ -135,7 +135,7 @@
         			
         	})
         	
-        }
+        };
         
         vm.deletePlan= function(id) {
         	vm.planPresent=false;
@@ -144,7 +144,7 @@
         	promise.then((res)=>{
         		
         	})
-        }
+        };
         
         
         vm.getAllPlans=function() {
@@ -152,7 +152,7 @@
         	promise.then((res)=>{
         		vm.allPlans = res.data;
         	})
-        }
+        };
         
         
         vm.replacePlan = function(pid) {
@@ -165,7 +165,7 @@
         			vm.planPresent=true;
         		}
         	})
-        }
+        };
         
         vm.updateUser = function(){
             var promise = UserService.updatePatientById(vm.userId, vm.updatedUser);
@@ -178,6 +178,11 @@
 
         vm.logout = function () {
             $location.url("/");
+        };
+
+
+        vm.redirectToFollowersFollowing = function(){
+            $location.url("/user/FollowPage/"+vm.userId);
         };
 
         
