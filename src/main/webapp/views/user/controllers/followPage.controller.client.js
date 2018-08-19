@@ -63,6 +63,8 @@
             })
         }
 
+
+
         vm.currentBlogDoctor =  function(blog){
             vm.currentBlog = blog;
         };

@@ -21,6 +21,7 @@
         		vm.getAllAppointments();
         		vm.plansTakenByDoc(vm.userId );
                 vm.getAllPlans();
+                vm.findAllBlogs();
         	})
         }
 
@@ -90,6 +91,53 @@
         vm.logout = function () {
             $location.url("/");
         };
+
+        vm.createBlog =  function(){
+            var promise = DoctorService.addBlogToDoctor(vm.doc.id, vm.currentBlog);
+            promise.then(function (response) {
+                closeModal();
+                console.log(response);
+                vm.findAllBlogs();
+            },function (error) {
+                console.log(error);
+            })
+        };
+
+        vm.findAllBlogs =  function(){
+            var promise = DoctorService.findBlogsByDoctor(vm.doc.id);
+            promise.then(function (response) {
+                vm.allBlogs = response.data;
+                console.log(response);
+            },function (error) {
+                console.log(error);
+            })
+        };
+
+        vm.deleteBlog = function(blogId) {
+            var promise = DoctorService.deleteBlogById(blogId);
+            promise.then(function (response) {
+                vm.findAllBlogs();
+                init();
+            },function (error) {
+                console.log(error);
+            });
+        };
+
+        vm.editBlog = function(blog){
+            vm.updatedBlog = blog;
+        };
+
+        vm.updateBlog = function () {
+            var promise = DoctorService.updateBlog(vm.updatedBlog);
+            promise.then(function (response) {
+                closeModal();
+                vm.findAllBlogs();
+                init();
+            },function (error) {
+                console.log(error);
+            });
+        };
+
 
         vm.redirectToFollowersFollowing = function(){
             $location.url("/user/FollowPage/"+vm.userId);
