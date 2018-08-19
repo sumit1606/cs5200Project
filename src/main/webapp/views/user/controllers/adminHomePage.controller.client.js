@@ -115,7 +115,7 @@
         	}, function(error) {
         		
         	})
-        }
+        };
 
         vm.logout = function () {
             $location.url("/");
@@ -124,35 +124,35 @@
         // Function for closing the modal
         vm.closeModal =  function () {
             $('.modal').modal('hide');
-        }
+        };
         
         vm.getAllDoctors = function () {
         	var promise = UserService.getAllDoctors();
         	promise.then((res)=> {
         		vm.doctors = res.data;
         	})
-        }
+        };
         
         vm.getAllPatients = function () {
         	var promise = UserService.getAllPatients();
         	promise.then((res)=> {
         		vm.patients = res.data;
         	})
-        }
+        };
         
         vm.getAllHealthPersonnel = function () {
         	var promise = UserService.getAllHealthPersonnels();
         	promise.then((res)=> {
         		vm.healthPersonnel = res.data;
         	})
-        }
+        };
         
         vm.getAllPlans = function() {
         	var promise = UserService.getAllPlans();
         	promise.then((res)=> {
         		vm.plans = res.data;
         	})
-        }
+        };
         
         vm.removeDoctor = function(id) {
         	var promise = DoctorService.deleteDoctorById(id);
@@ -160,7 +160,7 @@
         		vm.doctors = res.data;
         		vm.getAllAppointments();
         	})
-        }
+        };
         
         vm.removePatient = function(id) {
         	var promise = UserService.deletePatientById(id);
@@ -168,21 +168,21 @@
         		vm.patients = res.data;
         		vm.getAllAppointments();
         	})
-        }
+        };
         
         vm.removeHealthPersonnel = function(id) {
         	var promise = UserService.deleteHealthPersonnelById(id);
         	promise.then((res)=> {
         		vm.healthPersonnel = res.data;
         	})
-        }
+        };
         
         vm.removeHealthPlans = function(pid) {
         	var promise = UserService.deletePlanById(pid);
         	promise.then((res)=> {
         		vm.plans = res.data;
         	})       	
-        }
+        };
         
         vm.removeAppointment = function(aid) {
         	var promise = UserService.deleteAppointmentById(aid);
@@ -191,13 +191,52 @@
         	}, function(error) {
         		
         	})
-        }
+        };
         
         vm.getAllHealthProviders  = function() {
         	var promise = UserService.getAllHealthProviders();
         	promise.then((response)=>{
         		vm.healthProviders = response.data;
         	})
+        };
+
+        vm.editUser = function(user){
+            let copy =JSON.parse(JSON.stringify(user))
+            vm.updatedUser = copy;
+        };
+
+        vm.updateOtherUser = function() {
+            if(vm.updatedUser.dtype === "patient") {
+                var promise = UserService.updatePatientById(vm.updatedUser.id, vm.updatedUser);
+                promise.then(function (response) {
+                    vm.closeModal();
+                    $timeout(function () {
+                    }, 250);
+                    init()
+                },function (error) {
+                    console.log(error);
+                })
+            } else if (vm.updatedUser.dtype === "doctor") {
+                var promise = DoctorService.updateDoctorById(vm.updatedUser.id, vm.updatedUser);
+                promise.then(function (response) {
+                    vm.closeModal();
+                    $timeout(function () {
+                    }, 250);
+                    init()
+                },function (error) {
+                    console.log(error);
+                })
+            } else if (vm.updatedUser.dtype === "healthPersonnel") {
+                var promise = UserService.updateHealthPersonnelById(vm.updatedUser.id, vm.updatedUser);
+                promise.then(function (response) {
+                    vm.closeModal();
+                    $timeout(function () {
+                    }, 250);
+                    init()
+                },function (error) {
+                    console.log(error);
+                })
+            }
         }
         
         vm.removeHealthProviders = function(id){

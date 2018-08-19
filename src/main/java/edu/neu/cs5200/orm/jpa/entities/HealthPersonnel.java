@@ -47,8 +47,6 @@ public class HealthPersonnel extends Person{
 			hprovider.getHpUsers().add(this);
 		}
 		
-		
-		
 	}
 	
 	
