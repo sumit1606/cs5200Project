@@ -215,5 +215,4 @@ public class DoctorDao {
 		return doctorRepository.save(d);
 	}
 	
-	
 }
