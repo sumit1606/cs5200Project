@@ -53,6 +53,11 @@
                 templateUrl:"/views/user/templates/adminHomePage.view.client.html",
                 controller:"AdminPageController",
                 controllerAs:"model",
+            })
+            .when("/user/FollowPage/:uidS", {
+                templateUrl:"/views/user/templates/followPage.view.client.html",
+                controller:"FollowPageController",
+                controllerAs:"model",
             }).otherwise({
             redirectTo:"/"
         });

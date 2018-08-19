@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Blog {
 	@Id
@@ -75,6 +77,7 @@ public class Blog {
 	/**
 	 * @return the doctor
 	 */
+	@JsonIgnore
 	public Doctor getDoctor() {
 		return doctor;
 	}

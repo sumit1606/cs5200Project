@@ -1,0 +1,93 @@
+
+<div class="container-fluid">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-header">
+                <a class="navbar-brand glorify">
+                    <span style="color: red;font-family:Helvetica;">Find </span>Me Doctor
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse ">
+                <ul class="nav navbar-nav pull-right">
+                    <li class="nav-item glorify"><a ng-click="model.logout()">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-header">
+            <a class="navbar-brand glorify">
+                <span style="color: red;font-family:Helvetica;">Find </span>Me Doctor
+            </a>
+        </div>
+
+        <div class="container-fluid" style="margin-top: 5em">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5>Search Doctor To Follow</h5>
+                    <input type="text" class="form-control" placeholder="FirstName" ng-model="model.Doctor.firstName" style="width: 300px">
+                    <input type="text" class="form-control" placeholder="LastName" ng-model="model.Doctor.lastName" style="width: 300px">
+                    <button class="btn btn-small btn-danger btn-block"
+                            type="submit" style="width: 100px;margin-top: 2px;margin-left: 100px"
+                            ng-click="model.searchDoctor()">
+                        Search </button>
+                    <div ng-show="model.searchedDoctors.length > 0">
+                        <ul class="list-group" style="overflow-y: auto;height: 250px">
+                            <li ng-repeat="doc in model.searchedDoctors" class="list-group-item">
+                                <div class="row">
+                                    <a >{{doc.fName + ' ' + doc.lName}}</a>
+                                        <div class="pull-right glyphicon glyphicon-plus" ng-click="model.followDoctor(doc.id)"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h5>Doctors You Follow</h5>
+                    <div ng-show="model.followingDoctors.length > 0">
+                        <ul class="list-group" style="overflow-y: auto;height: 250px">
+                            <li ng-repeat="followed in model.followingDoctors" class="list-group-item">
+                                <div class="row">
+                                    <a>{{followed.fName + ' ' + followed.lName}}</a>
+                                    <div class="pull-right glyphicon glyphicon-remove" ng-click="model.unfollowDoctor(followed.id)"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5>Blogs of Doctor you follow</h5>
+                    <div ng-show="model.followedBlogs.length > 0">
+                        <ul class="list-group" style="overflow-y: auto;height: 250px">
+                            <li ng-repeat="blog in model.followedBlogs" class="list-group-item">
+                                <div class="row">
+                                    <a ng-click = "" data-toggle="modal" data-target="#">{{blog.content}}</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+    </nav>
+</div>
