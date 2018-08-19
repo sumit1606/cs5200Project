@@ -69,14 +69,16 @@ public class Cs5200DoctorManagementApplication implements CommandLineRunner {
 		d = doctorDao.save(d);
 		d1 = doctorDao.save(d1);
 		Blog b = new Blog();
-		b.setContent("THis is the firt blog");
+		b.setTitle("Title");
+		b.setContent("THis is the firt blog ,THis is the firt blog, THis is the firt blog"
+				+ "THis is the firt blog, THis is the firt blog, THis is the firt blog,THis is the firt blog");
 		
 		Blog b1 = new Blog();
+		b1.setTitle("Titledd");
 		b1.setContent("THis is the second  blog");
 		
 		doctorDao.addBlogToDoctor(d.getId(), b);
 		doctorDao.addBlogToDoctor(d1.getId(), b1);
-		
 		
 		Patient p = new Patient();
 		p.setAddress("address");
