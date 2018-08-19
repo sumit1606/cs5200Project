@@ -14,6 +14,7 @@
         vm.patients =[];
         vm.healthPersonnel =[];
         vm.plans=[];
+        vm.healthProviders = [];
         
         vm.userOptions = [
             {
@@ -45,6 +46,7 @@
                 vm.getAllPatients();
                 vm.getAllHealthPersonnel();
                 vm.getAllPlans();
+                vm.getAllHealthProviders();
             },function (error) {
                 console.log(error);
             });
@@ -188,6 +190,22 @@
         		vm.getAllAppointments();
         	}, function(error) {
         		
+        	})
+        }
+        
+        vm.getAllHealthProviders  = function() {
+        	var promise = UserService.getAllHealthProviders();
+        	promise.then((response)=>{
+        		vm.healthProviders = response.data;
+        	})
+        }
+        
+        vm.removeHealthProviders = function(id){
+        	var promise = UserService.removeHealthProvider(id);
+        	promise.then((response)=>{
+        		vm.healthProviders = response.data;
+                vm.getAllHealthPersonnel();
+                vm.getAllPlans();
         	})
         }
     }

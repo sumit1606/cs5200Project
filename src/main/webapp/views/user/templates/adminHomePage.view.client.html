@@ -131,19 +131,13 @@
                 <div>
                 <table>
 				  <tr>
-				    <th>Date</th>
-				    <th>Patient</th>
-				    <th>Doctor</th>
-				    <th>Reason</th>
+				    <th>name</th>
 				    <th>Delete</th>
 				  </tr>
 				    
-				  <tr ng-repeat="apt in model.currentAppointments">
-				    <td>{{apt.date}}</td>
-				    <td>{{apt.patient.fName}} {{apt.patient.lName}}</td>
-				    <td>{{apt.doctor.fName}} {{apt.doctor.lName}}</td>
-				    <td>{{apt.reason}}</td>
-				    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeAppointment(apt.id)"></div></td>
+				  <tr ng-repeat="apt in model.healthProviders">
+				    <td>{{apt.name}}</td>
+				    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeHealthProviders(apt.id)"></div></td>
 				  </tr>
 				  </table>
 

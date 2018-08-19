@@ -136,4 +136,18 @@ public class AdminService {
 	}
 	
 	
+	
+	@GetMapping("/api/healthProviders")
+	public List<HealthProvider> getAllHealthProviders() {
+		return hpDao.findAllHealthProvider();
+	}
+	
+	@DeleteMapping("/api/healthProvider/{hid}")
+	public List<HealthProvider> deleteHealthProviders(@PathVariable("hid")  int hid) {
+		 hpDao.deleteHealthProviderByName(hpDao.findHealthProviderById(hid).getName());
+		 return this.getAllHealthProviders();
+	}
+
+	
+	
 }

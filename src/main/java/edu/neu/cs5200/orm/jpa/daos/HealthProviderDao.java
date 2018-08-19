@@ -5,6 +5,7 @@ package edu.neu.cs5200.orm.jpa.daos;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import edu.neu.cs5200.orm.jpa.entities.Plan;
 import edu.neu.cs5200.orm.jpa.repositories.HealthPersonnelRepository;
 import edu.neu.cs5200.orm.jpa.repositories.HealthProviderRepository;
 import edu.neu.cs5200.orm.jpa.repositories.PlanRepository;
+import javassist.bytecode.Descriptor.Iterator;
 
 @Component
 public class HealthProviderDao {
@@ -23,6 +25,9 @@ public class HealthProviderDao {
 	
 	@Autowired 
 	PlanRepository planRepo;
+	
+	@Autowired
+	PlanDao planDao;
 	
 	@Autowired
 	HealthPersonnelRepository hpRepo;
@@ -130,14 +135,22 @@ public class HealthProviderDao {
 	
 	public void deleteHealthProviderByName(String hpName) {
 		HealthProvider hpRes = this.findProviderByName(hpName);
+		Set<Plan> plans = hpRes.getPlans();
+		java.util.Iterator<Plan> pIt = plans.iterator();
+		while(pIt.hasNext()) {
+			planDao.deletePlanById(pIt.next().getId());
+		}
+
 		if (hpRes != null) {
 			for (HealthPersonnel h: hpRes.getHpUsers()) {
-				h.setHprovider(null);
-				hpRepo.save(h);
+				hpRepo.deleteById(h.getId());
 			}
 			
-			healthProviderRepo.deleteById(hpRes.getId());
+			
 		}
+		
+		if (this.findHealthProviderById(hpRes.getId()) != null)
+			healthProviderRepo.deleteById(hpRes.getId());
 			
 	}
 	
