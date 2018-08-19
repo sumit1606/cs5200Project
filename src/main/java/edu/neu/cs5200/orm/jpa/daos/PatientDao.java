@@ -1,6 +1,7 @@
 package edu.neu.cs5200.orm.jpa.daos;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -112,6 +113,15 @@ public class PatientDao {
 		Patient p = this.findPatientById(id);
 		p.setHealthInsurancePlan(null);
 		return patientRepository.save(p);
+	}
+	
+	public List<Patient> findAllPatientWithThisPlan(int id){
+		Plan p = planDao.findPlanById(id);
+		if ( p!= null) {
+			return patientRepository.findAllPatientsWithThisPlan(p);
+		}
+		else
+			return (new ArrayList<>());
 	}
 	
 	public Patient addPlanToPatient(int patid, int pid) {

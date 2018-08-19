@@ -191,15 +191,15 @@ public class Cs5200DoctorManagementApplicationTests {
 			p2.setName("p2");
 			planSet.addAll(Arrays.asList(p1, p2));
 			hp.setPlans(planSet);
-//			hpd.createHealthProvider(hp);
+			hpd.createHealthProvider(hp);
 			
 			HealthPersonnel p = new HealthPersonnel();
 			p.setAddress("address");
 			p.setDob(new Utility().modifySQLDate(31,2,1991));
 
-			p.setEmail("a@a.com");
-			p.setfName("aashish");
-			p.setlName("singh");
+			p.setEmail("pp@pp.com");
+			p.setfName("ppaashish");
+			p.setlName("ppsingh");
 			p.setDtype("HealthPersonnel");
 			p.setHprovider(hp);
 			hperd.createHealthPersonnel(p);
@@ -242,23 +242,23 @@ public class Cs5200DoctorManagementApplicationTests {
 			hperd.updateHealthPersonnel(2, p);
 			
 //			hpd.deleteHealthProviderByName("healthP");
-			hperd.deleteHealthPersonnel(1);
-			
-			
-			
-			Patient pat = new Patient();
-			pat.setAddress("address");
-			pat.setDob(new Utility().modifySQLDate(31,2,1991));
-			pat.setEmail("a@a.com");
-			pat.setfName("asd");
-			pat.setlName("singh");
-			pat.setDtype("patient");
-			pat.setHealthInsurancePlan(p1);
-			patientDao.createPatient(pat);
-//			pld.deletePlanByName(p1.getName());
-			pat.setHealthInsurancePlan(p2);
-			patientDao.updatePatient(pat);
-			patientDao.deletePatientById(patientDao.findPatientByName(pat).getId());
+//			hperd.deleteHealthPersonnel(1);
+//			
+//			
+//			
+//			Patient pat = new Patient();
+//			pat.setAddress("address");
+//			pat.setDob(new Utility().modifySQLDate(31,2,1991));
+//			pat.setEmail("a@a.com");
+//			pat.setfName("asd");
+//			pat.setlName("singh");
+//			pat.setDtype("patient");
+//			pat.setHealthInsurancePlan(p1);
+//			patientDao.createPatient(pat);
+////			pld.deletePlanByName(p1.getName());
+//			pat.setHealthInsurancePlan(p2);
+//			patientDao.updatePatient(pat);
+//			patientDao.deletePatientById(patientDao.findPatientByName(pat).getId());
 			
 			
 	}
