@@ -97,6 +97,11 @@ public class BlogDao {
 			
 		}
 	}
+
+	public void save(Blog old) {
+		
+		
+	}
 	
 	
 

@@ -61,10 +61,13 @@
             },function (error) {
                 console.log(error);
             })
-
         }
 
 
+
+        vm.currentBlogDoctor =  function(blog){
+            vm.currentBlog = blog;
+        };
 
         vm.logout = function () {
             $location.url("/");
