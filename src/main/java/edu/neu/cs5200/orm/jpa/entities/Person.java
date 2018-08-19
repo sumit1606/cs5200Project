@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 public abstract class Person {
@@ -53,6 +55,8 @@ public abstract class Person {
 	/**
 	 * @return the followedBy
 	 */
+	
+	@JsonIgnore
 	public List<Person> getFollowedBy() {
 		return followedBy;
 	}

@@ -211,8 +211,8 @@ public class DoctorDao {
 		return null;
 	}
 	
-	public void save(Doctor d) {
-		doctorRepository.save(d);
+	public Doctor save(Doctor d) {
+		return doctorRepository.save(d);
 	}
 	
 	

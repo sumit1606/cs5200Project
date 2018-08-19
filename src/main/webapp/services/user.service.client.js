@@ -9,7 +9,6 @@
     function userService($http) {
         var api = {
         	"test": test,
-            "getUserByEmail": getUserByEmail,
             "findUserByCredentials": findUserByCredentials,
             "findDoctorByName": findDoctorByName,
             "findDoctorBySpecialty":findDoctorBySpecialty,
@@ -24,13 +23,11 @@
             "addPlanToProvider":addPlanToProvider,
             "removeAppointment":removeAppointment,
             "deletePlanById":deletePlanById,
-
             "findAllPlans":findAllPlans,
             "getAllPlanforPatient":getAllPlanforPatient,
             "deletePlanFromPatient":deletePlanFromPatient,
             "getAllPlans":getAllPlans,
             "replacePlan":replacePlan,
-
             "createAdmin":createAdmin,
             "findAllAppointment":findAllAppointment,
             "findAdminById":findAdminById,
@@ -41,11 +38,11 @@
             "getAllHealthPersonnels":getAllHealthPersonnels,
             "getAllPatients":getAllPatients,
             "getAllPlans":getAllPlans,
+            "findPersonById":findPersonById,
+            "getAllBlogs":getAllBlogs,
             "deletePatientById":deletePatientById,
             "deleteHealthPersonnelById": deleteHealthPersonnelById,
             "deletePlanById":deletePlanById
-            
-            
         };
         return api;
 
@@ -53,9 +50,12 @@
         	return $http.get("/api/user/test");
         }
 
-        // adding trailing slash as spring is truncating the part after.
-        function getUserByEmail(email) {
-            
+        function getAllBlogs(pid) {
+            return $http.get("/api/person/"+pid+"/blogs");
+        }
+
+        function findPersonById(pid) {
+            return $http.get("/api/person/"+pid);
         }
 
         function deletePlanById(hpid, pid) {

@@ -16,10 +16,30 @@
         	"deletePlanFromDoctor":deletePlanFromDoctor,
         	"addPlanToSupported": addPlanToSupported,
 			"updateDoctorById":updateDoctorById,
-			"deleteDoctorById":deleteDoctorById
-
+			"deleteDoctorById":deleteDoctorById,
+			"getDoctorByName":getDoctorByName,
+			"followDoctorById":followDoctorById,
+			"unfollowDoctorById":unfollowDoctorById
         };
         return api;
+
+
+        function getDoctorByName(firstName,lastName) {
+            return $http({
+                url: "/api/doctorByName",
+                method: "GET",
+                params: {fName: firstName , lName: lastName}
+            });
+        }
+
+        function followDoctorById(did,pid) {
+            return $http.get("/api/doctor/"+did+"/follow/"+pid);
+        }
+
+        function unfollowDoctorById(did,pid) {
+            return $http.get("/api/doctor/"+did+"/unfollow/"+pid);
+        }
+
 
         function findDoctorById(id) {
         	return $http.get("/api/doctor/"+id);
