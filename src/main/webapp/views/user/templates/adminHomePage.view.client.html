@@ -26,7 +26,7 @@
 
 
    
-       <div class="container-fluid" style="margin-top: 5em">
+       <div class="container-fluid" style="margin-top: 10em;">
         <div class="row">
             <div class="col-lg-6">
                 <h5>Doctors</h5>
@@ -36,14 +36,13 @@
 					    <th>FirstName</th>
 					    <th>LastName</th>
 					    <th>Email</th>
-					    <th>Specialty</th>
+					    <th>Delete </th>
 					  </tr>
 					    
 					  <tr ng-repeat="apt in model.doctors">
-					    <td>{{apt.fNmae}}</td>
+					    <td>{{apt.fName}}</td>
 					    <td> {{apt.lName}}</td>
 					    <td>{{apt.email}}</td>
-					    <td>{{apt.specialty}}</td>
 					    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeDoctor(apt.id)"></div></td>
 					  </tr>
 					  </table>
@@ -59,10 +58,11 @@
 					    <th>FirstName</th>
 					    <th>LastName</th>
 					    <th>Email</th>
+					    <th>Delete</th>
 					  </tr>
 					    
 					  <tr ng-repeat="apt in model.patients">
-					    <td>{{apt.fNmae}}</td>
+					    <td>{{apt.fName}}</td>
 					    <td> {{apt.lName}}</td>
 					    <td>{{apt.email}}</td>
 				
@@ -86,10 +86,11 @@
 					    <th>LastName</th>
 					    <th>Email</th>
 					    <th>HealthProvider</th>
+					    <th>Delete</th>
 					  </tr>
 					    
 					  <tr ng-repeat="apt in model.healthPersonnel">
-					    <td>{{apt.fNmae}}</td>
+					    <td>{{apt.fname}}</td>
 					    <td> {{apt.lName}}</td>
 					    <td>{{apt.email}}</td>
 					    <td>{{apt.hprovider.name}}</td>
@@ -106,10 +107,13 @@
 	                <table>
 					  <tr>
 					    <th>Name</th>
+					    <th>Provider</th>
+					    <th>Delete</th>
 					  </tr>
 					    
 					  <tr ng-repeat="apt in model.plans">
 					    <td>{{apt.name}}</td>
+					    <td>{{apt.hp.name}}</td>
 					    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeHealthPlans(apt.id)"></div></td>
 					  </tr>
 					  </table>
@@ -120,8 +124,32 @@
    </div>
    
    
-    <div class="container-fluid" style="margin-top: 5em">
+    <div class="container-fluid" style="margin-top: 5em; margin-bottom:10em;">
         <div class="row">
+             <div class="col-lg-6">
+                <h5>Health Providers</h5>
+                <div>
+                <table>
+				  <tr>
+				    <th>Date</th>
+				    <th>Patient</th>
+				    <th>Doctor</th>
+				    <th>Reason</th>
+				    <th>Delete</th>
+				  </tr>
+				    
+				  <tr ng-repeat="apt in model.currentAppointments">
+				    <td>{{apt.date}}</td>
+				    <td>{{apt.patient.fName}} {{apt.patient.lName}}</td>
+				    <td>{{apt.doctor.fName}} {{apt.doctor.lName}}</td>
+				    <td>{{apt.reason}}</td>
+				    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeAppointment(apt.id)"></div></td>
+				  </tr>
+				  </table>
+
+                </div>
+
+            </div>
             <div class="col-lg-6">
                 <h5>Appointments</h5>
                 <div>
@@ -131,13 +159,13 @@
 				    <th>Patient</th>
 				    <th>Doctor</th>
 				    <th>Reason</th>
-				    <th>Cancel</th>
+				    <th>Delete</th>
 				  </tr>
 				    
 				  <tr ng-repeat="apt in model.currentAppointments">
 				    <td>{{apt.date}}</td>
-				    <td>{{apt.patient.fName}} {{apt.patient.lName}}</td>
-				    <td>{{apt.doctor.fName}} {{apt.doctor.lName}}</td>
+				    <td>{{apt.patient.fName}} - {{apt.patient.lName}}</td>
+				    <td>{{apt.doctor.fName}} - {{apt.doctor.lName}}</td>
 				    <td>{{apt.reason}}</td>
 				    <td><div class="pull-left glyphicon glyphicon-remove" ng-click="model.removeAppointment(apt.id)"></div></td>
 				  </tr>

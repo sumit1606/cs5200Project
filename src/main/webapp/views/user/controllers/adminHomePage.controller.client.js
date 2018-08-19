@@ -78,6 +78,13 @@
                 promise = UserService.createAdmin(vm.newUser);
             }
             promise.then(function(response) {
+            	if (vm.userType.userType == "doctor")
+            		vm.getAllDoctors();
+                else if(vm.userType.userType == "patient")
+                	vm.getAllPatients();
+                else if(vm.userType.userType == "healthPersonnel")
+                	vm.getAllHealthPersonnel();
+            	
                 console.log(response);
                 vm.closeModal();
                 $timeout(function () {
